@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowSewa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+      <section class="hero-section">
+        <div class="circle"></div>
+        <header>
+            <a href ="#" class="logo">
+            <img src="images/logo.jpeg" class="logo-img" alt="ShowSewa Logo">
+            </a>
+            
+            <ul>
+               <li><a class="nav-button" href="index.html">Home</a></li>
+               <li><a class="nav-button" href="Signup.html">Login</a></li>
+               <li><a class="nav-button" href="events.html">Events</a></li>
+               <li><button class="nav-button" onclick="openAbout()">About</button></li>
+            </ul>
+        </header>
+        <div class="content">
+            <div class="textbox">
+                <h2>TAPAI  KO  SHOW<br>HAMRO  SEWA <span>SHOWSEWA</span></h2>
+                <p>Discover Nepal’s vibrant events, movies, and shows all in one place. Our platform, founded by a group of passionate young visionaries, is designed to make booking seamless and accessible—so you never miss a moment that matters. Whether it's a blockbuster premiere, a soulful concert, or a local cultural event, we bring the experience to your fingertips. Driven by a love for entertainment and a commitment to convenience, we’re here to connect people with the moments they’ll remember.</p>
+                <a href="#">About us</a>
+            </div>
+            <div class="imgBox">
+                <img src="white.png" class="logoimg">
+            </div>
+        </div> 
+        <ul class="thumb">
+            <li><img src="images/movie.png" onclick="imgSlider('images/movie.png');changeCircleColor('#B43F3F')"></li>
+            <li><img src="images/concert.png" onclick="imgSlider('images/concert.png');changeCircleColor('#D5451B')"></li>
+            <li><img src="images/dance.png" class="magenta" onclick="imgSlider('images/dance.png');changeCircleColor('#641B2E')"></li>
+        </ul>
+        <ul class="sci">
+            <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+            <li><a href="#"><i class="ri-instagram-fill"></i></a></li>
+            <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+            
+        </ul>
+    </section>
+    <section class="stats-section">
+    <div class="stat-card">
+        <i class="fas fa-ticket-alt"></i>
+        <h2>50,000+</h2>
+        <p>Events Booked</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-users"></i>
+        <h2>25,000+</h2>
+        <p>Happy Customers</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h2>15+</h2>
+        <p>Cities Covered</p>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-calendar-alt"></i>
+        <h2>5+</h2>
+        <p>Years of Service</p>
+    </div>
+</section>
+
+<section class="featured-events">
+  <h2>Featured Events</h2>
+  <p>Discover the hottest events happening in Nepal right now</p>
+
+  <div class="event-cards">
+    <!-- Event 1 -->
+    <div class="event-card">
+      <img src="images/OIP (2).jpeg" alt="Nepali Music Festival">
+      <h3>Nepali Music Festival 2024</h3>
+      <ul>
+        <li>📅 Mon, Jul 15, 2024</li>
+        <li>⏰ 7:00 PM</li>
+        <li>📍 Dasharath Stadium, Kathmandu</li>
+        <li>👥 5,000 attending</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">Rs. 1,500</span>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Event 2 -->
+    <div class="event-card">
+      <img src="images/5af509fac823163896f4e8ee51d3b0b5.jpg" alt="Bollywood Night Live">
+      <h3>Bollywood Night Live</h3>
+      <ul>
+        <li>📅 Sat, Jul 20, 2024</li>
+        <li>⏰ 8:00 PM</li>
+        <li>📍 Pokhara Stadium, Pokhara</li>
+        <li>👥 3,000 attending</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">Rs. 2,000</span>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div class="event-card">
+      <img src="images/stand-up-comedy-banner-with-vintage-microphone-free-vector.jpg" alt="Comedy Show">
+      <h3>Comedy Show with Rajesh Hamal</h3>
+      <ul>
+        <li>📅 Thu, Jul 25, 2024</li>
+        <li>⏰ 6:30 PM</li>
+        <li>📍 Nepal Academy Hall, Kathmandu</li>
+        <li>👥 500 attending</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">Rs. 800</span>
+        <button class="book-btn">Book Now</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-all">
+    <button class="view-all-btn">View All Events →</button>
+  </div>
+</section>
+<section class="how-it-works">
+  <h2>How It Works</h2>
+  <p>Book your tickets in just 3 simple steps</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="icon">🎭</div>
+      <h3>Step 1: Browse Events</h3>
+    </div>
+    <div class="step">
+      <div class="icon">🎟️</div>
+      <h3>Step 2: Select & Book</h3>
+    </div>
+    <div class="step">
+      <div class="icon">💳</div>
+      <h3>Step 3: Pay & Enjoy</h3>
+    </div>
+  </div>
+</section>
+<section class="ready-to-book">
+  <h2>Ready to Book Your Next Event?</h2>
+  <p>Join thousands of happy customers who trust Showsewa for their entertainment needs</p>
+  <a href="#" class="cta-button">Start Booking Now →</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3 class="footer-logo">
+        <img src="images/logo.jpeg" alt="Showsewa Logo" class="footer-icon" />
+        <span>Showsewa</span>
+      </h3>
+      <p>Nepal’s simple and secure platform for booking tickets to movies, concerts, and live events. No queues, no hassle—just fast, reliable ticketing in a few clicks.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Browse Events</a></li>
+        <li><a href="#">My Bookings</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Contact</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Kathmandu, Nepal</p>
+      <p><i class="fas fa-phone-alt"></i> +977-1-4444444</p>
+      <p><i class="fas fa-envelope"></i> info@showsewa.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Showsewa. All rights reserved. | Made with ❤️ in Nepal</p>
+  </div>
+</footer>
+<!-- About Modal -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeAbout()">&times;</span>
+    <h2>About Show Seva</h2>
+    <p>Show Seva is your go-to platform for booking movie tickets and event passes. Built to embrace culture and ease, we bring you closer to every celebration and entertainment.</p>
+    
+    <div class="founders-container">
+      <div class="founder-box">
+        <div class="image-placeholder">Founder Image</div>
+        <p><strong>Vansh</strong></p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/rameshthapa" target="_blank"><img src="images/OIP (1) - Copy.jpeg" alt="LinkedIn" /></a>
+          <a href="https://www.instagram.com/vansh_18_vansh" target="_blank"><img src="images/OIP.jpeg" alt="Instagram" /></a>
+        </div>
+      </div>
+      <div class="founder-box">
+        <div class="image-placeholder">Co-Founder Image</div>
+        <p><strong>Tanisha Gupta</strong></p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/sunitasharma" target="_blank"><img src="images/OIP (1) - Copy.jpeg" alt="LinkedIn" /></a>
+          <a href="https://www.instagram.com/tanisha..gupta_" target="_blank"><img src="images/OIP.jpeg" alt="Instagram" /></a>
+        </div>
+      </div>
+    </div>
+
+    <p>Follow us on <a href="https://www.instagram.com/showsewa" target="_blank">Instagram</a></p>
+  </div>
+</div>
+
+
+
+
+
+    <script src="script.js"></script>
+     <script type="text/javascript">
+        function imgSlider(anything){
+            document.querySelector('.logoimg').src = anything;
+        }
+        function changeCircleColor(color){
+            const circle = document.querySelector('.circle');
+            circle.style.background =  color;
+        }
+    </script>
+</body>
+</html>
