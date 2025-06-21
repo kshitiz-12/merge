@@ -19,9 +19,9 @@
             
             <ul>
                <li><a class="nav-button" href="index.html">Home</a></li>
-               <li><a class="nav-button" href="Signup.html">Login</a></li>
-               <li><a class="nav-button" href="events.html">Events</a></li>
-               <li><button class="nav-button" onclick="openAbout()">About</button></li>
+               <li><a class="nav-button" href="HTML/Signup.html">Login</a></li>
+               <li><a class="nav-button" href="HTML/events.html">Events</a></li>
+               <li><a class="nav-button" href="HTML/bookings.html">Bookings</a></li>
             </ul>
         </header>
         <div class="content">
@@ -73,55 +73,184 @@
   <h2>Featured Events</h2>
   <p>Discover the hottest events happening in Nepal right now</p>
 
-  <div class="event-cards">
-    <!-- Event 1 -->
+ <div class="carousel-container">
+  <button class="carousel-btn prev" onclick="slideCarousel(-1)">&#10094;</button>
+  
+  <div class="event-cards" id="carousel">
     <div class="event-card">
-      <img src="images/OIP (2).jpeg" alt="Nepali Music Festival">
-      <h3>Nepali Music Festival 2024</h3>
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
       <ul>
-        <li>📅 Mon, Jul 15, 2024</li>
-        <li>⏰ 7:00 PM</li>
-        <li>📍 Dasharath Stadium, Kathmandu</li>
-        <li>👥 5,000 attending</li>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
       </ul>
       <div class="card-footer">
-        <span class="price">Rs. 1,500</span>
-        <button class="book-btn">Book Now</button>
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+    <!-- Duplicate or add more .event-card items here -->
+   <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
       </div>
     </div>
 
-    <!-- Event 2 -->
+    <div class="event-cards" id="carousel">
     <div class="event-card">
-      <img src="images/5af509fac823163896f4e8ee51d3b0b5.jpg" alt="Bollywood Night Live">
-      <h3>Bollywood Night Live</h3>
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
       <ul>
-        <li>📅 Sat, Jul 20, 2024</li>
-        <li>⏰ 8:00 PM</li>
-        <li>📍 Pokhara Stadium, Pokhara</li>
-        <li>👥 3,000 attending</li>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
       </ul>
       <div class="card-footer">
-        <span class="price">Rs. 2,000</span>
-        <button class="book-btn">Book Now</button>
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
       </div>
     </div>
 
-    <!-- Event 3 -->
+    <div class="event-cards" id="carousel">
     <div class="event-card">
-      <img src="images/stand-up-comedy-banner-with-vintage-microphone-free-vector.jpg" alt="Comedy Show">
-      <h3>Comedy Show with Rajesh Hamal</h3>
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
       <ul>
-        <li>📅 Thu, Jul 25, 2024</li>
-        <li>⏰ 6:30 PM</li>
-        <li>📍 Nepal Academy Hall, Kathmandu</li>
-        <li>👥 500 attending</li>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
       </ul>
       <div class="card-footer">
-        <span class="price">Rs. 800</span>
-        <button class="book-btn">Book Now</button>
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+
+    <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+
+    <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+
+    <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+
+    <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
       </div>
     </div>
   </div>
+
+  <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-cards" id="carousel">
+    <div class="event-card">
+      <img src="image1.jpg" alt="Event 1">
+      <h3>Event 1</h3>
+      <ul>
+        <li>Date: 20 June</li>
+        <li>Venue: City Hall</li>
+      </ul>
+      <div class="card-footer">
+        <span class="price">₹500</span>
+        <button class="book-btn">Book</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-btn next" onclick="slideCarousel(1)">&#10095;</button>
+</div>
 
   <div class="view-all">
     <button class="view-all-btn">View All Events →</button>
@@ -187,7 +316,7 @@
   </div>
 </footer>
 <!-- About Modal -->
-<div id="aboutModal" class="modal">
+<!-- <div id="aboutModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeAbout()">&times;</span>
     <h2>About Show Seva</h2>
@@ -214,14 +343,10 @@
 
     <p>Follow us on <a href="https://www.instagram.com/showsewa" target="_blank">Instagram</a></p>
   </div>
-</div>
-
-
-
-
+</div> -->
 
     <script src="script.js"></script>
-     <script type="text/javascript">
+     <script>
         function imgSlider(anything){
             document.querySelector('.logoimg').src = anything;
         }
