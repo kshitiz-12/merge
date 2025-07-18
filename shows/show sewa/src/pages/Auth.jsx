@@ -51,14 +51,13 @@ const Auth = () => {
     setSignupError("");
     setSignupLoading(true);
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signupForm),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to send OTP");
-      setSignupOtpSent(true); // <-- THIS LINE is important!
+      await register(
+        signupForm.name,
+        signupForm.email,
+        signupForm.password
+        // Add other fields if your register function supports them
+      );
+      setSignupOtpSent(true);
     } catch (err) {
       setSignupError(err.message);
     }
