@@ -56,7 +56,8 @@ const Admin = () => {
       if (imageFile) {
         const data = new FormData();
         data.append("image", imageFile);
-        const res = await fetch("http://localhost:5000/api/upload", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const res = await fetch(`${apiUrl}/api/upload`, {
           method: "POST",
           body: data,
         });
@@ -65,7 +66,8 @@ const Admin = () => {
       }
 
       // Create event
-      const eventRes = await fetch("http://localhost:5000/api/events", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const eventRes = await fetch(`${apiUrl}/api/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, image: imageUrl }),
@@ -160,7 +162,7 @@ const Admin = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {Array.isArray(events) && events.map((event) => (
             <div key={event._id} className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
-              <img src={`http://localhost:5000${event.image}`} alt={event.title} className="w-24 h-24 object-cover rounded-lg mb-2" />
+              <img src={`${import.meta.env.VITE_API_URL}${event.image}`} alt={event.title} className="w-24 h-24 object-cover rounded-lg mb-2" />
               <h3 className="text-lg font-semibold mb-1">{event.title}</h3>
               <div className="text-gray-500 text-sm mb-1">{event.date} | {event.venue}</div>
               <div className="font-bold text-blue-600 mb-1">{event.price}</div>

@@ -9,10 +9,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
-app.use('/api/events', require('./routes/eventRoutes'));
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/bookings', require('./routes/bookingRoutes'));
-app.use('/api/upload', require('./routes/uploadRoutes'));
+
+const eventRoutes = require('./routes/eventRoutes');
+const authRoutes = require('./routes/authRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+
+app.use('/api/events', eventRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Test route
 app.get('/', (req, res) => {

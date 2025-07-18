@@ -48,6 +48,7 @@ const Login = () => {
             value={form.password}
             onChange={handleChange}
             required
+            autoComplete="current-password"
           />
           <button
             type="submit"

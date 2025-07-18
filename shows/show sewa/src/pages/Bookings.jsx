@@ -47,7 +47,7 @@ const Bookings = () => {
             {bookings.map((booking) => (
               <div key={booking._id} className="bg-white rounded-xl shadow p-6 flex flex-col sm:flex-row items-center gap-6">
                 <img
-                  src={`http://localhost:5000${booking.event.image}`}
+                  src={`${import.meta.env.VITE_API_URL}${booking.event.image}`}
                   alt={booking.event.title}
                   className="w-32 h-32 object-cover rounded-lg"
                 />

@@ -28,7 +28,8 @@ const FeaturedEvents = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    const apiUrl = import.meta.env.VITE_API_URL;
+    fetch(`${apiUrl}/api/events`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -79,7 +80,7 @@ const FeaturedEvents = () => {
               className="keen-slider__slide bg-white rounded-xl shadow p-6 flex flex-col items-center"
             >
               <img
-                src={`http://localhost:5000${event.image}`}
+                src={`${import.meta.env.VITE_API_URL}${event.image}`}
                 alt={event.title}
                 className="w-40 h-40 object-cover rounded-lg mb-4"
               />

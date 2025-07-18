@@ -6,7 +6,8 @@ const Events = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    const apiUrl = import.meta.env.VITE_API_URL;
+    fetch(`${apiUrl}/api/events`)
       .then(res => res.json())
       .then(data => {
         setEvents(data);
@@ -30,7 +31,7 @@ const Events = () => {
               className="bg-white rounded-xl shadow p-6 flex flex-col items-center hover:shadow-lg transition"
             >
               <img
-                src={`http://localhost:5000${event.image}`}
+                src={`${import.meta.env.VITE_API_URL}${event.image}`}
                 alt={event.title}
                 className="w-40 h-40 object-cover rounded-lg mb-4"
               />
