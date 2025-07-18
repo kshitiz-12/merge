@@ -9,7 +9,7 @@ const Bookings = () => {
 
   useEffect(() => {
     if (!token) return;
-    fetch("http://localhost:5000/api/bookings", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

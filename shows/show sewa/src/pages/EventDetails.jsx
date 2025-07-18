@@ -12,7 +12,8 @@ const EventDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/events`)
+    const apiUrl = import.meta.env.VITE_API_URL;
+    fetch(`${apiUrl}/api/events`)
       .then(res => res.json())
       .then(data => {
         const found = data.find(e => e._id === id);
@@ -44,7 +45,7 @@ const EventDetails = () => {
   return (
     <section className="py-16 bg-white min-h-[60vh]">
       <div className="max-w-3xl mx-auto px-4">
-        <img src={`http://localhost:5000${event.image}`} alt={event.title} className="w-full h-64 object-cover rounded-xl mb-6" />
+        <img src={`${import.meta.env.VITE_API_URL}${event.image}`} alt={event.title} className="w-full h-64 object-cover rounded-xl mb-6" />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">{event.title}</h1>
         <ul className="text-gray-500 text-base mb-4">
           <li>Date: {event.date}</li>

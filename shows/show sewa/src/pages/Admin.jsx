@@ -17,7 +17,8 @@ const Admin = () => {
 
   // Fetch events from backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    const apiUrl = import.meta.env.VITE_API_URL;
+    fetch(`${apiUrl}/api/events`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
