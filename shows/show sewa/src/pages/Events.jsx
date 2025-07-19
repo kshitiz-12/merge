@@ -58,7 +58,7 @@ const Events = () => {
                 placeholder="Search events..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
               />
             </div>
 
@@ -67,7 +67,7 @@ const Events = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-brand-primary focus:border-transparent"
               >
                 <option>All Categories</option>
                 <option>Concert</option>
@@ -88,7 +88,7 @@ const Events = () => {
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-brand-primary focus:border-transparent"
               >
                 <option>All Cities</option>
                 <option>Kathmandu</option>
@@ -136,7 +136,7 @@ const Events = () => {
                   className="w-full h-48 object-cover"
                 />
                 {/* Event Type Tag */}
-                <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <div className="absolute top-3 left-3 bg-brand-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
                   {event.category || "Event"}
                 </div>
                 {/* Rating Tag */}
@@ -180,10 +180,10 @@ const Events = () => {
                 
                 {/* Price and View Details Button */}
                 <div className="flex items-center justify-between">
-                  <span className="text-red-500 font-bold text-lg">{event.price}</span>
+                  <span className="text-brand-primary font-bold text-lg">{event.price}</span>
                   <Link
                     to={`/events/${event._id}`}
-                    className="bg-red-500 text-white px-6 py-2 rounded font-semibold hover:bg-red-600 transition"
+                    className="bg-brand-primary text-white px-6 py-2 rounded font-semibold hover:bg-red-800 transition"
                   >
                     View Details
                   </Link>
@@ -199,7 +199,7 @@ const Events = () => {
             <p className="text-gray-500 text-lg">No events found matching your criteria.</p>
             <button
               onClick={clearFilters}
-              className="mt-4 text-orange-500 hover:text-orange-600 font-semibold"
+              className="mt-4 text-brand-primary hover:text-red-600 font-semibold"
             >
               Clear all filters
             </button>

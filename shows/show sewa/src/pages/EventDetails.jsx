@@ -182,7 +182,18 @@ const EventDetails = () => {
               )}
             </div>
 
-            {/* Remove the entire Book Tickets Section */}
+            {/* Book Now Button Section */}
+            <div className="bg-white rounded-xl shadow-lg p-6 text-center">
+              <h2 className="text-xl md:text-2xl font-bold text-brand-primary mb-4">Ready to Book?</h2>
+              <p className="text-gray-600 mb-6">Secure your spot for this amazing event</p>
+              <button
+                className="bg-brand-primary text-brand-secondary px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition duration-300 shadow-lg"
+                onClick={() => navigate('/payment', { state: { event } })}
+              >
+                Book Now
+              </button>
+              <p className="text-gray-500 text-sm mt-4">Secure booking with eSewa & Khalti</p>
+            </div>
           </div>
 
           {/* Right Sidebar - Quick Info */}
