@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import Footer from "./components/Footer";
@@ -25,26 +27,30 @@ function Home() {
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Auth />} />
-          <Route path="/signup" element={<Auth />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventDetails />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
-        </Routes>
-      </div>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <LanguageProvider>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Auth />} />
+              <Route path="/signup" element={<Auth />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventDetails />} />
+              <Route path="/bookings" element={<Bookings />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      </LanguageProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaSearch, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUsers, FaStar, FaFilter } from "react-icons/fa";
+import TranslatedText from "../components/TranslatedText";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -45,7 +46,7 @@ const Events = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Main Heading */}
         <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          Discover amazing events happening across Nepal
+          <TranslatedText>Discover amazing events happening across Nepal</TranslatedText>
         </h1>
 
         {/* Search and Filter Section */}
@@ -149,9 +150,13 @@ const Events = () => {
               
               {/* Event Details */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <TranslatedText>{event.title}</TranslatedText>
+                </h3>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {event.description || "Experience an amazing event with great performances and entertainment."}
+                  <TranslatedText>
+                    {event.description || "Experience an amazing event with great performances and entertainment."}
+                  </TranslatedText>
                 </p>
                 
                 {/* Event Info */}

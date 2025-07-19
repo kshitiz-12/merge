@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaStar, FaShare, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUsers, FaClock as FaDuration, FaUsers as FaAgeLimit, FaLanguage } from "react-icons/fa";
 import ReactMarkdown from 'react-markdown';
+import TranslatedText from "../components/TranslatedText";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -109,7 +110,9 @@ const EventDetails = () => {
         {/* Event Overview Section */}
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">
-            {event.aboutEvent || "The biggest Nepali music festival featuring top artists from across the country. Experience an unforgettable night of music, culture, and entertainment."}
+            <TranslatedText>
+              {event.aboutEvent || "The biggest Nepali music festival featuring top artists from across the country. Experience an unforgettable night of music, culture, and entertainment."}
+            </TranslatedText>
           </h1>
           
           {/* Key Event Details */}

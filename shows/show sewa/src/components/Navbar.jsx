@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const { user, logout } = useAuth();
+  const { selectedLanguage, changeLanguage, languages, isTranslating } = useLanguage();
   const navigate = useNavigate();
+  const languageMenuRef = useRef(null);
 
   const handleLogout = () => {
     logout();
@@ -13,6 +17,22 @@ const Navbar = () => {
   };
 
   const isAdmin = user && user.isAdmin;
+
+  const currentLanguage = languages.find(lang => lang.code === selectedLanguage);
+
+  // Close language menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target)) {
+        setLanguageMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="bg-brand-secondary shadow sticky top-0 z-50">
@@ -64,6 +84,44 @@ const Navbar = () => {
               </svg>
               Contact
             </Link>
+            
+            {/* Language Selector */}
+            <div className="relative" ref={languageMenuRef}>
+              <button
+                onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                className="flex items-center space-x-2 text-brand-text hover:text-brand-primary font-medium transition duration-300"
+                disabled={isTranslating}
+              >
+                <span className="text-lg">{currentLanguage?.flag}</span>
+                <span>{currentLanguage?.name}</span>
+                {isTranslating && (
+                  <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                )}
+              </button>
+              
+              {languageMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                  {languages.map((language) => (
+                    <button
+                      key={language.code}
+                      onClick={() => {
+                        changeLanguage(language.code);
+                        setLanguageMenuOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 ${
+                        selectedLanguage === language.code ? 'bg-gray-100 text-brand-primary' : 'text-gray-700'
+                      }`}
+                    >
+                      <span className="text-lg">{language.flag}</span>
+                      <span>{language.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             
             {/* Auth Section */}
             {user ? (
@@ -137,6 +195,37 @@ const Navbar = () => {
               </svg>
               Contact
             </Link>
+            
+            {/* Mobile Language Selector */}
+            <div className="px-3 py-2">
+              <div className="text-sm text-brand-text font-medium mb-2">Language</div>
+              <div className="space-y-1">
+                {languages.map((language) => (
+                  <button
+                    key={language.code}
+                    onClick={() => {
+                      changeLanguage(language.code);
+                      setMenuOpen(false);
+                    }}
+                    className={`w-full text-left px-2 py-1 text-sm rounded flex items-center space-x-2 ${
+                      selectedLanguage === language.code 
+                        ? 'bg-brand-primary text-brand-secondary' 
+                        : 'text-brand-text hover:bg-brand-bg'
+                    }`}
+                    disabled={isTranslating}
+                  >
+                    <span className="text-lg">{language.flag}</span>
+                    <span>{language.name}</span>
+                    {isTranslating && selectedLanguage === language.code && (
+                      <svg className="animate-spin h-3 w-3 ml-auto" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
             {user ? (
               <>
                 {isAdmin && (
