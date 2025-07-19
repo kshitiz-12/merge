@@ -28,7 +28,7 @@ const Signup = () => {
 
   return (
     <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
-      <div className="bg-brand-surface rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-border">
+      <div className="bg-brand-secondary rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-border">
         <h1 className="text-3xl font-bold text-brand-primary mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -61,16 +61,16 @@ const Signup = () => {
           />
           <button
             type="submit"
-            className="w-full bg-brand-primary text-white px-6 py-2 rounded font-semibold hover:bg-brand-accent hover:text-white border-2 border-brand-primary transition"
+            className="w-full bg-brand-primary text-brand-secondary px-6 py-2 rounded font-semibold hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition"
             disabled={loading}
           >
             {loading ? "Signing up..." : "Sign Up"}
           </button>
-          {error && <div className="text-brand-accent font-semibold">{error}</div>}
+          {error && <div className="text-brand-primary font-semibold">{error}</div>}
         </form>
         <div className="mt-4 text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-brand-secondary hover:underline">
+          <Link to="/login" className="text-brand-primary hover:underline">
             Login
           </Link>
         </div>

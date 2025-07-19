@@ -6,14 +6,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-primary': '#4F46E5', // Deep Indigo
-        'brand-accent': '#EC4899', // Vibrant Pink
-        'brand-secondary': '#38BDF8', // Soft Sky Blue
-        'brand-bg': '#F9FAFB', // Off-White
-        'brand-surface': '#FFFFFF', // White
-        'brand-text': '#1E293B', // Charcoal
-        'brand-success': '#10B981', // Emerald
-        'brand-border': '#E5E7EB', // Light Gray
+        'brand-primary': '#8B0000', // Deep Red/Maroon from logo
+        'brand-secondary': '#FFFFFF', // White from logo
+        'brand-bg': '#F8F9FA', // Light gray background
+        'brand-surface': '#FFFFFF', // White surface
+        'brand-text': '#1A1A1A', // Dark text for readability
+        'brand-border': '#E5E7EB', // Light border
       }
     }
   },

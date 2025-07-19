@@ -8,17 +8,17 @@ const steps = [
     desc: "Explore a variety of shows, movies, and concerts happening near you.",
   },
   {
-    icon: <FaTicketAlt className="text-3xl text-brand-accent mb-2" />,
+    icon: <FaTicketAlt className="text-3xl text-brand-primary mb-2" />,
     title: "Select & Book",
     desc: "Choose your favorite event and book your tickets in a few clicks.",
   },
   {
-    icon: <FaCreditCard className="text-3xl text-brand-secondary mb-2" />,
+    icon: <FaCreditCard className="text-3xl text-brand-primary mb-2" />,
     title: "Easy Payment",
     desc: "Pay securely online with multiple payment options.",
   },
   {
-    icon: <FaSmile className="text-3xl text-brand-success mb-2" />,
+    icon: <FaSmile className="text-3xl text-brand-primary mb-2" />,
     title: "Enjoy the Show!",
     desc: "Get ready for an unforgettable experience at your chosen event.",
   },
@@ -33,7 +33,7 @@ const HowItWorks = () => (
         {steps.map((step, idx) => (
           <div
             key={idx}
-            className="bg-brand-surface border-2 border-brand-border rounded-xl shadow hover:shadow-lg transition p-8 flex flex-col items-center"
+            className="bg-brand-secondary border-2 border-brand-border rounded-xl shadow hover:shadow-lg transition p-8 flex flex-col items-center"
           >
             {step.icon}
             <h3 className="text-lg font-semibold text-brand-primary mb-2">{step.title}</h3>

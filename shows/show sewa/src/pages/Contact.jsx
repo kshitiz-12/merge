@@ -18,7 +18,7 @@ const Contact = () => {
       <div className="max-w-xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-brand-primary mb-8">Contact Us</h1>
         {submitted ? (
-          <div className="text-brand-accent text-lg font-semibold text-center">Thank you for reaching out! We'll get back to you soon.</div>
+          <div className="text-brand-primary text-lg font-semibold text-center">Thank you for reaching out! We'll get back to you soon.</div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -56,7 +56,7 @@ const Contact = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-brand-primary text-white px-6 py-2 rounded hover:bg-brand-accent hover:text-white border-2 border-brand-primary transition font-semibold"
+              className="w-full bg-brand-primary text-brand-secondary px-6 py-2 rounded hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition font-semibold"
             >
               Send Message
             </button>
