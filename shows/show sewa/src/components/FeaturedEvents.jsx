@@ -70,7 +70,7 @@ const FeaturedEvents = () => {
   }
 
   return (
-    <section className="py-16 bg-brand-bg">
+    <section className="py-16 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-brand-primary mb-2">Featured Events</h2>
         <p className="text-brand-text mb-8">Discover the hottest events happening in Nepal right now</p>

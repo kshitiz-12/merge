@@ -144,7 +144,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-2">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-primary to-[#B22222] px-2">
       <div className="relative w-full max-w-3xl min-h-[500px] flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-white">
         {/* Login Form Section (Left) */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10">
@@ -158,14 +158,14 @@ const Auth = () => {
           <div className="flex justify-center gap-2 md:gap-4 mb-4">
             <button
               type="button"
-              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "user" ? "bg-purple-600 text-white border-purple-600" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-purple-100"}`}
+              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "user" ? "bg-brand-primary text-white border-brand-primary" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-100"}`}
               onClick={() => setLoginMode("user")}
             >
               User
             </button>
             <button
               type="button"
-              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "admin" ? "bg-purple-600 text-white border-purple-600" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-purple-100"}`}
+              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "admin" ? "bg-brand-primary text-white border-brand-primary" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-100"}`}
               onClick={() => setLoginMode("admin")}
             >
               Admin
@@ -193,7 +193,7 @@ const Auth = () => {
             <div className="text-right text-xs text-gray-400 mb-2 cursor-pointer hover:underline">Forgot Your Password?</div>
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white py-2 md:py-3 rounded font-semibold hover:bg-purple-700 transition text-sm md:text-base"
+              className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base"
               disabled={loading}
             >
               {loading
