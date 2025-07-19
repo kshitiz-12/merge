@@ -8,8 +8,6 @@ import EventDetails from "./pages/EventDetails";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Bookings from "./pages/Bookings";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
@@ -32,9 +30,8 @@ function App() {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/login" element={<Auth />} />
+          <Route path="/signup" element={<Auth />} />
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/bookings" element={<Bookings />} />
