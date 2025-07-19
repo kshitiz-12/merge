@@ -32,26 +32,65 @@ const Payment = () => {
   
   const [error, setError] = useState("");
 
-  const ticketTypes = [
-    {
-      id: "general",
-      name: "General Admission",
-      price: 1500,
-      description: "Standing area with great view of the stage"
-    },
-    {
-      id: "vip",
-      name: "VIP Seating",
-      price: 3000,
-      description: "Reserved seating with complimentary refreshments"
-    },
-    {
-      id: "premium",
-      name: "Premium Package",
-      price: 5000,
-      description: "Front row seats, meet & greet, and exclusive merchandise"
+  // Generate dynamic ticket types from event data
+  const generateTicketTypes = () => {
+    const types = [];
+    if (event?.ticketType1?.use) {
+      types.push({
+        id: "type1",
+        name: event.ticketType1.name,
+        price: parseInt(event.ticketType1.price.replace(/[^\d]/g, '')) || 1500,
+        description: event.ticketType1.description
+      });
     }
-  ];
+    if (event?.ticketType2?.use) {
+      types.push({
+        id: "type2",
+        name: event.ticketType2.name,
+        price: parseInt(event.ticketType2.price.replace(/[^\d]/g, '')) || 3000,
+        description: event.ticketType2.description
+      });
+    }
+    if (event?.ticketType3?.use) {
+      types.push({
+        id: "type3",
+        name: event.ticketType3.name,
+        price: parseInt(event.ticketType3.price.replace(/[^\d]/g, '')) || 5000,
+        description: event.ticketType3.description
+      });
+    }
+    return types.length > 0 ? types : [
+      {
+        id: "general",
+        name: "General Admission",
+        price: 1500,
+        description: "Standing area with great view of the stage"
+      },
+      {
+        id: "vip",
+        name: "VIP Seating",
+        price: 3000,
+        description: "Reserved seating with complimentary refreshments"
+      },
+      {
+        id: "premium",
+        name: "Premium Package",
+        price: 5000,
+        description: "Front row seats, meet & greet, and exclusive merchandise"
+      }
+    ]; // Fallback to default if none configured
+  };
+
+  const ticketTypes = generateTicketTypes();
+
+  // Initialize ticket quantities based on available ticket types
+  useEffect(() => {
+    const initialQuantities = {};
+    ticketTypes.forEach(ticket => {
+      initialQuantities[ticket.id] = 0;
+    });
+    setTicketQuantities(initialQuantities);
+  }, [ticketTypes]);
 
   if (!event) {
     return (

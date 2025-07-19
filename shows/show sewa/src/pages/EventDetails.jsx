@@ -49,6 +49,38 @@ const EventDetails = () => {
     }
   ];
 
+  // Generate dynamic ticket types from event data
+  const generateTicketTypes = () => {
+    const types = [];
+    if (event?.ticketType1?.use) {
+      types.push({
+        id: "type1",
+        name: event.ticketType1.name,
+        price: event.ticketType1.price,
+        description: event.ticketType1.description
+      });
+    }
+    if (event?.ticketType2?.use) {
+      types.push({
+        id: "type2",
+        name: event.ticketType2.name,
+        price: event.ticketType2.price,
+        description: event.ticketType2.description
+      });
+    }
+    if (event?.ticketType3?.use) {
+      types.push({
+        id: "type3",
+        name: event.ticketType3.name,
+        price: event.ticketType3.price,
+        description: event.ticketType3.description
+      });
+    }
+    return types.length > 0 ? types : ticketTypes; // Fallback to default if none configured
+  };
+
+  const dynamicTicketTypes = generateTicketTypes();
+
   const handleBook = async () => {
     setError("");
     if (!user) {
@@ -69,7 +101,7 @@ const EventDetails = () => {
     );
   }
 
-  const selectedTicketData = ticketTypes.find(t => t.id === selectedTicket);
+  const selectedTicketData = dynamicTicketTypes.find(t => t.id === selectedTicket);
 
   return (
     <section className="py-8 md:py-16 bg-gray-50 min-h-[60vh]">
@@ -77,7 +109,7 @@ const EventDetails = () => {
         {/* Event Overview Section */}
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">
-            The biggest Nepali music festival featuring top artists from across the country. Experience an unforgettable night of music, culture, and entertainment.
+            {event.aboutEvent || "The biggest Nepali music festival featuring top artists from across the country. Experience an unforgettable night of music, culture, and entertainment."}
           </h1>
           
           {/* Key Event Details */}
@@ -133,51 +165,54 @@ const EventDetails = () => {
               ) : (
                 <div className="space-y-4 md:space-y-6 text-sm md:text-base">
                   <p className="text-gray-700 leading-relaxed">
-                    Join us for the most spectacular Nepali music festival of 2024! This grand event brings together the finest artists from across Nepal for an evening of incredible performances, cultural celebration, and unforgettable memories.
+                    {event.aboutEvent || "Join us for the most spectacular Nepali music festival of 2024! This grand event brings together the finest artists from across Nepal for an evening of incredible performances, cultural celebration, and unforgettable memories."}
                   </p>
 
                   {/* Featured Artists */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Featured Artists:</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Narayan Gopal Tribute Band</li>
-                      <li>• Bipul Chettri</li>
-                      <li>• Sajjan Raj Vaidya</li>
-                      <li>• Albatross</li>
-                      <li>• And many more surprise guests!</li>
-                    </ul>
-                  </div>
+                  {event.featuredArtists && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Featured Artists:</h3>
+                      <ul className="space-y-2 text-gray-700">
+                        {event.featuredArtists.split('\n').map((artist, index) => (
+                          <li key={index}>{artist.trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   {/* What to Expect */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">What to Expect:</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• 6+ hours of non-stop entertainment</li>
-                      <li>• Traditional and modern Nepali music</li>
-                      <li>• Food stalls with authentic Nepali cuisine</li>
-                      <li>• Cultural performances and dance</li>
-                      <li>• Meet & greet opportunities with artists</li>
-                    </ul>
-                  </div>
+                  {event.whatToExpect && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">What to Expect:</h3>
+                      <ul className="space-y-2 text-gray-700">
+                        {event.whatToExpect.split('\n').map((item, index) => (
+                          <li key={index}>{item.trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   {/* Venue Information */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Venue Information:</h3>
-                    <p className="text-gray-700 leading-relaxed">
-                      Dasharath Stadium is Nepal's premier venue for large-scale events. The stadium offers excellent acoustics, comfortable seating, and easy accessibility from all parts of Kathmandu.
-                    </p>
-                  </div>
+                  {event.venueInformation && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Venue Information:</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        {event.venueInformation}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Important Notes */}
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Important Notes:</h3>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• Gates open at 6:00 PM</li>
-                      <li>• No outside food or beverages allowed</li>
-                      <li>• Parking available on-site</li>
-                      <li>• Event will proceed rain or shine</li>
-                    </ul>
-                  </div>
+                  {event.importantNotes && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Important Notes:</h3>
+                      <ul className="space-y-2 text-gray-700">
+                        {event.importantNotes.split('\n').map((note, index) => (
+                          <li key={index}>{note.trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -212,29 +247,35 @@ const EventDetails = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center">
-                  <FaDuration className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <div className="text-sm text-gray-500">Duration</div>
-                    <div className="font-medium text-gray-900">6+ hours</div>
+                {event.duration && (
+                  <div className="flex items-center">
+                    <FaDuration className="w-5 h-5 text-gray-400 mr-3" />
+                    <div>
+                      <div className="text-sm text-gray-500">Duration</div>
+                      <div className="font-medium text-gray-900">{event.duration}</div>
+                    </div>
                   </div>
-                </div>
+                )}
                 
-                <div className="flex items-center">
-                  <FaAgeLimit className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <div className="text-sm text-gray-500">Age Limit</div>
-                    <div className="font-medium text-gray-900">All ages</div>
+                {event.ageLimit && (
+                  <div className="flex items-center">
+                    <FaAgeLimit className="w-5 h-5 text-gray-400 mr-3" />
+                    <div>
+                      <div className="text-sm text-gray-500">Age Limit</div>
+                      <div className="font-medium text-gray-900">{event.ageLimit}</div>
+                    </div>
                   </div>
-                </div>
+                )}
                 
-                <div className="flex items-center">
-                  <FaLanguage className="w-5 h-5 text-gray-400 mr-3" />
-                  <div>
-                    <div className="text-sm text-gray-500">Language</div>
-                    <div className="font-medium text-gray-900">Nepali</div>
+                {event.language && (
+                  <div className="flex items-center">
+                    <FaLanguage className="w-5 h-5 text-gray-400 mr-3" />
+                    <div>
+                      <div className="text-sm text-gray-500">Language</div>
+                      <div className="font-medium text-gray-900">{event.language}</div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

@@ -20,6 +20,20 @@ const Admin = () => {
     description: "",
     image: "",
     richDescription: "",
+    // New fields for customizable content
+    aboutEvent: "",
+    featuredArtists: "",
+    whatToExpect: "",
+    venueInformation: "",
+    importantNotes: "",
+    // Sidebar categories
+    duration: "",
+    ageLimit: "",
+    language: "",
+    // Ticket types
+    ticketType1: { name: "General Admission", price: "", description: "", use: false },
+    ticketType2: { name: "VIP Seating", price: "", description: "", use: false },
+    ticketType3: { name: "Premium Package", price: "", description: "", use: false },
   });
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState("");
@@ -144,6 +158,20 @@ const Admin = () => {
       description: "",
       image: "",
       richDescription: "",
+      // New fields for customizable content
+      aboutEvent: "",
+      featuredArtists: "",
+      whatToExpect: "",
+      venueInformation: "",
+      importantNotes: "",
+      // Sidebar categories
+      duration: "",
+      ageLimit: "",
+      language: "",
+      // Ticket types
+      ticketType1: { name: "General Admission", price: "", description: "", use: false },
+      ticketType2: { name: "VIP Seating", price: "", description: "", use: false },
+      ticketType3: { name: "Premium Package", price: "", description: "", use: false },
     });
     setImageFile(null);
     setEditingEvent(null);
@@ -163,6 +191,20 @@ const Admin = () => {
       description: event.description || "",
       image: event.image || "",
       richDescription: event.richDescription || "",
+      // New fields for customizable content
+      aboutEvent: event.aboutEvent || "",
+      featuredArtists: event.featuredArtists || "",
+      whatToExpect: event.whatToExpect || "",
+      venueInformation: event.venueInformation || "",
+      importantNotes: event.importantNotes || "",
+      // Sidebar categories
+      duration: event.duration || "",
+      ageLimit: event.ageLimit || "",
+      language: event.language || "",
+      // Ticket types
+      ticketType1: event.ticketType1 || { name: "General Admission", price: "", description: "", use: false },
+      ticketType2: event.ticketType2 || { name: "VIP Seating", price: "", description: "", use: false },
+      ticketType3: event.ticketType3 || { name: "Premium Package", price: "", description: "", use: false },
     });
     setShowModal(true);
   };
@@ -425,70 +467,308 @@ const Admin = () => {
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Event Title"
-                  value={form.title}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                  required
-                />
-                <input
-                  type="date"
-                  name="date"
-                  value={form.date}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                  required
-                />
-                <input
-                  type="time"
-                  name="time"
-                  value={form.time}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                />
-                <input
-                  type="text"
-                  name="venue"
-                  placeholder="Venue"
-                  value={form.venue}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                  required
-                />
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  value={form.city}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                />
-                <input
-                  type="number"
-                  name="price"
-                  placeholder="Price"
-                  value={form.price}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                  required
-                />
-                <select
-                  name="category"
-                  value={form.category}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                >
-                  <option value="">Select Category</option>
-                  <option value="Concert">Concert</option>
-                  <option value="Comedy">Comedy</option>
-                  <option value="Cultural">Cultural</option>
-                  <option value="Movie">Movie</option>
-                  <option value="Sports">Sports</option>
-                </select>
+              {/* Basic Event Information */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-gray-900 mb-3">Basic Event Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="title"
+                    placeholder="Event Title"
+                    value={form.title}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                    required
+                  />
+                  <input
+                    type="date"
+                    name="date"
+                    value={form.date}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                    required
+                  />
+                  <input
+                    type="time"
+                    name="time"
+                    value={form.time}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <input
+                    type="text"
+                    name="venue"
+                    placeholder="Venue"
+                    value={form.venue}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    value={form.city}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <input
+                    type="number"
+                    name="price"
+                    placeholder="Price"
+                    value={form.price}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                    required
+                  />
+                  <select
+                    name="category"
+                    value={form.category}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  >
+                    <option value="">Select Category</option>
+                    <option value="Concert">Concert</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Movie">Movie</option>
+                    <option value="Sports">Sports</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Sidebar Categories */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-gray-900 mb-3">Sidebar Information</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <input
+                    type="text"
+                    name="duration"
+                    placeholder="Duration (e.g., 3 hours)"
+                    value={form.duration}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <input
+                    type="text"
+                    name="ageLimit"
+                    placeholder="Age Limit (e.g., All ages)"
+                    value={form.ageLimit}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <input
+                    type="text"
+                    name="language"
+                    placeholder="Language (e.g., Nepali, English)"
+                    value={form.language}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              {/* Ticket Types */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-gray-900 mb-3">Ticket Types</h4>
+                <div className="space-y-4">
+                  {/* Ticket Type 1 */}
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <input
+                        type="checkbox"
+                        checked={form.ticketType1.use}
+                        onChange={(e) => setForm({
+                          ...form,
+                          ticketType1: { ...form.ticketType1, use: e.target.checked }
+                        })}
+                        className="w-4 h-4 text-brand-primary"
+                      />
+                      <span className="font-medium">Use Ticket Type 1</span>
+                    </div>
+                    {form.ticketType1.use && (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input
+                          type="text"
+                          placeholder="Ticket Name (e.g., General Admission)"
+                          value={form.ticketType1.name}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType1: { ...form.ticketType1, name: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Price (e.g., Rs. 1,500)"
+                          value={form.ticketType1.price}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType1: { ...form.ticketType1, price: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Description"
+                          value={form.ticketType1.description}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType1: { ...form.ticketType1, description: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Ticket Type 2 */}
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <input
+                        type="checkbox"
+                        checked={form.ticketType2.use}
+                        onChange={(e) => setForm({
+                          ...form,
+                          ticketType2: { ...form.ticketType2, use: e.target.checked }
+                        })}
+                        className="w-4 h-4 text-brand-primary"
+                      />
+                      <span className="font-medium">Use Ticket Type 2</span>
+                    </div>
+                    {form.ticketType2.use && (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input
+                          type="text"
+                          placeholder="Ticket Name (e.g., VIP Seating)"
+                          value={form.ticketType2.name}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType2: { ...form.ticketType2, name: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Price (e.g., Rs. 3,000)"
+                          value={form.ticketType2.price}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType2: { ...form.ticketType2, price: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Description"
+                          value={form.ticketType2.description}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType2: { ...form.ticketType2, description: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Ticket Type 3 */}
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <input
+                        type="checkbox"
+                        checked={form.ticketType3.use}
+                        onChange={(e) => setForm({
+                          ...form,
+                          ticketType3: { ...form.ticketType3, use: e.target.checked }
+                        })}
+                        className="w-4 h-4 text-brand-primary"
+                      />
+                      <span className="font-medium">Use Ticket Type 3</span>
+                    </div>
+                    {form.ticketType3.use && (
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input
+                          type="text"
+                          placeholder="Ticket Name (e.g., Premium Package)"
+                          value={form.ticketType3.name}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType3: { ...form.ticketType3, name: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Price (e.g., Rs. 5,000)"
+                          value={form.ticketType3.price}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType3: { ...form.ticketType3, price: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Description"
+                          value={form.ticketType3.description}
+                          onChange={(e) => setForm({
+                            ...form,
+                            ticketType3: { ...form.ticketType3, description: e.target.value }
+                          })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Event Content Sections */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <h4 className="font-semibold text-gray-900 mb-3">Event Content</h4>
+                <div className="space-y-4">
+                  <textarea
+                    name="aboutEvent"
+                    placeholder="About This Event - Main description"
+                    value={form.aboutEvent}
+                    onChange={handleChange}
+                    rows="4"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <textarea
+                    name="featuredArtists"
+                    placeholder="Featured Artists - One per line (e.g., • Narayan Gopal Tribute Band)"
+                    value={form.featuredArtists}
+                    onChange={handleChange}
+                    rows="3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <textarea
+                    name="whatToExpect"
+                    placeholder="What to Expect - One per line (e.g., • 6+ hours of non-stop entertainment)"
+                    value={form.whatToExpect}
+                    onChange={handleChange}
+                    rows="3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <textarea
+                    name="venueInformation"
+                    placeholder="Venue Information - Detailed venue description"
+                    value={form.venueInformation}
+                    onChange={handleChange}
+                    rows="3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                  <textarea
+                    name="importantNotes"
+                    placeholder="Important Notes - One per line (e.g., • Gates open at 6:00 PM)"
+                    value={form.importantNotes}
+                    onChange={handleChange}
+                    rows="3"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                  />
+                </div>
               </div>
               
               <textarea

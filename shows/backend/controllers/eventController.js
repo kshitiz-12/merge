@@ -37,7 +37,22 @@ exports.createEvent = async (req, res) => {
       category, 
       image,
       attendees,
-      rating 
+      rating,
+      richDescription,
+      // New fields for customizable content
+      aboutEvent,
+      featuredArtists,
+      whatToExpect,
+      venueInformation,
+      importantNotes,
+      // Sidebar categories
+      duration,
+      ageLimit,
+      language,
+      // Ticket types
+      ticketType1,
+      ticketType2,
+      ticketType3
     } = req.body;
     
     const event = new Event({ 
@@ -51,7 +66,22 @@ exports.createEvent = async (req, res) => {
       category, 
       image,
       attendees,
-      rating 
+      rating,
+      richDescription,
+      // New fields for customizable content
+      aboutEvent,
+      featuredArtists,
+      whatToExpect,
+      venueInformation,
+      importantNotes,
+      // Sidebar categories
+      duration,
+      ageLimit,
+      language,
+      // Ticket types
+      ticketType1,
+      ticketType2,
+      ticketType3
     });
     
     await event.save();
@@ -76,7 +106,22 @@ exports.updateEvent = async (req, res) => {
       category, 
       image,
       attendees,
-      rating 
+      rating,
+      richDescription,
+      // New fields for customizable content
+      aboutEvent,
+      featuredArtists,
+      whatToExpect,
+      venueInformation,
+      importantNotes,
+      // Sidebar categories
+      duration,
+      ageLimit,
+      language,
+      // Ticket types
+      ticketType1,
+      ticketType2,
+      ticketType3
     } = req.body;
     
     const event = await Event.findByIdAndUpdate(
@@ -92,7 +137,22 @@ exports.updateEvent = async (req, res) => {
         category, 
         image,
         attendees,
-        rating 
+        rating,
+        richDescription,
+        // New fields for customizable content
+        aboutEvent,
+        featuredArtists,
+        whatToExpect,
+        venueInformation,
+        importantNotes,
+        // Sidebar categories
+        duration,
+        ageLimit,
+        language,
+        // Ticket types
+        ticketType1,
+        ticketType2,
+        ticketType3
       },
       { new: true, runValidators: true }
     );
