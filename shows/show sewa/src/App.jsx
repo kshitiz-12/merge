@@ -12,6 +12,7 @@ import Bookings from "./pages/Bookings";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import Payment from "./pages/Payment";
+import PaymentConfirmation from "./pages/PaymentConfirmation";
 import Signup from "./pages/Signup";
 
 function Home() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
         </Routes>
       </div>
       <Footer />

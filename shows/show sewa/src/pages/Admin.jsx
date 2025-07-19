@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { FaPlus, FaEdit, FaTrash, FaEye, FaCalendarAlt, FaUsers, FaTicketAlt, FaChartLine, FaCog, FaSignOutAlt, FaHome, FaList } from "react-icons/fa";
 
 const Admin = () => {
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [form, setForm] = useState({
     title: "",
     date: "",
+    time: "",
     venue: "",
+    city: "",
     price: "",
+    category: "",
     description: "",
     image: "",
   });
@@ -14,25 +23,41 @@ const Admin = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // Fetch events from backend
+  // Check if user is admin
   useEffect(() => {
+    if (!user || !token) {
+      navigate("/login");
+      return;
+    }
+    
+    // Check if user is admin (you can modify this based on your user model)
+    if (user.email !== "admin@showsewa.com") {
+      navigate("/");
+      return;
+    }
+    
+    fetchEvents();
+  }, [user, token, navigate]);
+
+  const fetchEvents = async () => {
     const apiUrl = import.meta.env.VITE_API_URL;
-    fetch(`${apiUrl}/api/events`)
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setEvents(data);
-        } else {
-          setEvents([]);
-          setError("Failed to load events.");
-        }
-      })
-      .catch(() => {
+    try {
+      const res = await fetch(`${apiUrl}/api/events`);
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setEvents(data);
+      } else {
         setEvents([]);
         setError("Failed to load events.");
-      });
-  }, []);
+      }
+    } catch (err) {
+      setEvents([]);
+      setError("Failed to load events.");
+    }
+  };
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -65,113 +90,439 @@ const Admin = () => {
         imageUrl = img.imageUrl;
       }
 
-      // Create event
       const apiUrl = import.meta.env.VITE_API_URL;
-      const eventRes = await fetch(`${apiUrl}/api/events`, {
-        method: "POST",
+      const method = editingEvent ? "PUT" : "POST";
+      const url = editingEvent ? `${apiUrl}/api/events/${editingEvent._id}` : `${apiUrl}/api/events`;
+      
+      const eventRes = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, image: imageUrl }),
       });
 
       if (!eventRes.ok) {
-        setMessage("Failed to add event.");
+        setMessage("Failed to save event.");
         setLoading(false);
         return;
       }
 
-      const newEvent = await eventRes.json();
-      setEvents([newEvent, ...events]);
-      setForm({ title: "", date: "", venue: "", price: "", description: "", image: "" });
-      setImageFile(null);
-      setMessage("Event added!");
+      const savedEvent = await eventRes.json();
+      
+      if (editingEvent) {
+        setEvents(events.map(e => e._id === editingEvent._id ? savedEvent : e));
+        setMessage("Event updated successfully!");
+      } else {
+        setEvents([savedEvent, ...events]);
+        setMessage("Event added successfully!");
+      }
+      
+      resetForm();
     } catch (err) {
-      setMessage("Error adding event.");
+      setMessage("Error saving event.");
     }
     setLoading(false);
   };
 
+  const resetForm = () => {
+    setForm({
+      title: "",
+      date: "",
+      time: "",
+      venue: "",
+      city: "",
+      price: "",
+      category: "",
+      description: "",
+      image: "",
+    });
+    setImageFile(null);
+    setEditingEvent(null);
+    setShowModal(false);
+  };
+
+  const handleEdit = (event) => {
+    setEditingEvent(event);
+    setForm({
+      title: event.title || "",
+      date: event.date || "",
+      time: event.time || "",
+      venue: event.venue || "",
+      city: event.city || "",
+      price: event.price || "",
+      category: event.category || "",
+      description: event.description || "",
+      image: event.image || "",
+    });
+    setShowModal(true);
+  };
+
+  const handleDelete = async (eventId) => {
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const res = await fetch(`${apiUrl}/api/events/${eventId}`, {
+          method: "DELETE",
+        });
+        
+        if (res.ok) {
+          setEvents(events.filter(e => e._id !== eventId));
+          setMessage("Event deleted successfully!");
+        } else {
+          setMessage("Failed to delete event.");
+        }
+      } catch (err) {
+        setMessage("Error deleting event.");
+      }
+    }
+  };
+
+  const stats = [
+    {
+      title: "Total Events",
+      value: events.length,
+      icon: <FaCalendarAlt className="text-2xl text-blue-500" />,
+      color: "bg-blue-50"
+    },
+    {
+      title: "Total Bookings",
+      value: "1,234",
+      icon: <FaTicketAlt className="text-2xl text-green-500" />,
+      color: "bg-green-50"
+    },
+    {
+      title: "Active Users",
+      value: "5,678",
+      icon: <FaUsers className="text-2xl text-purple-500" />,
+      color: "bg-purple-50"
+    },
+    {
+      title: "Revenue",
+      value: "Rs. 2.5M",
+      icon: <FaChartLine className="text-2xl text-orange-500" />,
+      color: "bg-orange-50"
+    }
+  ];
+
   return (
-    <section className="py-16 bg-gray-50 min-h-[60vh]">
-      <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Admin Panel</h1>
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-6 mb-8 space-y-4">
-          <input
-            type="text"
-            name="title"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Title"
-            value={form.title}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="date"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Date"
-            value={form.date}
-            onChange={handleChange}
-          />
-          <input
-            type="text"
-            name="venue"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Venue"
-            value={form.venue}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            name="price"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Price"
-            value={form.price}
-            onChange={handleChange}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full px-4 py-2 border rounded"
-            onChange={handleImageChange}
-          />
-          <input
-            type="text"
-            name="image"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Image URL (optional if uploading)"
-            value={form.image}
-            onChange={handleChange}
-          />
-          <textarea
-            name="description"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Description"
-            value={form.description}
-            onChange={handleChange}
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition font-semibold"
-            disabled={loading}
-          >
-            {loading ? "Adding..." : "Add Event"}
-          </button>
-          {message && <div className="text-green-600 font-semibold">{message}</div>}
-        </form>
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">All Events</h2>
-        {error && <div className="text-red-600 mb-4">{error}</div>}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {Array.isArray(events) && events.map((event) => (
-            <div key={event._id} className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
-              <img src={`${import.meta.env.VITE_API_URL}${event.image}`} alt={event.title} className="w-24 h-24 object-cover rounded-lg mb-2" />
-              <h3 className="text-lg font-semibold mb-1">{event.title}</h3>
-              <div className="text-gray-500 text-sm mb-1">{event.date} | {event.venue}</div>
-              <div className="font-bold text-blue-600 mb-1">{event.price}</div>
-              <div className="text-gray-600 text-xs text-center mb-2">{event.description}</div>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
+        <div className="flex items-center justify-center h-16 bg-red-600 text-white">
+          <h1 className="text-xl font-bold">Admin Dashboard</h1>
         </div>
+        
+        <nav className="mt-8">
+          <div className="px-4 space-y-2">
+            <button
+              onClick={() => setActiveTab("dashboard")}
+              className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
+                activeTab === "dashboard" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              <FaHome className="mr-3" />
+              Dashboard
+            </button>
+            <button
+              onClick={() => setActiveTab("events")}
+              className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
+                activeTab === "events" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              <FaList className="mr-3" />
+              Events
+            </button>
+            <button
+              onClick={() => setActiveTab("settings")}
+              className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
+                activeTab === "settings" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              <FaCog className="mr-3" />
+              Settings
+            </button>
+          </div>
+        </nav>
       </div>
-    </section>
+
+      {/* Main Content */}
+      <div className="ml-64 p-8">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900">
+            {activeTab === "dashboard" && "Dashboard"}
+            {activeTab === "events" && "Event Management"}
+            {activeTab === "settings" && "Settings"}
+          </h2>
+          {activeTab === "events" && (
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-red-700 transition"
+            >
+              <FaPlus className="mr-2" />
+              Add Event
+            </button>
+          )}
+        </div>
+
+        {/* Dashboard Tab */}
+        {activeTab === "dashboard" && (
+          <div className="space-y-8">
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {stats.map((stat, index) => (
+                <div key={index} className={`${stat.color} rounded-xl p-6 shadow-sm`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                      <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                    </div>
+                    {stat.icon}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Recent Events */}
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Events</h3>
+              <div className="space-y-4">
+                {events.slice(0, 5).map((event) => (
+                  <div key={event._id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <img 
+                      src={`${import.meta.env.VITE_API_URL}${event.image}`} 
+                      alt={event.title} 
+                      className="w-12 h-12 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-medium text-gray-900">{event.title}</h4>
+                      <p className="text-sm text-gray-600">{event.date} • {event.venue}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-red-600">{event.price}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Events Tab */}
+        {activeTab === "events" && (
+          <div className="space-y-6">
+            {message && (
+              <div className={`p-4 rounded-lg ${message.includes("success") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                {message}
+              </div>
+            )}
+            
+            {error && (
+              <div className="p-4 bg-red-100 text-red-700 rounded-lg">
+                {error}
+              </div>
+            )}
+
+            {/* Events Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {events.map((event) => (
+                <div key={event._id} className="bg-white rounded-xl shadow-sm overflow-hidden">
+                  <img 
+                    src={`${import.meta.env.VITE_API_URL}${event.image}`} 
+                    alt={event.title} 
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{event.title}</h3>
+                    <div className="space-y-1 text-sm text-gray-600 mb-4">
+                      <p>📅 {event.date}</p>
+                      <p>🕐 {event.time || "7:00 PM"}</p>
+                      <p>📍 {event.venue}, {event.city || "Kathmandu"}</p>
+                      <p>💰 {event.price}</p>
+                    </div>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => handleEdit(event)}
+                        className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition flex items-center justify-center"
+                      >
+                        <FaEdit className="mr-1" />
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(event._id)}
+                        className="flex-1 bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700 transition flex items-center justify-center"
+                      >
+                        <FaTrash className="mr-1" />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Settings Tab */}
+        {activeTab === "settings" && (
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Admin Settings</h3>
+            <div className="space-y-4">
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <h4 className="font-medium text-gray-900 mb-2">System Information</h4>
+                <p className="text-sm text-gray-600">Version: 1.0.0</p>
+                <p className="text-sm text-gray-600">Last Updated: {new Date().toLocaleDateString()}</p>
+              </div>
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <h4 className="font-medium text-gray-900 mb-2">Quick Actions</h4>
+                <div className="space-y-2">
+                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                    Export Events Data
+                  </button>
+                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                    Backup Database
+                  </button>
+                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                    System Maintenance
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Add/Edit Event Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-900">
+                {editingEvent ? "Edit Event" : "Add New Event"}
+              </h3>
+              <button
+                onClick={resetForm}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Event Title"
+                  value={form.title}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  required
+                />
+                <input
+                  type="date"
+                  name="date"
+                  value={form.date}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  required
+                />
+                <input
+                  type="time"
+                  name="time"
+                  value={form.time}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+                <input
+                  type="text"
+                  name="venue"
+                  placeholder="Venue"
+                  value={form.venue}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  required
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={form.city}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  value={form.price}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  required
+                />
+                <select
+                  name="category"
+                  value={form.category}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                >
+                  <option value="">Select Category</option>
+                  <option value="Concert">Concert</option>
+                  <option value="Comedy">Comedy</option>
+                  <option value="Cultural">Cultural</option>
+                  <option value="Movie">Movie</option>
+                  <option value="Sports">Sports</option>
+                </select>
+              </div>
+              
+              <textarea
+                name="description"
+                placeholder="Event Description"
+                value={form.description}
+                onChange={handleChange}
+                rows="4"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                required
+              />
+              
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Event Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+                <input
+                  type="text"
+                  name="image"
+                  placeholder="Or enter image URL"
+                  value={form.image}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+              </div>
+              
+              <div className="flex space-x-4 pt-4">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition disabled:opacity-50"
+                >
+                  {loading ? "Saving..." : (editingEvent ? "Update Event" : "Add Event")}
+                </button>
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  className="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

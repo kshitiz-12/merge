@@ -1,207 +1,326 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaMinus, FaPlus, FaUser, FaEnvelope, FaPhone, FaMapPin } from "react-icons/fa";
 
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { event, quantity } = location.state || {};
-  const [tab, setTab] = useState("card");
-  const [card, setCard] = useState({ number: "", name: "", expiry: "", cvv: "" });
-  const [upi, setUpi] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { event, selectedTicket, quantity } = location.state || {};
+  const { user } = useAuth();
+  
+  const [ticketQuantities, setTicketQuantities] = useState({
+    general: 0,
+    vip: 0,
+    premium: 0
+  });
+  
+  const [customerInfo, setCustomerInfo] = useState({
+    fullName: user?.name || "",
+    email: user?.email || "",
+    phone: "",
+    city: ""
+  });
+  
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const { token } = useAuth();
 
-  if (!event || !quantity) {
+  const ticketTypes = [
+    {
+      id: "general",
+      name: "General Admission",
+      price: 1500,
+      description: "Standing area with great view of the stage"
+    },
+    {
+      id: "vip",
+      name: "VIP Seating",
+      price: 3000,
+      description: "Reserved seating with complimentary refreshments"
+    },
+    {
+      id: "premium",
+      name: "Premium Package",
+      price: 5000,
+      description: "Front row seats, meet & greet, and exclusive merchandise"
+    }
+  ];
+
+  if (!event) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-600">
-        <h2 className="text-2xl font-bold mb-4">No Payment Data</h2>
-        <button className="text-blue-600 hover:underline" onClick={() => navigate("/events")}>Back to Events</button>
+        <h2 className="text-2xl font-bold mb-4">No Event Data</h2>
+        <Link to="/events" className="text-blue-600 hover:underline">Back to Events</Link>
       </div>
     );
   }
 
-  const price = Number(String(event.price).replace(/[^0-9.]/g, ""));
-  const total = price * quantity;
+  const updateQuantity = (ticketId, change) => {
+    setTicketQuantities(prev => ({
+      ...prev,
+      [ticketId]: Math.max(0, prev[ticketId] + change)
+    }));
+  };
 
-  const handlePay = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    if (tab === "card") {
-      if (!card.number || !card.name || !card.expiry || !card.cvv) {
-        setError("Please fill in all card details.");
-        setLoading(false);
-        return;
-      }
-      if (!/^\d{16}$/.test(card.number.replace(/\s/g, ""))) {
-        setError("Card number must be 16 digits.");
-        setLoading(false);
-        return;
-      }
-      if (!/^\d{3,4}$/.test(card.cvv)) {
-        setError("CVV must be 3 or 4 digits.");
-        setLoading(false);
-        return;
-      }
+  const getTotalTickets = () => {
+    return Object.values(ticketQuantities).reduce((sum, qty) => sum + qty, 0);
+  };
+
+  const getTotalAmount = () => {
+    return ticketTypes.reduce((total, ticket) => {
+      return total + (ticket.price * ticketQuantities[ticket.id]);
+    }, 0);
+  };
+
+  const handleProceedToCheckout = () => {
+    if (getTotalTickets() === 0) {
+      setError("Please select at least one ticket.");
+      return;
     }
-    if (tab === "upi") {
-      if (!upi || !upi.includes("@")) {
-        setError("Please enter a valid UPI ID.");
-        setLoading(false);
-        return;
+    
+    if (!customerInfo.fullName || !customerInfo.email || !customerInfo.phone) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    // Navigate to actual payment page with all the data
+    navigate("/payment-confirmation", {
+      state: {
+        event,
+        ticketQuantities,
+        customerInfo,
+        totalAmount: getTotalAmount(),
+        totalTickets: getTotalTickets()
       }
-    }
-    try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({ eventId: event._id, quantity }),
-      });
-      setLoading(false);
-      setSuccess(true);
-      setTimeout(() => navigate("/bookings"), 1800);
-    } catch (err) {
-      setError("Failed to create booking.");
-      setLoading(false);
-      console.error(err);
-    }
+    });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 py-12 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full animate-fade-in-up">
-        <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">Complete Your Payment</h2>
-        <div className="flex items-center gap-4 mb-6 animate-fade-in">
-          <img src={event.image} alt={event.title} className="w-20 h-20 object-cover rounded-xl border" />
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900">{event.title}</h3>
-            <p className="text-gray-500 text-sm">Quantity: <span className="font-bold">{quantity}</span></p>
-          </div>
+    <section className="py-16 bg-gray-50 min-h-[60vh]">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Back Link */}
+        <div className="mb-8">
+          <Link to={`/events/${event._id}`} className="text-gray-600 hover:text-gray-800 transition">
+            ← Back to Event Details
+          </Link>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4 mb-6 animate-fade-in">
-          <div className="flex justify-between mb-2">
-            <span>Price per ticket</span>
-            <span>₹{price}</span>
-          </div>
-          <div className="flex justify-between mb-2">
-            <span>Quantity</span>
-            <span>{quantity}</span>
-          </div>
-          <div className="flex justify-between font-bold text-blue-700 text-lg">
-            <span>Total</span>
-            <span>₹{total}</span>
-          </div>
-        </div>
-        {/* Payment Tabs */}
-        <div className="flex justify-center mb-6 animate-fade-in">
-          <button
-            className={`px-4 py-2 rounded-t-lg font-semibold focus:outline-none transition border-b-2 ${tab === "card" ? "border-blue-600 text-blue-600" : "border-transparent text-gray-500"}`}
-            onClick={() => { setTab("card"); setError(""); }}
-          >
-            Card
-          </button>
-          <button
-            className={`px-4 py-2 rounded-t-lg font-semibold focus:outline-none transition border-b-2 ${tab === "upi" ? "border-blue-600 text-blue-600" : "border-transparent text-gray-500"}`}
-            onClick={() => { setTab("upi"); setError(""); }}
-          >
-            UPI / QR
-          </button>
-        </div>
-        {/* Card Payment Form */}
-        {tab === "card" && !success && (
-          <form onSubmit={handlePay} className="space-y-4 animate-slide-in">
-            <input
-              type="text"
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-200 transition"
-              placeholder="Card Number"
-              maxLength={16}
-              value={card.number}
-              onChange={e => setCard({ ...card, number: e.target.value.replace(/[^0-9]/g, "") })}
-              disabled={loading}
-            />
-            <input
-              type="text"
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-200 transition"
-              placeholder="Name on Card"
-              value={card.name}
-              onChange={e => setCard({ ...card, name: e.target.value })}
-              disabled={loading}
-            />
-            <div className="flex gap-2">
-              <input
-                type="text"
-                className="w-1/2 px-3 py-2 border rounded focus:ring-2 focus:ring-blue-200 transition"
-                placeholder="MM/YY"
-                maxLength={5}
-                value={card.expiry}
-                onChange={e => setCard({ ...card, expiry: e.target.value })}
-                disabled={loading}
-              />
-              <input
-                type="text"
-                className="w-1/2 px-3 py-2 border rounded focus:ring-2 focus:ring-blue-200 transition"
-                placeholder="CVV"
-                maxLength={4}
-                value={card.cvv}
-                onChange={e => setCard({ ...card, cvv: e.target.value.replace(/[^0-9]/g, "") })}
-                disabled={loading}
-              />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          
+          {/* Left Section - Book Tickets */}
+          <div className="space-y-8">
+            {/* Book Tickets Header */}
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-6">Book Tickets</h1>
+              
+              {/* Event Information Card */}
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <div className="flex items-center space-x-4">
+                  <img 
+                    src={`${import.meta.env.VITE_API_URL}${event.image}`} 
+                    alt={event.title} 
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{event.title}</h3>
+                    <div className="space-y-1 text-sm text-gray-600">
+                      <div className="flex items-center">
+                        <FaCalendarAlt className="w-4 h-4 mr-2" />
+                        <span>{new Date(event.date).toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FaClock className="w-4 h-4 mr-2" />
+                        <span>{event.time || "7:00 PM"}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <FaMapMarkerAlt className="w-4 h-4 mr-2" />
+                        <span>{event.venue}, {event.city || "Kathmandu"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {error && <div className="text-red-600 text-sm font-semibold">{error}</div>}
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 transition flex items-center justify-center"
-              disabled={loading}
-            >
-              {loading ? <span className="w-5 h-5 border-2 border-white border-t-blue-600 rounded-full animate-spin mr-2"></span> : null}
-              {loading ? "Processing..." : `Pay ₹${total}`}
-            </button>
-          </form>
-        )}
-        {/* UPI Payment Form */}
-        {tab === "upi" && !success && (
-          <form onSubmit={handlePay} className="space-y-4 animate-slide-in">
-            <input
-              type="text"
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-200 transition"
-              placeholder="Enter UPI ID"
-              value={upi}
-              onChange={e => setUpi(e.target.value)}
-              disabled={loading}
-            />
-            <div className="flex justify-center my-2">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=upi://pay?pa=showsewa@upi" alt="QR Code" className="rounded" />
+
+            {/* Select Tickets */}
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Select Tickets</h2>
+              
+              <div className="space-y-6">
+                {ticketTypes.map((ticket) => (
+                  <div key={ticket.id} className="border border-gray-200 rounded-lg p-6">
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">{ticket.name}</h3>
+                        <p className="text-gray-600 text-sm">{ticket.description}</p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-red-500 font-bold text-lg">Rs. {ticket.price.toLocaleString()}</div>
+                      </div>
+                    </div>
+                    
+                    {/* Quantity Selector */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">Quantity</span>
+                      <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => updateQuantity(ticket.id, -1)}
+                          className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition"
+                        >
+                          <FaMinus className="w-3 h-3" />
+                        </button>
+                        <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id]}</span>
+                        <button
+                          onClick={() => updateQuantity(ticket.id, 1)}
+                          className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition"
+                        >
+                          <FaPlus className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            {error && <div className="text-red-600 text-sm font-semibold">{error}</div>}
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 transition flex items-center justify-center"
-              disabled={loading}
-            >
-              {loading ? <span className="w-5 h-5 border-2 border-white border-t-blue-600 rounded-full animate-spin mr-2"></span> : null}
-              {loading ? "Processing..." : `Pay ₹${total}`}
-            </button>
-          </form>
-        )}
-        {/* Success Animation */}
-        {success && (
-          <div className="flex flex-col items-center justify-center animate-fade-in">
-            <svg className="w-20 h-20 text-green-500 mb-4 animate-bounce-in" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-              <path d="M8 12l2 2l4-4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <h3 className="text-xl font-bold text-green-600 mb-2">Payment Successful!</h3>
-            <p className="text-gray-600 mb-4">Redirecting to your bookings...</p>
+
+            {/* Customer Information */}
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Customer Information</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">Full Name *</label>
+                  <div className="relative">
+                    <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Enter your full name"
+                      value={customerInfo.fullName}
+                      onChange={(e) => setCustomerInfo({...customerInfo, fullName: e.target.value})}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">Email Address *</label>
+                  <div className="relative">
+                    <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={customerInfo.email}
+                      onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">Phone Number *</label>
+                  <div className="relative">
+                    <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="tel"
+                      placeholder="Enter your phone number"
+                      value={customerInfo.phone}
+                      onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">City</label>
+                  <div className="relative">
+                    <FaMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <select
+                      value={customerInfo.city}
+                      onChange={(e) => setCustomerInfo({...customerInfo, city: e.target.value})}
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    >
+                      <option value="">Select your city</option>
+                      <option value="Kathmandu">Kathmandu</option>
+                      <option value="Pokhara">Pokhara</option>
+                      <option value="Lalitpur">Lalitpur</option>
+                      <option value="Bhaktapur">Bhaktapur</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
+
+          {/* Right Section - Order Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl shadow-lg p-8 sticky top-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Order Summary</h2>
+              
+              {getTotalTickets() === 0 ? (
+                <div className="text-center text-gray-500 py-8">
+                  <p>Select tickets to see order summary</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {ticketTypes.map((ticket) => {
+                    if (ticketQuantities[ticket.id] > 0) {
+                      return (
+                        <div key={ticket.id} className="flex justify-between items-center">
+                          <div>
+                            <div className="font-medium text-gray-900">{ticket.name}</div>
+                            <div className="text-sm text-gray-500">Qty: {ticketQuantities[ticket.id]}</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-gray-900">
+                              Rs. {(ticket.price * ticketQuantities[ticket.id]).toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                  
+                  <div className="border-t pt-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-600">Total Tickets</span>
+                      <span className="font-medium">{getTotalTickets()}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-gray-900">Total Amount</span>
+                      <span className="text-2xl font-bold text-red-500">
+                        Rs. {getTotalAmount().toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <button
+                    onClick={handleProceedToCheckout}
+                    className="w-full bg-red-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-red-600 transition mt-6"
+                  >
+                    Proceed to Checkout
+                  </button>
+                  
+                  <div className="text-center text-gray-600 text-sm mt-4">
+                    Secure payment with eSewa & Khalti
+                  </div>
+                </div>
+              )}
+              
+              {error && (
+                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                  {error}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
