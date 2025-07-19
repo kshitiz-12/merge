@@ -6,7 +6,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-maroon': '#861313', // or sample from your logo
+        'brand-maroon': '#861313',
+        'brand-gold': '#FFD700',
+        'brand-cream': '#FFF8F0',
+        'brand-surface': '#FFFFFF',
+        'brand-dark': '#222222',
+        'brand-blush': '#F5D7DB',
+        'brand-border': '#E5E7EB',
       }
     }
   },

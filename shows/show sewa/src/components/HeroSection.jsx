@@ -8,33 +8,33 @@ import ReadyToBook from "./ReadyToBook";
 const HeroSection = () => {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-brand-maroon via-orange-500 to-yellow-400 overflow-hidden py-16 md:py-24">
+      <section className="relative bg-gradient-to-br from-brand-maroon via-brand-gold to-brand-cream overflow-hidden py-16 md:py-24">
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           {/* Text Content */}
           <div className="flex-1 mb-10 md:mb-0 md:mr-8">
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-brand-maroon leading-tight mb-4 drop-shadow-lg">
               Easy Ticket Booking
             </h1>
-            <div className="text-2xl md:text-3xl font-bold text-yellow-300 mb-2">
+            <div className="text-2xl md:text-3xl font-bold text-brand-gold mb-2">
               in
             </div>
-            <div className="text-2xl md:text-3xl font-bold text-yellow-300 mb-6">
+            <div className="text-2xl md:text-3xl font-bold text-brand-gold mb-6">
               Nepal
             </div>
-            <p className="text-lg md:text-xl text-white mb-8 max-w-xl">
+            <p className="text-lg md:text-xl text-brand-dark mb-8 max-w-xl">
               Book tickets to movies, concerts, and live events in Kathmandu and Pokhara with local payment options like eSewa and Khalti.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/events"
-                className="inline-flex items-center bg-white text-gray-800 border-2 border-gray-800 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-50 transition"
+                className="inline-flex items-center bg-brand-gold text-brand-maroon border-2 border-brand-maroon px-6 py-3 rounded-lg font-semibold shadow hover:bg-brand-cream hover:text-brand-maroon transition"
               >
                 Browse Events →
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
-              <button className="inline-flex items-center bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-50 transition">
+              <button className="inline-flex items-center bg-brand-maroon text-brand-gold px-6 py-3 rounded-lg font-semibold shadow hover:bg-brand-gold hover:text-brand-maroon border-2 border-brand-maroon transition">
                 Book Now
               </button>
             </div>
@@ -45,7 +45,7 @@ const HeroSection = () => {
             <img
               src="/images/dance.png"
               alt="Classical Dance Performance"
-              className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-lg"
+              className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-lg border-4 border-brand-gold"
             />
           </div>
         </div>

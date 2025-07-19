@@ -27,14 +27,14 @@ const Signup = () => {
   };
 
   return (
-    <section className="py-16 bg-blue-50 min-h-[60vh] flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Sign Up</h1>
+    <section className="py-16 bg-brand-cream min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-surface rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-gold">
+        <h1 className="text-3xl font-bold text-brand-maroon mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="name"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border border-brand-gold rounded focus:outline-none focus:ring-2 focus:ring-brand-gold"
             placeholder="Name"
             value={form.name}
             onChange={handleChange}
@@ -43,7 +43,7 @@ const Signup = () => {
           <input
             type="email"
             name="email"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border border-brand-gold rounded focus:outline-none focus:ring-2 focus:ring-brand-gold"
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
@@ -52,7 +52,7 @@ const Signup = () => {
           <input
             type="password"
             name="password"
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border border-brand-gold rounded focus:outline-none focus:ring-2 focus:ring-brand-gold"
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
@@ -61,7 +61,7 @@ const Signup = () => {
           />
           <button
             type="submit"
-            className="w-full bg-brand-maroon text-white px-6 py-2 rounded font-semibold"
+            className="w-full bg-brand-maroon text-brand-gold px-6 py-2 rounded font-semibold hover:bg-brand-gold hover:text-brand-maroon border-2 border-brand-maroon transition"
             disabled={loading}
           >
             {loading ? "Signing up..." : "Sign Up"}
@@ -70,7 +70,7 @@ const Signup = () => {
         </form>
         <div className="mt-4 text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-brand-gold hover:underline">
             Login
           </Link>
         </div>
