@@ -70,15 +70,15 @@ const FeaturedEvents = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-brand-bg">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Featured Events</h2>
-        <p className="text-gray-600 mb-8">Discover the hottest events happening in Nepal right now</p>
+        <h2 className="text-3xl font-bold text-brand-primary mb-2">Featured Events</h2>
+        <p className="text-brand-text mb-8">Discover the hottest events happening in Nepal right now</p>
         <div ref={sliderRef} className="keen-slider">
           {events.map((event) => (
             <div
               key={event._id}
-              className="keen-slider__slide bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              className="keen-slider__slide bg-brand-secondary rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               {/* Event Image with Tag */}
               <div className="relative">
@@ -88,23 +88,23 @@ const FeaturedEvents = () => {
                   className="w-full h-48 object-cover"
                 />
                 {/* Event Type Tag */}
-                <div className="absolute top-3 left-3 bg-brand-maroon text-white px-3 py-1 rounded text-sm font-semibold">
+                <div className="absolute top-3 left-3 bg-brand-primary text-brand-secondary px-3 py-1 rounded text-sm font-semibold">
                   {event.category || "Event"}
                 </div>
                 {/* Price Tag */}
-                <div className="absolute top-3 right-3 bg-white text-gray-800 px-2 py-1 rounded text-sm font-semibold">
+                <div className="absolute top-3 right-3 bg-brand-secondary text-brand-text px-2 py-1 rounded text-sm font-semibold">
                   {event.price}
                 </div>
               </div>
               
               {/* Event Details */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{event.title}</h3>
+                <h3 className="text-xl font-bold text-brand-text mb-4">{event.title}</h3>
                 
                 {/* Event Info */}
                 <div className="space-y-3 mb-4">
-                  <div className="flex items-center text-gray-600">
-                    <FaCalendarAlt className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-brand-text">
+                    <FaCalendarAlt className="w-4 h-4 mr-2 text-brand-primary" />
                     <span>{new Date(event.date).toLocaleDateString('en-US', { 
                       weekday: 'short', 
                       year: 'numeric', 
@@ -112,25 +112,25 @@ const FeaturedEvents = () => {
                       day: 'numeric' 
                     })}</span>
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <FaClock className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-brand-text">
+                    <FaClock className="w-4 h-4 mr-2 text-brand-primary" />
                     <span>{event.time || "7:00 PM"}</span>
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <FaMapMarkerAlt className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-brand-text">
+                    <FaMapMarkerAlt className="w-4 h-4 mr-2 text-brand-primary" />
                     <span>{event.venue}, {event.city || "Kathmandu"}</span>
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <FaUsers className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-brand-text">
+                    <FaUsers className="w-4 h-4 mr-2 text-brand-primary" />
                     <span>{event.attendees || "1,000"} attending</span>
                   </div>
                 </div>
                 
                 {/* Price and Book Button */}
                 <div className="flex items-center justify-between">
-                  <span className="text-brand-maroon font-bold text-lg">{event.price}</span>
+                  <span className="text-brand-primary font-bold text-lg">{event.price}</span>
                   <button
-                    className="bg-brand-maroon text-white px-6 py-2 rounded font-semibold hover:bg-brand-maroon transition"
+                    className="bg-brand-primary text-brand-secondary px-6 py-2 rounded font-semibold hover:bg-red-800 hover:text-brand-secondary transition duration-300"
                     onClick={() => navigate(`/events/${event._id}`)}
                   >
                     Book Now
@@ -145,7 +145,7 @@ const FeaturedEvents = () => {
         <div className="text-center mt-8">
           <button
             onClick={() => navigate('/events')}
-            className="inline-flex items-center bg-white text-gray-800 border-2 border-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition"
+            className="inline-flex items-center bg-brand-secondary text-brand-primary border-2 border-brand-primary px-6 py-3 rounded-lg font-semibold hover:bg-brand-primary hover:text-brand-secondary transition duration-300"
           >
             View All Events →
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

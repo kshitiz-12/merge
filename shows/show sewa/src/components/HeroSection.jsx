@@ -34,17 +34,15 @@ const HeroSection = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
-              <button className="inline-flex items-center bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-semibold shadow hover:bg-brand-secondary hover:text-brand-primary border-2 border-brand-primary transition">
-                Book Now
-              </button>
             </div>
           </div>
-          {/* Image */}
+          
+          {/* Logo Image */}
           <div className="flex-1 flex justify-center md:justify-end">
             <img
-              src="/images/dance.png"
-              alt="Classical Dance Performance"
-              className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-lg shadow-lg border-4 border-brand-secondary"
+              src="/images/logo.jpeg"
+              alt="ShowSewa Logo"
+              className="w-64 h-64 md:w-80 md:h-80 object-cover rounded-full shadow-lg border-4 border-brand-secondary"
             />
           </div>
         </div>

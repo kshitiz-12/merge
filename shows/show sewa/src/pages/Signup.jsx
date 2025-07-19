@@ -27,7 +27,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
+    <section className="py-16 bg-gradient-to-br from-brand-bg via-gray-100 to-brand-secondary min-h-[60vh] flex items-center justify-center">
       <div className="bg-brand-secondary rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-border">
         <h1 className="text-3xl font-bold text-brand-primary mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
