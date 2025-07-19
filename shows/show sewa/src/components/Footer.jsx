@@ -61,7 +61,7 @@ const Footer = () => (
         </div>
       </div>
       {/* Copyright */}
-      <div className="border-t border-red-700 pt-6 text-center">
+      <div className="border-t border-brand-primary pt-6 text-center">
         <p className="text-brand-secondary text-sm">
           © 2024 Showsewa. All rights reserved. | Made with ❤️ in Nepal
         </p>

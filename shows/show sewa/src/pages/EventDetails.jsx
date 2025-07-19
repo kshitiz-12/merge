@@ -188,7 +188,7 @@ const EventDetails = () => {
               <p className="text-gray-600 mb-6">Secure your spot for this amazing event</p>
               <button
                 className="bg-brand-primary text-brand-secondary px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition duration-300 shadow-lg"
-                onClick={() => navigate('/payment', { state: { event } })}
+                onClick={handleBook}
               >
                 Book Now
               </button>

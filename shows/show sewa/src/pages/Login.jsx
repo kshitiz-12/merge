@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,12 @@ const Login = () => {
     setLoading(true);
     try {
       await login(form.email, form.password);
-      navigate("/");
+      // Redirect to the original page if coming from payment, otherwise go to home
+      if (location.state?.from) {
+        navigate(location.state.from, { state: location.state.event });
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError(err.message);
     }

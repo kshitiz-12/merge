@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaMinus, FaPlus, FaUser, FaEnvelope, FaPhone, FaMapPin } from "react-icons/fa";
@@ -7,7 +7,15 @@ const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { event, selectedTicket, quantity } = location.state || {};
-  const { user } = useAuth();
+  const { user, token } = useAuth();
+  
+  // Check if user is logged in
+  useEffect(() => {
+    if (!token) {
+      navigate('/login', { state: { from: location.pathname, event } });
+      return;
+    }
+  }, [token, navigate, location.pathname, event]);
   
   const [ticketQuantities, setTicketQuantities] = useState({
     general: 0,
@@ -49,7 +57,17 @@ const Payment = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-600">
         <h2 className="text-2xl font-bold mb-4">No Event Data</h2>
-        <Link to="/events" className="text-blue-600 hover:underline">Back to Events</Link>
+        <Link to="/events" className="text-brand-primary hover:underline">Back to Events</Link>
+      </div>
+    );
+  }
+
+  // Show loading if not authenticated
+  if (!token) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-600">
+        <h2 className="text-2xl font-bold mb-4">Please log in to continue</h2>
+        <p>Redirecting to login page...</p>
       </div>
     );
   }
@@ -159,7 +177,7 @@ const Payment = () => {
                         <p className="text-gray-600 text-sm">{ticket.description}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-brand-maroon font-bold text-lg">Rs. {ticket.price.toLocaleString()}</div>
+                        <div className="text-brand-primary font-bold text-lg">Rs. {ticket.price.toLocaleString()}</div>
                       </div>
                     </div>
                     
@@ -176,7 +194,7 @@ const Payment = () => {
                         <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id]}</span>
                         <button
                           onClick={() => updateQuantity(ticket.id, 1)}
-                          className="w-8 h-8 bg-brand-maroon text-white rounded-full flex items-center justify-center hover:bg-brand-maroon transition"
+                          className="w-8 h-8 bg-brand-primary text-white rounded-full flex items-center justify-center hover:bg-red-800 transition"
                         >
                           <FaPlus className="w-3 h-3" />
                         </button>
@@ -201,7 +219,7 @@ const Payment = () => {
                       placeholder="Enter your full name"
                       value={customerInfo.fullName}
                       onChange={(e) => setCustomerInfo({...customerInfo, fullName: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -215,7 +233,7 @@ const Payment = () => {
                       placeholder="Enter your email"
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -229,7 +247,7 @@ const Payment = () => {
                       placeholder="Enter your phone number"
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -241,7 +259,7 @@ const Payment = () => {
                     <select
                       value={customerInfo.city}
                       onChange={(e) => setCustomerInfo({...customerInfo, city: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                     >
                       <option value="">Select your city</option>
                       <option value="Kathmandu">Kathmandu</option>
@@ -292,7 +310,7 @@ const Payment = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-bold text-gray-900">Total Amount</span>
-                      <span className="text-2xl font-bold text-brand-maroon">
+                      <span className="text-2xl font-bold text-brand-primary">
                         Rs. {getTotalAmount().toLocaleString()}
                       </span>
                     </div>
@@ -300,7 +318,7 @@ const Payment = () => {
                   
                   <button
                     onClick={handleProceedToCheckout}
-                    className="w-full bg-brand-maroon text-white py-4 rounded-lg font-bold text-lg hover:bg-brand-maroon transition mt-6"
+                    className="w-full bg-brand-primary text-white py-4 rounded-lg font-bold text-lg hover:bg-red-800 transition mt-6"
                   >
                     Proceed to Checkout
                   </button>
@@ -312,7 +330,7 @@ const Payment = () => {
               )}
               
               {error && (
-                <div className="mt-4 p-4 bg-brand-maroon/10 border border-brand-maroon text-brand-maroon rounded-lg">
+                <div className="mt-4 p-4 bg-brand-primary/10 border border-brand-primary text-brand-primary rounded-lg">
                   {error}
                 </div>
               )}

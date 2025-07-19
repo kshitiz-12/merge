@@ -195,26 +195,26 @@ const Admin = () => {
     {
       title: "Total Events",
       value: events.length,
-      icon: <FaCalendarAlt className="text-2xl text-blue-500" />,
-      color: "bg-blue-50"
+      icon: <FaCalendarAlt className="text-2xl text-brand-primary" />,
+      color: "bg-brand-primary/10"
     },
     {
       title: "Total Bookings",
       value: "1,234",
-      icon: <FaTicketAlt className="text-2xl text-green-500" />,
-      color: "bg-green-50"
+      icon: <FaTicketAlt className="text-2xl text-brand-primary" />,
+      color: "bg-brand-primary/10"
     },
     {
       title: "Active Users",
       value: "5,678",
-      icon: <FaUsers className="text-2xl text-purple-500" />,
-      color: "bg-purple-50"
+      icon: <FaUsers className="text-2xl text-brand-primary" />,
+      color: "bg-brand-primary/10"
     },
     {
       title: "Revenue",
       value: "Rs. 2.5M",
-      icon: <FaChartLine className="text-2xl text-orange-500" />,
-      color: "bg-orange-50"
+      icon: <FaChartLine className="text-2xl text-brand-primary" />,
+      color: "bg-brand-primary/10"
     }
   ];
 
@@ -222,7 +222,7 @@ const Admin = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
-        <div className="flex items-center justify-center h-16 bg-brand-maroon text-white">
+        <div className="flex items-center justify-center h-16 bg-brand-primary text-brand-secondary">
           <h1 className="text-xl font-bold">
             Show<span className="font-devanagari">सेवा</span> Admin
           </h1>
@@ -233,7 +233,7 @@ const Admin = () => {
             <button
               onClick={() => setActiveTab("dashboard")}
               className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
-                activeTab === "dashboard" ? "bg-brand-maroon/10 text-brand-maroon" : "text-gray-600 hover:bg-gray-100"
+                activeTab === "dashboard" ? "bg-brand-primary/10 text-brand-primary" : "text-gray-600 hover:bg-gray-100"
               }`}
             >
               <FaHome className="mr-3" />
@@ -242,7 +242,7 @@ const Admin = () => {
             <button
               onClick={() => setActiveTab("events")}
               className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
-                activeTab === "events" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+                activeTab === "events" ? "bg-brand-primary/10 text-brand-primary" : "text-gray-600 hover:bg-gray-100"
               }`}
             >
               <FaList className="mr-3" />
@@ -251,7 +251,7 @@ const Admin = () => {
             <button
               onClick={() => setActiveTab("settings")}
               className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
-                activeTab === "settings" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+                activeTab === "settings" ? "bg-brand-primary/10 text-brand-primary" : "text-gray-600 hover:bg-gray-100"
               }`}
             >
               <FaCog className="mr-3" />
@@ -273,7 +273,7 @@ const Admin = () => {
           {activeTab === "events" && (
             <button
               onClick={() => setShowModal(true)}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-red-700 transition"
+              className="bg-brand-primary text-brand-secondary px-4 py-2 rounded-lg flex items-center hover:bg-red-800 transition"
             >
               <FaPlus className="mr-2" />
               Add Event
@@ -359,7 +359,7 @@ const Admin = () => {
                     <div className="flex space-x-2">
                       <button
                         onClick={() => handleEdit(event)}
-                        className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition flex items-center justify-center"
+                        className="flex-1 bg-brand-primary text-brand-secondary px-3 py-2 rounded text-sm hover:bg-red-800 transition flex items-center justify-center"
                       >
                         <FaEdit className="mr-1" />
                         Edit
@@ -392,13 +392,13 @@ const Admin = () => {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <h4 className="font-medium text-gray-900 mb-2">Quick Actions</h4>
                 <div className="space-y-2">
-                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                  <button className="w-full text-left text-sm text-brand-primary hover:text-red-800">
                     Export Events Data
                   </button>
-                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                  <button className="w-full text-left text-sm text-brand-primary hover:text-red-800">
                     Backup Database
                   </button>
-                  <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700">
+                  <button className="w-full text-left text-sm text-brand-primary hover:text-red-800">
                     System Maintenance
                   </button>
                 </div>
@@ -432,7 +432,7 @@ const Admin = () => {
                   placeholder="Event Title"
                   value={form.title}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                   required
                 />
                 <input
@@ -440,7 +440,7 @@ const Admin = () => {
                   name="date"
                   value={form.date}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                   required
                 />
                 <input
@@ -448,7 +448,7 @@ const Admin = () => {
                   name="time"
                   value={form.time}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 />
                 <input
                   type="text"
@@ -456,7 +456,7 @@ const Admin = () => {
                   placeholder="Venue"
                   value={form.venue}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                   required
                 />
                 <input
@@ -465,7 +465,7 @@ const Admin = () => {
                   placeholder="City"
                   value={form.city}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 />
                 <input
                   type="number"
@@ -473,14 +473,14 @@ const Admin = () => {
                   placeholder="Price"
                   value={form.price}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                   required
                 />
                 <select
                   name="category"
                   value={form.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 >
                   <option value="">Select Category</option>
                   <option value="Concert">Concert</option>
@@ -497,7 +497,7 @@ const Admin = () => {
                 value={form.description}
                 onChange={handleChange}
                 rows="4"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 required
               />
               <textarea
@@ -506,7 +506,7 @@ const Admin = () => {
                 value={form.richDescription}
                 onChange={handleChange}
                 rows="8"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
               />
               <div className="bg-gray-50 rounded p-4 mt-2">
                 <div className="font-semibold mb-1 text-gray-700">Preview:</div>
@@ -519,7 +519,7 @@ const Admin = () => {
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 />
                 <input
                   type="text"
@@ -527,7 +527,7 @@ const Admin = () => {
                   placeholder="Or enter image URL"
                   value={form.image}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 />
               </div>
               
@@ -535,7 +535,7 @@ const Admin = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition disabled:opacity-50"
+                  className="flex-1 bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-semibold hover:bg-red-800 transition disabled:opacity-50"
                 >
                   {loading ? "Saving..." : (editingEvent ? "Update Event" : "Add Event")}
                 </button>

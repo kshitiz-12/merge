@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const Signup = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const location = useLocation();
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -17,9 +18,21 @@ const Signup = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
+    
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+    
     try {
       await register(form.name, form.email, form.password);
-      navigate("/login");
+      // Redirect to the original page if coming from payment, otherwise go to home
+      if (location.state?.from) {
+        navigate(location.state.from, { state: location.state.event });
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError(err.message);
     }
@@ -57,7 +70,17 @@ const Signup = () => {
             value={form.password}
             onChange={handleChange}
             required
-            autoComplete="current-password"
+            autoComplete="new-password"
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            className="w-full px-4 py-2 border border-brand-border rounded focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text"
+            placeholder="Confirm Password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            required
+            autoComplete="new-password"
           />
           <button
             type="submit"
