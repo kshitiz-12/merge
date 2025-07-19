@@ -84,7 +84,7 @@ const EventDetails = () => {
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="flex items-center">
-                <FaCalendarAlt className="w-6 h-6 mr-3 text-red-500" />
+                <FaCalendarAlt className="w-6 h-6 mr-3 text-brand-maroon" />
                 <div>
                   <div className="font-semibold text-gray-900">Date</div>
                   <div className="text-gray-600">{new Date(event.date).toLocaleDateString('en-US', { 
@@ -193,7 +193,7 @@ const EventDetails = () => {
                     key={ticket.id}
                     className={`border-2 rounded-lg p-4 cursor-pointer transition text-sm md:text-base ${
                       selectedTicket === ticket.id
-                        ? 'border-red-500 bg-red-50'
+                        ? 'border-brand-maroon bg-brand-maroon/10'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setSelectedTicket(ticket.id)}
@@ -201,7 +201,7 @@ const EventDetails = () => {
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
                       <h3 className="font-semibold text-gray-900 mb-1 sm:mb-0">{ticket.name}</h3>
                       <div className="text-right">
-                        <div className="text-red-500 font-bold text-lg">{ticket.price}</div>
+                        <div className="text-brand-maroon font-bold text-lg">{ticket.price}</div>
                         <div className="text-gray-400 text-xs line-through">{ticket.originalPrice}</div>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ const EventDetails = () => {
 
               {/* Book Now Button */}
               <button
-                className="w-full mt-6 bg-red-500 text-white py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-red-600 transition shadow-lg"
+                className="w-full mt-6 bg-brand-maroon text-white py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-brand-maroon transition shadow-lg"
                 onClick={handleBook}
               >
                 Book Now
@@ -224,7 +224,7 @@ const EventDetails = () => {
               </div>
 
               {error && (
-                <div className="mt-4 text-red-600 text-center font-semibold">{error}</div>
+                <div className="mt-4 text-brand-maroon text-center font-semibold">{error}</div>
               )}
             </div>
           </div>

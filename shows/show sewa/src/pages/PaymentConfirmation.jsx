@@ -105,7 +105,7 @@ const PaymentConfirmation = () => {
         <div className="bg-gray-50 rounded-lg p-4 mb-6 animate-fade-in">
           <div className="flex justify-between mb-2">
             <span>Total Amount</span>
-            <span className="font-bold text-red-600">Rs. {totalAmount.toLocaleString()}</span>
+            <span className="font-bold text-brand-maroon">Rs. {totalAmount.toLocaleString()}</span>
           </div>
           <div className="text-sm text-gray-500">
             Secure payment with eSewa & Khalti

@@ -4,7 +4,11 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'brand-maroon': '#861313', // or sample from your logo
+      }
+    }
   },
   plugins: [],
 }

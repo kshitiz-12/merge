@@ -26,7 +26,9 @@ const Navbar = () => {
                 alt="ShowSewa Logo"
                 className="h-8 w-8 rounded-full mr-2"
               />
-              <span className="font-bold text-xl text-gray-800">Showsewa</span>
+              <span className="font-bold text-xl text-brand-maroon">
+                Show<span className="font-devanagari">सेवा</span>
+              </span>
             </Link>
           </div>
           
@@ -72,7 +74,7 @@ const Navbar = () => {
                 <span className="text-gray-700 font-semibold">{user.name || user.email}</span>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition font-semibold"
+                  className="bg-brand-maroon text-white px-4 py-2 rounded hover:bg-brand-maroon transition font-semibold"
                 >
                   Logout
                 </button>
@@ -143,7 +145,7 @@ const Navbar = () => {
                 <span className="block mt-2 text-gray-700 font-semibold text-center">{user.name || user.email}</span>
                 <button
                   onClick={() => { setMenuOpen(false); handleLogout(); }}
-                  className="block mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition font-semibold text-center"
+                  className="block mt-2 bg-brand-maroon text-white px-4 py-2 rounded hover:bg-brand-maroon transition font-semibold text-center"
                 >
                   Logout
                 </button>

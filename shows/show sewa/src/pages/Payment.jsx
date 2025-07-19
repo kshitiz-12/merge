@@ -159,7 +159,7 @@ const Payment = () => {
                         <p className="text-gray-600 text-sm">{ticket.description}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-red-500 font-bold text-lg">Rs. {ticket.price.toLocaleString()}</div>
+                        <div className="text-brand-maroon font-bold text-lg">Rs. {ticket.price.toLocaleString()}</div>
                       </div>
                     </div>
                     
@@ -176,7 +176,7 @@ const Payment = () => {
                         <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id]}</span>
                         <button
                           onClick={() => updateQuantity(ticket.id, 1)}
-                          className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition"
+                          className="w-8 h-8 bg-brand-maroon text-white rounded-full flex items-center justify-center hover:bg-brand-maroon transition"
                         >
                           <FaPlus className="w-3 h-3" />
                         </button>
@@ -201,7 +201,7 @@ const Payment = () => {
                       placeholder="Enter your full name"
                       value={customerInfo.fullName}
                       onChange={(e) => setCustomerInfo({...customerInfo, fullName: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -215,7 +215,7 @@ const Payment = () => {
                       placeholder="Enter your email"
                       value={customerInfo.email}
                       onChange={(e) => setCustomerInfo({...customerInfo, email: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -229,7 +229,7 @@ const Payment = () => {
                       placeholder="Enter your phone number"
                       value={customerInfo.phone}
                       onChange={(e) => setCustomerInfo({...customerInfo, phone: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -241,7 +241,7 @@ const Payment = () => {
                     <select
                       value={customerInfo.city}
                       onChange={(e) => setCustomerInfo({...customerInfo, city: e.target.value})}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                     >
                       <option value="">Select your city</option>
                       <option value="Kathmandu">Kathmandu</option>
@@ -292,7 +292,7 @@ const Payment = () => {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-bold text-gray-900">Total Amount</span>
-                      <span className="text-2xl font-bold text-red-500">
+                      <span className="text-2xl font-bold text-brand-maroon">
                         Rs. {getTotalAmount().toLocaleString()}
                       </span>
                     </div>
@@ -300,7 +300,7 @@ const Payment = () => {
                   
                   <button
                     onClick={handleProceedToCheckout}
-                    className="w-full bg-red-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-red-600 transition mt-6"
+                    className="w-full bg-brand-maroon text-white py-4 rounded-lg font-bold text-lg hover:bg-brand-maroon transition mt-6"
                   >
                     Proceed to Checkout
                   </button>
@@ -312,7 +312,7 @@ const Payment = () => {
               )}
               
               {error && (
-                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <div className="mt-4 p-4 bg-brand-maroon/10 border border-brand-maroon text-brand-maroon rounded-lg">
                   {error}
                 </div>
               )}

@@ -12,9 +12,8 @@ const Footer = () => (
             <div className="bg-orange-500 w-8 h-8 rounded mr-2 flex items-center justify-center">
               <span className="text-white font-bold text-sm">S</span>
             </div>
-            <span className="font-bold text-xl">
-              <span className="text-orange-500">Show</span>
-              <span className="text-green-500">sewa</span>
+            <span className="font-bold text-xl text-brand-maroon">
+              Show<span className="font-devanagari">सेवा</span>
             </span>
           </div>
           <p className="text-gray-300 text-sm leading-relaxed">

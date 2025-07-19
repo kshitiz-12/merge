@@ -66,7 +66,7 @@ const FeaturedEvents = () => {
   }, [events]);
 
   if (error) {
-    return <div className="py-16 text-center text-red-600">{error}</div>;
+    return <div className="py-16 text-center text-brand-maroon">{error}</div>;
   }
 
   return (
@@ -88,7 +88,7 @@ const FeaturedEvents = () => {
                   className="w-full h-48 object-cover"
                 />
                 {/* Event Type Tag */}
-                <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded text-sm font-semibold">
+                <div className="absolute top-3 left-3 bg-brand-maroon text-white px-3 py-1 rounded text-sm font-semibold">
                   {event.category || "Event"}
                 </div>
                 {/* Price Tag */}
@@ -128,9 +128,9 @@ const FeaturedEvents = () => {
                 
                 {/* Price and Book Button */}
                 <div className="flex items-center justify-between">
-                  <span className="text-red-500 font-bold text-lg">{event.price}</span>
+                  <span className="text-brand-maroon font-bold text-lg">{event.price}</span>
                   <button
-                    className="bg-red-500 text-white px-6 py-2 rounded font-semibold hover:bg-red-600 transition"
+                    className="bg-brand-maroon text-white px-6 py-2 rounded font-semibold hover:bg-brand-maroon transition"
                     onClick={() => navigate(`/events/${event._id}`)}
                   >
                     Book Now

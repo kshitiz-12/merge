@@ -8,7 +8,7 @@ import ReadyToBook from "./ReadyToBook";
 const HeroSection = () => {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-red-600 via-orange-500 to-yellow-400 overflow-hidden py-16 md:py-24">
+      <section className="relative bg-gradient-to-br from-brand-maroon via-orange-500 to-yellow-400 overflow-hidden py-16 md:py-24">
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
           {/* Text Content */}
           <div className="flex-1 mb-10 md:mb-0 md:mr-8">

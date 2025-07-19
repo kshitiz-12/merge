@@ -67,7 +67,7 @@ const Bookings = () => {
             </div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">No bookings yet</h3>
             <p className="text-gray-500 mb-6">Start exploring events and book your tickets!</p>
-            <Link to="/events" className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition">
+            <Link to="/events" className="bg-brand-maroon text-white px-6 py-3 rounded-lg hover:bg-brand-maroon transition">
               Browse Events
             </Link>
           </div>
@@ -111,7 +111,7 @@ const Bookings = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-red-600">Rs. {booking.totalAmount?.toLocaleString()}</div>
+                        <div className="text-2xl font-bold text-brand-maroon">Rs. {booking.totalAmount?.toLocaleString()}</div>
                         <div className="text-sm text-gray-500">Total Amount</div>
                       </div>
                     </div>

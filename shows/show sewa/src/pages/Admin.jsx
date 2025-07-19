@@ -222,8 +222,10 @@ const Admin = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
-        <div className="flex items-center justify-center h-16 bg-red-600 text-white">
-          <h1 className="text-xl font-bold">Admin Dashboard</h1>
+        <div className="flex items-center justify-center h-16 bg-brand-maroon text-white">
+          <h1 className="text-xl font-bold">
+            Show<span className="font-devanagari">सेवा</span> Admin
+          </h1>
         </div>
         
         <nav className="mt-8">
@@ -231,7 +233,7 @@ const Admin = () => {
             <button
               onClick={() => setActiveTab("dashboard")}
               className={`w-full flex items-center px-4 py-3 rounded-lg transition ${
-                activeTab === "dashboard" ? "bg-red-100 text-red-600" : "text-gray-600 hover:bg-gray-100"
+                activeTab === "dashboard" ? "bg-brand-maroon/10 text-brand-maroon" : "text-gray-600 hover:bg-gray-100"
               }`}
             >
               <FaHome className="mr-3" />
@@ -326,7 +328,7 @@ const Admin = () => {
         {activeTab === "events" && (
           <div className="space-y-6">
             {message && (
-              <div className={`p-4 rounded-lg ${message.includes("success") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+              <div className={`p-4 rounded-lg ${message.includes("success") ? "bg-green-100 text-green-700" : "bg-brand-maroon/10 text-brand-maroon"}`}>
                 {message}
               </div>
             )}
@@ -430,7 +432,7 @@ const Admin = () => {
                   placeholder="Event Title"
                   value={form.title}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                   required
                 />
                 <input
@@ -438,7 +440,7 @@ const Admin = () => {
                   name="date"
                   value={form.date}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                   required
                 />
                 <input
@@ -446,7 +448,7 @@ const Admin = () => {
                   name="time"
                   value={form.time}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 />
                 <input
                   type="text"
@@ -454,7 +456,7 @@ const Admin = () => {
                   placeholder="Venue"
                   value={form.venue}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                   required
                 />
                 <input
@@ -463,7 +465,7 @@ const Admin = () => {
                   placeholder="City"
                   value={form.city}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 />
                 <input
                   type="number"
@@ -471,14 +473,14 @@ const Admin = () => {
                   placeholder="Price"
                   value={form.price}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                   required
                 />
                 <select
                   name="category"
                   value={form.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 >
                   <option value="">Select Category</option>
                   <option value="Concert">Concert</option>
@@ -495,7 +497,7 @@ const Admin = () => {
                 value={form.description}
                 onChange={handleChange}
                 rows="4"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 required
               />
               <textarea
@@ -504,7 +506,7 @@ const Admin = () => {
                 value={form.richDescription}
                 onChange={handleChange}
                 rows="8"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
               />
               <div className="bg-gray-50 rounded p-4 mt-2">
                 <div className="font-semibold mb-1 text-gray-700">Preview:</div>
@@ -517,7 +519,7 @@ const Admin = () => {
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 />
                 <input
                   type="text"
@@ -525,7 +527,7 @@ const Admin = () => {
                   placeholder="Or enter image URL"
                   value={form.image}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-maroon focus:border-transparent"
                 />
               </div>
               

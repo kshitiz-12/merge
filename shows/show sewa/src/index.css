@@ -21,3 +21,10 @@ button:hover, .btn:hover, .bg-purple-600:hover, .bg-blue-600:hover, .bg-red-600:
   box-shadow: 0 4px 16px 0 rgba(80, 0, 120, 0.10);
   filter: brightness(1.05);
 } 
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@700&display=swap');
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', 'Mangal', 'Kokila', serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+} 

@@ -204,7 +204,7 @@ const Auth = () => {
                 ? "SIGN IN AS ADMIN"
                 : "SIGN IN AS USER"}
             </button>
-            {error && <div className="text-red-600 font-semibold text-center text-xs md:text-base">{error}</div>}
+            {error && <div className="text-brand-maroon font-semibold text-center text-xs md:text-base">{error}</div>}
           </form>
         </div>
         {/* Signup Form Section (Right) */}
@@ -295,7 +295,7 @@ const Auth = () => {
                 : "Sign Up"}
             </button>
             {signupError && (
-              <div className="text-red-600 font-semibold text-center">
+              <div className="text-brand-maroon font-semibold text-center">
                 {signupError}
               </div>
             )}

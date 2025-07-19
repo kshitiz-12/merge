@@ -61,12 +61,12 @@ const Signup = () => {
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white px-6 py-2 rounded font-semibold"
+            className="w-full bg-brand-maroon text-white px-6 py-2 rounded font-semibold"
             disabled={loading}
           >
             {loading ? "Signing up..." : "Sign Up"}
           </button>
-          {error && <div className="text-red-600 font-semibold">{error}</div>}
+          {error && <div className="text-brand-maroon font-semibold">{error}</div>}
         </form>
         <div className="mt-4 text-center">
           Already have an account?{" "}
