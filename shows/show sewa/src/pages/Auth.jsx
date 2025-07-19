@@ -111,7 +111,8 @@ const Auth = () => {
     setSignupError("");
     setSignupLoading(true);
     try {
-      const res = await fetch("/api/auth/verify-signup-otp", {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${apiUrl}/api/auth/verify-signup-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: signupForm.email, otp: signupOtp }),
