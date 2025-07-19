@@ -84,6 +84,9 @@ const Admin = () => {
         const apiUrl = import.meta.env.VITE_API_URL;
         const res = await fetch(`${apiUrl}/api/upload`, {
           method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
           body: data,
         });
         const img = await res.json();
@@ -96,12 +99,16 @@ const Admin = () => {
       
       const eventRes = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({ ...form, image: imageUrl }),
       });
 
       if (!eventRes.ok) {
-        setMessage("Failed to save event.");
+        const errorData = await eventRes.json();
+        setMessage(`Failed to save event: ${errorData.error || 'Unknown error'}`);
         setLoading(false);
         return;
       }
@@ -162,13 +169,17 @@ const Admin = () => {
         const apiUrl = import.meta.env.VITE_API_URL;
         const res = await fetch(`${apiUrl}/api/events/${eventId}`, {
           method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
         });
         
         if (res.ok) {
           setEvents(events.filter(e => e._id !== eventId));
           setMessage("Event deleted successfully!");
         } else {
-          setMessage("Failed to delete event.");
+          const errorData = await res.json();
+          setMessage(`Failed to delete event: ${errorData.error || 'Unknown error'}`);
         }
       } catch (err) {
         setMessage("Error deleting event.");

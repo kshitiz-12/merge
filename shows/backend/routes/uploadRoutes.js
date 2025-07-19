@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const uploadController = require('../controllers/uploadcontroller');
+const { adminAuth } = require('../middleware/auth');
 
 // Set up multer storage
 const storage = multer.diskStorage({
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// POST /api/upload
-router.post('/', upload.single('image'), uploadController.uploadImage);
+// POST /api/upload (admin only)
+router.post('/', adminAuth, upload.single('image'), uploadController.uploadImage);
 
 module.exports = router;
