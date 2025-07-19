@@ -84,7 +84,7 @@ const EventDetails = () => {
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="flex items-center">
-                <FaCalendarAlt className="w-6 h-6 mr-3 text-brand-maroon" />
+                <FaCalendarAlt className="w-6 h-6 mr-3 text-black" />
                 <div>
                   <div className="font-semibold text-gray-900">Date</div>
                   <div className="text-gray-600">{new Date(event.date).toLocaleDateString('en-US', { 
@@ -96,21 +96,21 @@ const EventDetails = () => {
                 </div>
               </div>
               <div className="flex items-center">
-                <FaClock className="w-6 h-6 mr-3 text-red-500" />
+                <FaClock className="w-6 h-6 mr-3 text-black" />
                 <div>
                   <div className="font-semibold text-gray-900">Time</div>
                   <div className="text-gray-600">{event.time || "7:00 PM"}</div>
                 </div>
               </div>
               <div className="flex items-center">
-                <FaMapMarkerAlt className="w-6 h-6 mr-3 text-red-500" />
+                <FaMapMarkerAlt className="w-6 h-6 mr-3 text-black" />
                 <div>
                   <div className="font-semibold text-gray-900">Venue</div>
                   <div className="text-gray-600">{event.venue}, {event.city || "Kathmandu"}</div>
                 </div>
               </div>
               <div className="flex items-center">
-                <FaUsers className="w-6 h-6 mr-3 text-red-500" />
+                <FaUsers className="w-6 h-6 mr-3 text-black" />
                 <div>
                   <div className="font-semibold text-gray-900">Attendees</div>
                   <div className="text-gray-600">{event.attendees || "5,000"} going</div>
@@ -182,51 +182,7 @@ const EventDetails = () => {
               )}
             </div>
 
-            {/* Book Tickets Section */}
-            <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Book Tickets</h2>
-              
-              {/* Ticket Types */}
-              <div className="space-y-4 md:space-y-6">
-                {ticketTypes.map((ticket) => (
-                  <div
-                    key={ticket.id}
-                    className={`border-2 rounded-lg p-4 cursor-pointer transition text-sm md:text-base ${
-                      selectedTicket === ticket.id
-                        ? 'border-brand-maroon bg-brand-maroon/10'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                    onClick={() => setSelectedTicket(ticket.id)}
-                  >
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
-                      <h3 className="font-semibold text-gray-900 mb-1 sm:mb-0">{ticket.name}</h3>
-                      <div className="text-right">
-                        <div className="text-brand-maroon font-bold text-lg">{ticket.price}</div>
-                        <div className="text-gray-400 text-xs line-through">{ticket.originalPrice}</div>
-                      </div>
-                    </div>
-                    <div className="text-gray-600 text-xs md:text-sm">{ticket.description}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Book Now Button */}
-              <button
-                className="w-full mt-6 bg-brand-maroon text-white py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-brand-maroon transition shadow-lg"
-                onClick={handleBook}
-              >
-                Book Now
-              </button>
-
-              {/* Payment Options */}
-              <div className="text-center text-gray-600 text-sm">
-                Secure booking with eSewa & Khalti
-              </div>
-
-              {error && (
-                <div className="mt-4 text-brand-maroon text-center font-semibold">{error}</div>
-              )}
-            </div>
+            {/* Remove the entire Book Tickets Section */}
           </div>
 
           {/* Right Sidebar - Quick Info */}
