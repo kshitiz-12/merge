@@ -191,7 +191,7 @@ const Events = () => {
                     to={`/events/${event._id}`}
                     className="bg-brand-primary text-white px-6 py-2 rounded font-semibold hover:bg-red-800 transition"
                   >
-                    View Details
+                    <TranslatedText>View Details</TranslatedText>
                   </Link>
                 </div>
               </div>
