@@ -10,4 +10,14 @@
 }
 .animate-fade-in {
   animation: fade-in 0.8s forwards;
+}
+
+/* Add global button hover effect */
+button, .btn, .bg-purple-600, .bg-blue-600, .bg-red-600, .bg-orange-500, .bg-green-600 {
+  transition: all 0.15s cubic-bezier(0.4,0,0.2,1);
+}
+button:hover, .btn:hover, .bg-purple-600:hover, .bg-blue-600:hover, .bg-red-600:hover, .bg-orange-500:hover, .bg-green-600:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px 0 rgba(80, 0, 120, 0.10);
+  filter: brightness(1.05);
 } 

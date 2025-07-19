@@ -12,6 +12,7 @@ const eventSchema = new mongoose.Schema({
   image: String, // URL or path to image
   attendees: { type: String, default: "1,000" },
   rating: { type: String, default: "4.8" },
+  richDescription: { type: String, default: "" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

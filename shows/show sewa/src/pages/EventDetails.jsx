@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaStar, FaShare, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUsers, FaClock as FaDuration, FaUsers as FaAgeLimit, FaLanguage } from "react-icons/fa";
+import ReactMarkdown from 'react-markdown';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -71,8 +72,8 @@ const EventDetails = () => {
   const selectedTicketData = ticketTypes.find(t => t.id === selectedTicket);
 
   return (
-    <section className="py-16 bg-gray-50 min-h-[60vh]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-8 md:py-16 bg-gray-50 min-h-[60vh]">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4">
         {/* Event Overview Section */}
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">
@@ -119,119 +120,99 @@ const EventDetails = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12">
           
           {/* Main Content - About This Event */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 md:space-y-8">
             {/* About This Event Section */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">About This Event</h2>
+            <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">About This Event</h2>
               
-              <div className="space-y-6">
-                <p className="text-gray-700 leading-relaxed">
-                  Join us for the most spectacular Nepali music festival of 2024! This grand event brings together the finest artists from across Nepal for an evening of incredible performances, cultural celebration, and unforgettable memories.
-                </p>
-
-                {/* Featured Artists */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Featured Artists:</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• Narayan Gopal Tribute Band</li>
-                    <li>• Bipul Chettri</li>
-                    <li>• Sajjan Raj Vaidya</li>
-                    <li>• Albatross</li>
-                    <li>• And many more surprise guests!</li>
-                  </ul>
-                </div>
-
-                {/* What to Expect */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">What to Expect:</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• 6+ hours of non-stop entertainment</li>
-                    <li>• Traditional and modern Nepali music</li>
-                    <li>• Food stalls with authentic Nepali cuisine</li>
-                    <li>• Cultural performances and dance</li>
-                    <li>• Meet & greet opportunities with artists</li>
-                  </ul>
-                </div>
-
-                {/* Venue Information */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Venue Information:</h3>
+              {event.richDescription ? (
+                <ReactMarkdown className="prose prose-sm md:prose-lg max-w-none">{event.richDescription}</ReactMarkdown>
+              ) : (
+                <div className="space-y-4 md:space-y-6 text-sm md:text-base">
                   <p className="text-gray-700 leading-relaxed">
-                    Dasharath Stadium is Nepal's premier venue for large-scale events. The stadium offers excellent acoustics, comfortable seating, and easy accessibility from all parts of Kathmandu.
+                    Join us for the most spectacular Nepali music festival of 2024! This grand event brings together the finest artists from across Nepal for an evening of incredible performances, cultural celebration, and unforgettable memories.
                   </p>
-                </div>
 
-                {/* Important Notes */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Important Notes:</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• Gates open at 6:00 PM</li>
-                    <li>• No outside food or beverages allowed</li>
-                    <li>• Parking available on-site</li>
-                    <li>• Event will proceed rain or shine</li>
-                  </ul>
+                  {/* Featured Artists */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Featured Artists:</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• Narayan Gopal Tribute Band</li>
+                      <li>• Bipul Chettri</li>
+                      <li>• Sajjan Raj Vaidya</li>
+                      <li>• Albatross</li>
+                      <li>• And many more surprise guests!</li>
+                    </ul>
+                  </div>
+
+                  {/* What to Expect */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">What to Expect:</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• 6+ hours of non-stop entertainment</li>
+                      <li>• Traditional and modern Nepali music</li>
+                      <li>• Food stalls with authentic Nepali cuisine</li>
+                      <li>• Cultural performances and dance</li>
+                      <li>• Meet & greet opportunities with artists</li>
+                    </ul>
+                  </div>
+
+                  {/* Venue Information */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Venue Information:</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Dasharath Stadium is Nepal's premier venue for large-scale events. The stadium offers excellent acoustics, comfortable seating, and easy accessibility from all parts of Kathmandu.
+                    </p>
+                  </div>
+
+                  {/* Important Notes */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Important Notes:</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• Gates open at 6:00 PM</li>
+                      <li>• No outside food or beverages allowed</li>
+                      <li>• Parking available on-site</li>
+                      <li>• Event will proceed rain or shine</li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Book Tickets Section */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Book Tickets</h2>
+            <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Book Tickets</h2>
               
               {/* Ticket Types */}
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 md:space-y-6">
                 {ticketTypes.map((ticket) => (
                   <div
                     key={ticket.id}
-                    className={`border-2 rounded-lg p-4 cursor-pointer transition ${
+                    className={`border-2 rounded-lg p-4 cursor-pointer transition text-sm md:text-base ${
                       selectedTicket === ticket.id
                         ? 'border-red-500 bg-red-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => setSelectedTicket(ticket.id)}
                   >
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-gray-900">{ticket.name}</h3>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                      <h3 className="font-semibold text-gray-900 mb-1 sm:mb-0">{ticket.name}</h3>
                       <div className="text-right">
                         <div className="text-red-500 font-bold text-lg">{ticket.price}</div>
-                        <div className="text-gray-400 text-sm line-through">{ticket.originalPrice}</div>
+                        <div className="text-gray-400 text-xs line-through">{ticket.originalPrice}</div>
                       </div>
                     </div>
-                    <p className="text-gray-600 text-sm">{ticket.description}</p>
+                    <div className="text-gray-600 text-xs md:text-sm">{ticket.description}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Quantity Selector */}
-              <div className="mb-6">
-                <label className="block text-gray-700 font-medium mb-2">Quantity</label>
-                <select
-                  value={quantity}
-                  onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                >
-                  {[...Array(10)].map((_, i) => (
-                    <option key={i + 1} value={i + 1}>{i + 1}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Total Price */}
-              <div className="border-t pt-4 mb-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700 font-medium">Total</span>
-                  <span className="text-red-500 font-bold text-xl">
-                    {selectedTicketData ? `Rs. ${(parseInt(selectedTicketData.price.replace(/[^\d]/g, '')) * quantity).toLocaleString()}` : 'Rs. 0'}
-                  </span>
-                </div>
-              </div>
-
               {/* Book Now Button */}
               <button
-                className="w-full bg-red-500 text-white py-4 rounded-lg font-bold text-lg hover:bg-red-600 transition mb-4"
+                className="w-full mt-6 bg-red-500 text-white py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-red-600 transition shadow-lg"
                 onClick={handleBook}
               >
                 Book Now

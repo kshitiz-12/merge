@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaPlus, FaEdit, FaTrash, FaEye, FaCalendarAlt, FaUsers, FaTicketAlt, FaChartLine, FaCog, FaSignOutAlt, FaHome, FaList } from "react-icons/fa";
+import ReactMarkdown from 'react-markdown';
 
 const Admin = () => {
   const { user, token } = useAuth();
@@ -18,6 +19,7 @@ const Admin = () => {
     category: "",
     description: "",
     image: "",
+    richDescription: "",
   });
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState("");
@@ -141,6 +143,7 @@ const Admin = () => {
       category: "",
       description: "",
       image: "",
+      richDescription: "",
     });
     setImageFile(null);
     setEditingEvent(null);
@@ -159,6 +162,7 @@ const Admin = () => {
       category: event.category || "",
       description: event.description || "",
       image: event.image || "",
+      richDescription: event.richDescription || "",
     });
     setShowModal(true);
   };
@@ -494,6 +498,18 @@ const Admin = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 required
               />
+              <textarea
+                name="richDescription"
+                placeholder="Detailed event description (Markdown supported)"
+                value={form.richDescription}
+                onChange={handleChange}
+                rows="8"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              />
+              <div className="bg-gray-50 rounded p-4 mt-2">
+                <div className="font-semibold mb-1 text-gray-700">Preview:</div>
+                <ReactMarkdown>{form.richDescription}</ReactMarkdown>
+              </div>
               
               <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">Event Image</label>
