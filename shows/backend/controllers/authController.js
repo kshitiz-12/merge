@@ -3,9 +3,6 @@ const PendingSignup = require('../models/PendingSignup');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const twilio = require('twilio');
-
-const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 // Helper: Generate 6-digit OTP
 function generateOTP() {
@@ -26,15 +23,6 @@ async function sendEmail(email, otp) {
     to: email,
     subject: 'Your Signup OTP Code',
     text: `Your OTP code is: ${otp}`,
-  });
-}
-
-// Helper: Send OTP via SMS
-async function sendSMS(phone, otp) {
-  await twilioClient.messages.create({
-    body: `Your OTP code is: ${otp}`,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    to: phone,
   });
 }
 
@@ -67,7 +55,6 @@ exports.register = async (req, res) => {
     await pending.save();
 
     await sendEmail(email, otp);
-    // await sendSMS(phone, otp);
 
     res.json({ message: 'OTP sent to your email' });
   } catch (err) {
