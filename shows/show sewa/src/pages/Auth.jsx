@@ -54,8 +54,9 @@ const Auth = () => {
       await register(
         signupForm.name,
         signupForm.email,
-        signupForm.password
-        // Add other fields if your register function supports them
+        signupForm.password,
+        signupForm.username,
+        signupForm.phone
       );
       setSignupOtpSent(true);
     } catch (err) {
