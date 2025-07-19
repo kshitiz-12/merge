@@ -14,6 +14,7 @@ const Events = () => {
     fetch(`${apiUrl}/api/events`)
       .then(res => res.json())
       .then(data => {
+        console.log("Fetched events:", data);
         setEvents(data);
         setLoading(false);
       });

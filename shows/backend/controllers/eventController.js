@@ -4,6 +4,7 @@ const Event = require('../models/Event');
 exports.getEvents = async (req, res) => {
   try {
     const events = await Event.find().sort({ createdAt: -1 });
+    console.log("Returning events:", events.map(e => ({ id: e._id, title: e.title, image: e.image })));
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -55,6 +56,8 @@ exports.createEvent = async (req, res) => {
       ticketType3
     } = req.body;
     
+    console.log("Creating event with image:", image);
+    
     const event = new Event({ 
       title, 
       description, 
@@ -85,6 +88,7 @@ exports.createEvent = async (req, res) => {
     });
     
     await event.save();
+    console.log("Saved event:", event);
     res.status(201).json(event);
   } catch (err) {
     console.error('Error creating event:', err);

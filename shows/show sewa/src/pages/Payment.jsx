@@ -35,11 +35,22 @@ const Payment = () => {
   // Generate dynamic ticket types from event data
   const generateTicketTypes = () => {
     const types = [];
+    
+    // Helper function to extract price from formatted string
+    const extractPrice = (priceString) => {
+      if (!priceString) return 0;
+      const match = priceString.match(/Rs\.\s*([\d,]+)/);
+      if (match) {
+        return parseInt(match[1].replace(/,/g, ''));
+      }
+      return parseInt(priceString.replace(/[^\d]/g, '')) || 0;
+    };
+    
     if (event?.ticketType1?.use) {
       types.push({
         id: "type1",
         name: event.ticketType1.name,
-        price: parseInt(event.ticketType1.price.replace(/[^\d]/g, '')) || 1500,
+        price: extractPrice(event.ticketType1.price),
         description: event.ticketType1.description
       });
     }
@@ -47,7 +58,7 @@ const Payment = () => {
       types.push({
         id: "type2",
         name: event.ticketType2.name,
-        price: parseInt(event.ticketType2.price.replace(/[^\d]/g, '')) || 3000,
+        price: extractPrice(event.ticketType2.price),
         description: event.ticketType2.description
       });
     }
@@ -55,7 +66,7 @@ const Payment = () => {
       types.push({
         id: "type3",
         name: event.ticketType3.name,
-        price: parseInt(event.ticketType3.price.replace(/[^\d]/g, '')) || 5000,
+        price: extractPrice(event.ticketType3.price),
         description: event.ticketType3.description
       });
     }

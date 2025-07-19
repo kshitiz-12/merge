@@ -56,7 +56,7 @@ const EventDetails = () => {
       types.push({
         id: "type1",
         name: event.ticketType1.name,
-        price: event.ticketType1.price,
+        price: event.ticketType1.price || "Rs. 1,500",
         description: event.ticketType1.description
       });
     }
@@ -64,7 +64,7 @@ const EventDetails = () => {
       types.push({
         id: "type2",
         name: event.ticketType2.name,
-        price: event.ticketType2.price,
+        price: event.ticketType2.price || "Rs. 3,000",
         description: event.ticketType2.description
       });
     }
@@ -72,7 +72,7 @@ const EventDetails = () => {
       types.push({
         id: "type3",
         name: event.ticketType3.name,
-        price: event.ticketType3.price,
+        price: event.ticketType3.price || "Rs. 5,000",
         description: event.ticketType3.description
       });
     }

@@ -93,8 +93,11 @@ const Admin = () => {
 
     try {
       let imageUrl = form.image;
+      console.log("Initial imageUrl:", imageUrl);
+      
       // If a file is selected, upload it first
       if (imageFile) {
+        console.log("Uploading image file:", imageFile.name);
         const data = new FormData();
         data.append("image", imageFile);
         const apiUrl = import.meta.env.VITE_API_URL;
@@ -107,11 +110,15 @@ const Admin = () => {
         });
         const img = await res.json();
         imageUrl = img.imageUrl;
+        console.log("Uploaded imageUrl:", imageUrl);
       }
 
       const apiUrl = import.meta.env.VITE_API_URL;
       const method = editingEvent ? "PUT" : "POST";
       const url = editingEvent ? `${apiUrl}/api/events/${editingEvent._id}` : `${apiUrl}/api/events`;
+      
+      const eventData = { ...form, image: imageUrl };
+      console.log("Saving event with image:", eventData);
       
       const eventRes = await fetch(url, {
         method,
@@ -119,7 +126,7 @@ const Admin = () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...form, image: imageUrl }),
+        body: JSON.stringify(eventData),
       });
 
       if (!eventRes.ok) {
@@ -130,6 +137,7 @@ const Admin = () => {
       }
 
       const savedEvent = await eventRes.json();
+      console.log("Saved event:", savedEvent);
       
       if (editingEvent) {
         setEvents(events.map(e => e._id === editingEvent._id ? savedEvent : e));
@@ -141,6 +149,7 @@ const Admin = () => {
       
       resetForm();
     } catch (err) {
+      console.error("Error saving event:", err);
       setMessage("Error saving event.");
     }
     setLoading(false);
@@ -512,15 +521,18 @@ const Admin = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                   />
+                                  <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs.</span>
                   <input
                     type="number"
                     name="price"
-                    placeholder="Price"
+                    placeholder="1500"
                     value={form.price}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                    className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                     required
                   />
+                </div>
                   <select
                     name="category"
                     value={form.category}
@@ -598,16 +610,23 @@ const Admin = () => {
                           })}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                         />
-                        <input
-                          type="text"
-                          placeholder="Price (e.g., Rs. 1,500)"
-                          value={form.ticketType1.price}
-                          onChange={(e) => setForm({
-                            ...form,
-                            ticketType1: { ...form.ticketType1, price: e.target.value }
-                          })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                        />
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs.</span>
+                          <input
+                            type="number"
+                            placeholder="1500"
+                            value={form.ticketType1.price.replace(/[^\d]/g, '')}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              const formattedValue = value ? `Rs. ${parseInt(value).toLocaleString()}` : '';
+                              setForm({
+                                ...form,
+                                ticketType1: { ...form.ticketType1, price: formattedValue }
+                              });
+                            }}
+                            className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                          />
+                        </div>
                         <input
                           type="text"
                           placeholder="Description"
@@ -648,16 +667,23 @@ const Admin = () => {
                           })}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                         />
-                        <input
-                          type="text"
-                          placeholder="Price (e.g., Rs. 3,000)"
-                          value={form.ticketType2.price}
-                          onChange={(e) => setForm({
-                            ...form,
-                            ticketType2: { ...form.ticketType2, price: e.target.value }
-                          })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                        />
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs.</span>
+                          <input
+                            type="number"
+                            placeholder="3000"
+                            value={form.ticketType2.price.replace(/[^\d]/g, '')}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              const formattedValue = value ? `Rs. ${parseInt(value).toLocaleString()}` : '';
+                              setForm({
+                                ...form,
+                                ticketType2: { ...form.ticketType2, price: formattedValue }
+                              });
+                            }}
+                            className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                          />
+                        </div>
                         <input
                           type="text"
                           placeholder="Description"
@@ -698,16 +724,23 @@ const Admin = () => {
                           })}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                         />
-                        <input
-                          type="text"
-                          placeholder="Price (e.g., Rs. 5,000)"
-                          value={form.ticketType3.price}
-                          onChange={(e) => setForm({
-                            ...form,
-                            ticketType3: { ...form.ticketType3, price: e.target.value }
-                          })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
-                        />
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">Rs.</span>
+                          <input
+                            type="number"
+                            placeholder="5000"
+                            value={form.ticketType3.price.replace(/[^\d]/g, '')}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              const formattedValue = value ? `Rs. ${parseInt(value).toLocaleString()}` : '';
+                              setForm({
+                                ...form,
+                                ticketType3: { ...form.ticketType3, price: formattedValue }
+                              });
+                            }}
+                            className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                          />
+                        </div>
                         <input
                           type="text"
                           placeholder="Description"
