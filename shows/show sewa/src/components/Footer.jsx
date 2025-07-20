@@ -23,7 +23,7 @@ const Footer = () => (
             <a href="#" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Facebook">
               <FaFacebookF size={20} />
             </a>
-            <a href="#" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Instagram">
+            <a href="https://www.instagram.com/showsewa?igsh=b3lja3BqOW15cnky" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Instagram">
               <FaInstagram size={20} />
             </a>
             <a href="#" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Twitter">
