@@ -35,6 +35,16 @@ const Payment = () => {
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
 
+  useEffect(() => {
+    // If you need to check for required data:
+    if (event && customerInfo) {
+      setLoading(false);
+    } else {
+      // Optionally, redirect or show an error if data is missing
+      setLoading(false);
+    }
+  }, [event, customerInfo]);
+
   // Generate dynamic ticket types from event data
   const generateTicketTypes = () => {
     const types = [];
