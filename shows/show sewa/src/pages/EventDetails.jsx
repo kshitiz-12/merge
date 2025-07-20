@@ -89,11 +89,9 @@ const EventDetails = () => {
     setButtonLoading(true);
     if (!user) {
       navigate("/login");
-      setButtonLoading(false);
       return;
     }
     navigate("/payment", { state: { event, selectedTicket, quantity } });
-    setButtonLoading(false);
   };
 
   if (loading) return <MovieLoader />;
