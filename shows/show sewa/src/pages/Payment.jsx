@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaMinus, FaPlus, FaUser, FaEnvelope, FaPhone, FaMapPin } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaMinus, FaPlus, FaUser, FaEnvelope, FaPhone, FaMapPin, FaFilm } from "react-icons/fa";
+import MovieLoader from "../components/MovieLoader";
 
 const Payment = () => {
   const location = useLocation();
@@ -31,6 +32,8 @@ const Payment = () => {
   });
   
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   // Generate dynamic ticket types from event data
   const generateTicketTypes = () => {
@@ -136,6 +139,10 @@ const Payment = () => {
     );
   }
 
+  if (loading) {
+    return <MovieLoader />;
+  }
+
   const updateQuantity = (ticketId, change) => {
     console.log('updateQuantity called:', ticketId, change);
     setTicketQuantities(prev => {
@@ -164,22 +171,20 @@ const Payment = () => {
       setError("Please select at least one ticket.");
       return;
     }
-    
     if (!customerInfo.fullName || !customerInfo.email || !customerInfo.phone) {
       setError("Please fill in all required fields.");
       return;
     }
-
-    // Navigate to actual payment page with all the data
-    navigate("/payment-confirmation", {
-      state: {
-        event,
-        ticketQuantities,
-        customerInfo,
-        totalAmount: getTotalAmount(),
-        totalTickets: getTotalTickets()
-      }
-    });
+    setButtonLoading(true);
+    setTimeout(() => {
+      navigate("/payment-confirmation", {
+        state: {
+          event,
+          ticketQuantities,
+          customerInfo,
+        },
+      });
+    }, 800);
   };
 
   return (
@@ -393,9 +398,11 @@ const Payment = () => {
                   
                   <button
                     onClick={handleProceedToCheckout}
-                    className="w-full bg-brand-primary text-white py-4 rounded-lg font-bold text-lg hover:bg-red-800 transition mt-6"
+                    className="bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition w-full mt-6 flex items-center justify-center gap-2 disabled:opacity-60"
+                    disabled={buttonLoading}
                   >
-                    Proceed to Checkout
+                    {buttonLoading ? <FaFilm className="animate-spin text-xl" /> : null}
+                    {buttonLoading ? "Processing..." : "Proceed to Checkout"}
                   </button>
                   
                   <div className="text-center text-gray-600 text-sm mt-4">

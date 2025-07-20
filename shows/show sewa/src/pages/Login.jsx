@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import { FaFilm } from "react-icons/fa";
 
 const Login = () => {
   const { login } = useAuth();
@@ -58,9 +59,10 @@ const Login = () => {
           />
           <button
             type="submit"
-            className="w-full bg-brand-primary text-brand-secondary px-6 py-2 rounded font-semibold hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition"
+            className="w-full bg-brand-primary text-brand-secondary px-6 py-2 rounded font-semibold hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition flex items-center justify-center gap-2"
             disabled={loading}
           >
+            {loading && <FaFilm className="animate-spin text-lg" />}
             {loading ? "Logging in..." : "Login"}
           </button>
           {error && <div className="text-brand-primary font-semibold">{error}</div>}

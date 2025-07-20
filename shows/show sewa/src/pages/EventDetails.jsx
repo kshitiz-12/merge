@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaStar, FaShare, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUsers, FaClock as FaDuration, FaUsers as FaAgeLimit, FaLanguage } from "react-icons/fa";
+import { FaStar, FaShare, FaCalendarAlt, FaClock, FaMapMarkerAlt, FaUsers, FaClock as FaDuration, FaUsers as FaAgeLimit, FaLanguage, FaFilm } from "react-icons/fa";
 import ReactMarkdown from 'react-markdown';
 import TranslatedText from "../components/TranslatedText";
+import MovieLoader from "../components/MovieLoader";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedTicket, setSelectedTicket] = useState("general");
   const [quantity, setQuantity] = useState(1);
@@ -84,15 +86,18 @@ const EventDetails = () => {
 
   const handleBook = async () => {
     setError("");
+    setButtonLoading(true);
     if (!user) {
       navigate("/login");
       return;
     }
-    // You can add booking logic here (see Bookings section)
-    navigate("/payment", { state: { event, selectedTicket, quantity } });
+    // Simulate async booking/navigation
+    setTimeout(() => {
+      navigate("/payment", { state: { event, selectedTicket, quantity } });
+    }, 500);
   };
 
-  if (loading) return <div className="py-16 text-center">Loading event...</div>;
+  if (loading) return <MovieLoader />;
   if (!event) {
     return (
       <div className="py-16 text-center text-gray-600">
@@ -225,10 +230,12 @@ const EventDetails = () => {
               <h2 className="text-xl md:text-2xl font-bold text-brand-primary mb-4">Ready to Book?</h2>
               <p className="text-gray-600 mb-6">Secure your spot for this amazing event</p>
               <button
-                className="bg-brand-primary text-brand-secondary px-8 py-3 rounded-lg font-bold text-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition duration-300 shadow-lg"
                 onClick={handleBook}
+                className="bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition w-full mt-6 flex items-center justify-center gap-2 disabled:opacity-60"
+                disabled={buttonLoading}
               >
-                Book Now
+                {buttonLoading ? <FaFilm className="animate-spin text-xl" /> : null}
+                {buttonLoading ? "Processing..." : "Book Now"}
               </button>
               <p className="text-gray-500 text-sm mt-4">Secure booking with eSewa & Khalti</p>
             </div>

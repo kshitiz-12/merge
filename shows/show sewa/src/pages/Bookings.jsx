@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaTicketAlt, FaUser, FaEnvelope, FaPhone } from "react-icons/fa";
+import MovieLoader from "../components/MovieLoader";
 
 const Bookings = () => {
   const { user, token } = useAuth();
@@ -42,14 +43,7 @@ const Bookings = () => {
   }
 
   if (loading) {
-    return (
-      <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-brand-text">Loading your bookings...</p>
-        </div>
-      </section>
-    );
+    return <MovieLoader />;
   }
 
   const getTicketSummary = (ticketQuantities) => {
