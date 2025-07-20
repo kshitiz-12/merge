@@ -39,14 +39,20 @@ const Payment = () => {
     // Helper function to extract price from formatted string
     const extractPrice = (priceString) => {
       if (!priceString) return 0;
+      console.log('Extracting price from:', priceString);
       const match = priceString.match(/Rs\.\s*([\d,]+)/);
       if (match) {
-        return parseInt(match[1].replace(/,/g, ''));
+        const extracted = parseInt(match[1].replace(/,/g, ''));
+        console.log('Extracted price:', extracted);
+        return extracted;
       }
-      return parseInt(priceString.replace(/[^\d]/g, '')) || 0;
+      const fallback = parseInt(priceString.replace(/[^\d]/g, '')) || 0;
+      console.log('Fallback price:', fallback);
+      return fallback;
     };
     
     if (event?.ticketType1?.use) {
+      console.log('Adding ticket type 1:', event.ticketType1);
       types.push({
         id: "type1",
         name: event.ticketType1.name,
@@ -55,6 +61,7 @@ const Payment = () => {
       });
     }
     if (event?.ticketType2?.use) {
+      console.log('Adding ticket type 2:', event.ticketType2);
       types.push({
         id: "type2",
         name: event.ticketType2.name,
@@ -63,6 +70,7 @@ const Payment = () => {
       });
     }
     if (event?.ticketType3?.use) {
+      console.log('Adding ticket type 3:', event.ticketType3);
       types.push({
         id: "type3",
         name: event.ticketType3.name,
@@ -93,15 +101,21 @@ const Payment = () => {
   };
 
   const ticketTypes = generateTicketTypes();
+  
+  // Debug logging
+  console.log('Ticket types:', ticketTypes);
+  console.log('Ticket quantities:', ticketQuantities);
 
   // Initialize ticket quantities based on available ticket types
   useEffect(() => {
+    console.log('Initializing ticket quantities for types:', ticketTypes.map(t => t.id));
     const initialQuantities = {};
     ticketTypes.forEach(ticket => {
       initialQuantities[ticket.id] = 0;
     });
+    console.log('Initial quantities:', initialQuantities);
     setTicketQuantities(initialQuantities);
-  }, [ticketTypes]);
+  }, [ticketTypes.length]); // Only re-run when number of ticket types changes
 
   if (!event) {
     return (
@@ -123,19 +137,25 @@ const Payment = () => {
   }
 
   const updateQuantity = (ticketId, change) => {
-    setTicketQuantities(prev => ({
-      ...prev,
-      [ticketId]: Math.max(0, prev[ticketId] + change)
-    }));
+    console.log('updateQuantity called:', ticketId, change);
+    setTicketQuantities(prev => {
+      const newQuantity = Math.max(0, prev[ticketId] + change);
+      console.log('New quantity for', ticketId, ':', newQuantity);
+      return {
+        ...prev,
+        [ticketId]: newQuantity
+      };
+    });
   };
 
   const getTotalTickets = () => {
-    return Object.values(ticketQuantities).reduce((sum, qty) => sum + qty, 0);
+    return Object.values(ticketQuantities).reduce((sum, qty) => sum + (qty || 0), 0);
   };
 
   const getTotalAmount = () => {
     return ticketTypes.reduce((total, ticket) => {
-      return total + (ticket.price * ticketQuantities[ticket.id]);
+      const quantity = ticketQuantities[ticket.id] || 0;
+      return total + (ticket.price * quantity);
     }, 0);
   };
 
@@ -236,13 +256,15 @@ const Payment = () => {
                       <span className="text-gray-600">Quantity</span>
                       <div className="flex items-center space-x-3">
                         <button
+                          type="button"
                           onClick={() => updateQuantity(ticket.id, -1)}
                           className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition"
                         >
                           <FaMinus className="w-3 h-3" />
                         </button>
-                        <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id]}</span>
+                        <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id] || 0}</span>
                         <button
+                          type="button"
                           onClick={() => updateQuantity(ticket.id, 1)}
                           className="w-8 h-8 bg-brand-primary text-white rounded-full flex items-center justify-center hover:bg-red-800 transition"
                         >
@@ -335,16 +357,18 @@ const Payment = () => {
               ) : (
                 <div className="space-y-4">
                   {ticketTypes.map((ticket) => {
-                    if (ticketQuantities[ticket.id] > 0) {
+                    const quantity = ticketQuantities[ticket.id] || 0;
+                    console.log(`Ticket ${ticket.id}: quantity = ${quantity}, price = ${ticket.price}`);
+                    if (quantity > 0) {
                       return (
                         <div key={ticket.id} className="flex justify-between items-center">
                           <div>
                             <div className="font-medium text-gray-900">{ticket.name}</div>
-                            <div className="text-sm text-gray-500">Qty: {ticketQuantities[ticket.id]}</div>
+                            <div className="text-sm text-gray-500">Qty: {quantity}</div>
                           </div>
                           <div className="text-right">
                             <div className="font-bold text-gray-900">
-                              Rs. {(ticket.price * ticketQuantities[ticket.id]).toLocaleString()}
+                              Rs. {(ticket.price * quantity).toLocaleString()}
                             </div>
                           </div>
                         </div>
@@ -364,6 +388,7 @@ const Payment = () => {
                         Rs. {getTotalAmount().toLocaleString()}
                       </span>
                     </div>
+                    {console.log('Total tickets:', getTotalTickets(), 'Total amount:', getTotalAmount())}
                   </div>
                   
                   <button
