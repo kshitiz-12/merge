@@ -144,7 +144,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-maroon-50 to-maroon-100 px-2">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-2">
       <div className="relative w-full max-w-3xl min-h-[500px] flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-white">
         {/* Login Form Section (Left) */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10">
@@ -283,7 +283,7 @@ const Auth = () => {
             )}
             <button
               type="submit"
-              className="w-full bg-maroon-600 text-white py-2 rounded font-semibold hover:bg-purple-700 transition"
+              className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base"
               disabled={signupLoading}
             >
               {signupLoading
@@ -303,7 +303,7 @@ const Auth = () => {
         </div>
         {/* Animated Purple Panel Overlay - hide on mobile */}
         <div
-          className="hidden md:flex absolute top-0 h-full w-1/2 bg-gradient-to-br from-purple-600 to-blue-600 text-white flex-col items-center justify-center transition-all duration-700 z-20 pointer-events-none select-none left-0 rounded-r-3xl"
+          className="hidden md:flex absolute top-0 h-full w-1/2 bg-gradient-to-br from-brand-primary to-brand-secondary text-white flex-col items-center justify-center transition-all duration-700 z-20 pointer-events-none select-none left-0 rounded-r-3xl"
           style={{
             transform: isSignUp ? "translateX(100%)" : "translateX(0%)",
           }}
@@ -314,7 +314,7 @@ const Auth = () => {
                 <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
                 <p className="mb-6 text-lg text-center max-w-xs">To keep connected with us please login with your personal info</p>
                 <button
-                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-white hover:text-purple-700 transition"
+                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
                   onClick={() => setIsSignUp(false)}
                 >
                   SIGN IN
@@ -325,7 +325,7 @@ const Auth = () => {
                 <h2 className="text-3xl font-bold mb-2">Hello, Friend!</h2>
                 <p className="mb-6 text-lg text-center max-w-xs">Register with your personal details to use all site features</p>
                 <button
-                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-white hover:text-purple-700 transition"
+                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
                   onClick={() => setIsSignUp(true)}
                 >
                   SIGN UP!
