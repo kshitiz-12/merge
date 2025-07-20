@@ -192,6 +192,8 @@ const Payment = () => {
           event,
           ticketQuantities,
           customerInfo,
+          totalAmount: getTotalAmount(),
+          totalTickets: getTotalTickets(),
         },
       });
     }, 800);

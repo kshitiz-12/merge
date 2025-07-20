@@ -6,7 +6,7 @@ import { FaCreditCard, FaQrcode, FaLock } from "react-icons/fa";
 const PaymentConfirmation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { event, ticketQuantities, customerInfo, totalAmount, totalTickets } = location.state || {};
+  const { event, ticketQuantities, customerInfo } = location.state || {};
   const [tab, setTab] = useState("card");
   const [card, setCard] = useState({ number: "", name: "", expiry: "", cvv: "" });
   const [upi, setUpi] = useState("");
@@ -41,6 +41,10 @@ const PaymentConfirmation = () => {
       </div>
     );
   }
+
+  // Defensive checks for undefined values
+  const totalAmount = location.state?.totalAmount ?? 0;
+  const totalTickets = location.state?.totalTickets ?? 0;
 
   const handlePay = async (e) => {
     e.preventDefault();
