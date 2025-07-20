@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaPlus, FaEdit, FaTrash, FaEye, FaCalendarAlt, FaUsers, FaTicketAlt, FaChartLine, FaCog, FaSignOutAlt, FaHome, FaList } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaEye, FaCalendarAlt, FaUsers, FaTicketAlt, FaChartLine, FaCog, FaSignOutAlt, FaHome, FaList, FaBars } from "react-icons/fa";
 import ReactMarkdown from 'react-markdown';
 
 const Admin = () => {
@@ -41,6 +41,7 @@ const Admin = () => {
   const [error, setError] = useState("");
   const [editingEvent, setEditingEvent] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Check if user is admin
   useEffect(() => {
@@ -270,15 +271,21 @@ const Admin = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
-        <div className="flex items-center justify-center h-16 bg-brand-primary text-brand-secondary">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      {/* Hamburger for mobile/desktop */}
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button onClick={() => setSidebarOpen(true)} className="p-2 bg-brand-primary text-brand-secondary rounded shadow">
+          <FaBars size={24} />
+        </button>
+      </div>
+      {/* Sidebar (Drawer) */}
+      <div className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static md:block`}>
+        <div className="flex items-center justify-between h-16 bg-brand-primary text-brand-secondary px-4">
           <h1 className="text-xl font-bold">
             Show<span className="font-devanagari">सेवा</span> Admin
           </h1>
+          <button onClick={() => setSidebarOpen(false)} className="md:hidden text-2xl">×</button>
         </div>
-        
         <nav className="mt-8">
           <div className="px-4 space-y-2">
             <button
@@ -311,16 +318,26 @@ const Admin = () => {
           </div>
         </nav>
       </div>
-
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 z-30 md:hidden" onClick={() => setSidebarOpen(false)}></div>
+      )}
       {/* Main Content */}
-      <div className="ml-64 p-8">
+      <div className="flex-1 md:ml-64 p-8 transition-all duration-300">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">
-            {activeTab === "dashboard" && "Dashboard"}
-            {activeTab === "events" && "Event Management"}
-            {activeTab === "settings" && "Settings"}
-          </h2>
+          <div className="flex items-center gap-4">
+            <div className="hidden md:block">
+              <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 bg-brand-primary text-brand-secondary rounded shadow">
+                <FaBars size={24} />
+              </button>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900">
+              {activeTab === "dashboard" && "Dashboard"}
+              {activeTab === "events" && "Event Management"}
+              {activeTab === "settings" && "Settings"}
+            </h2>
+          </div>
           {activeTab === "events" && (
             <button
               onClick={() => setShowModal(true)}

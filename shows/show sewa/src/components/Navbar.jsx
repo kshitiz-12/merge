@@ -130,7 +130,7 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link to="/admin" className="text-brand-text font-semibold hover:text-brand-primary transition duration-300">Admin</Link>
                 )}
-                <span className="text-brand-text font-semibold">{user.name || user.email}</span>
+                {!isAdmin && <span className="text-brand-text font-semibold">{user.name || user.email}</span>}
                 <button
                   onClick={handleLogout}
                   className="bg-brand-primary text-brand-secondary px-4 py-2 rounded hover:bg-red-800 hover:text-brand-secondary transition duration-300 font-semibold"
@@ -232,7 +232,7 @@ const Navbar = () => {
                 {isAdmin && (
                   <Link to="/admin" className="block mt-2 text-brand-text font-semibold text-center hover:text-brand-primary transition duration-300" onClick={() => setMenuOpen(false)}>Admin</Link>
                 )}
-                <span className="block mt-2 text-brand-text font-semibold text-center">{user.name || user.email}</span>
+                {!isAdmin && <span className="block mt-2 text-brand-text font-semibold text-center">{user.name || user.email}</span>}
                 <button
                   onClick={() => { setMenuOpen(false); handleLogout(); }}
                   className="block mt-2 bg-brand-primary text-brand-secondary px-4 py-2 rounded hover:bg-red-800 hover:text-brand-secondary transition duration-300 font-semibold text-center"

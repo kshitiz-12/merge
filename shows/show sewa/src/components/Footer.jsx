@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaTwitter, FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => (
-  <footer className="bg-brand-primary text-brand-secondary pt-10 pb-6">
+  <footer className="bg-brand-primary text-brand-secondary pt-4 pb-2">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         {/* Left Column - Showsewa Information */}
