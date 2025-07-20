@@ -89,12 +89,11 @@ const EventDetails = () => {
     setButtonLoading(true);
     if (!user) {
       navigate("/login");
+      setButtonLoading(false);
       return;
     }
-    // Simulate async booking/navigation
-    setTimeout(() => {
-      navigate("/payment", { state: { event, selectedTicket, quantity } });
-    }, 500);
+    navigate("/payment", { state: { event, selectedTicket, quantity } });
+    setButtonLoading(false);
   };
 
   if (loading) return <MovieLoader />;
@@ -234,7 +233,7 @@ const EventDetails = () => {
                 className="bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition w-full mt-6 flex items-center justify-center gap-2 disabled:opacity-60"
                 disabled={buttonLoading}
               >
-                {buttonLoading ? <FaFilm className="animate-spin text-xl" /> : null}
+                {buttonLoading ? <FaFilm className="animate-spin text-lg" /> : null}
                 {buttonLoading ? "Processing..." : "Book Now"}
               </button>
               <p className="text-gray-500 text-sm mt-4">Secure booking with eSewa & Khalti</p>

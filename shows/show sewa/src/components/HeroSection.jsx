@@ -4,8 +4,14 @@ import StatsSection from "./StatsSection";
 import FeaturedEvents from "./FeaturedEvents";
 import HowItWorks from "./HowItWorks";
 import ReadyToBook from "./ReadyToBook";
+import { useState } from "react";
+import { FaFilm } from "react-icons/fa";
 
 const HeroSection = () => {
+  const [browseLoading, setBrowseLoading] = useState(false);
+  const handleBrowseClick = (e) => {
+    setBrowseLoading(true);
+  };
   return (
     <>
       <section className="relative bg-gradient-to-br from-brand-primary to-red-800 overflow-hidden py-16 md:py-24">
@@ -27,12 +33,11 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/events"
-                className="inline-flex items-center bg-brand-secondary text-brand-primary border-2 border-brand-secondary px-6 py-3 rounded-lg font-semibold shadow hover:bg-brand-primary hover:text-brand-secondary hover:border-brand-primary transition"
+                className="inline-flex items-center bg-brand-secondary text-brand-primary border-2 border-brand-secondary px-6 py-3 rounded-lg font-semibold shadow hover:bg-brand-primary hover:text-brand-secondary hover:border-brand-primary transition gap-2"
+                onClick={handleBrowseClick}
               >
-                Browse Events →
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                {browseLoading ? <FaFilm className="animate-spin text-lg" /> : null}
+                {browseLoading ? "Loading..." : <>Browse Events <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></>}
               </Link>
             </div>
           </div>
