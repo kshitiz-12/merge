@@ -101,7 +101,8 @@ const translations = {
     'Please log in to continue': 'जारी राख्न लगइन गर्नुहोस्',
     'Redirecting to login page...': 'लगइन पृष्ठमा पुनर्निर्देशन गर्दै...',
     'Please select at least one ticket.': 'कम्तिमा एउटा टिकट छान्नुहोस्।',
-    'Please fill in all required fields.': 'सबै आवश्यक फिल्डहरू भर्नुहोस्।'
+    'Please fill in all required fields.': 'सबै आवश्यक फिल्डहरू भर्नुहोस्।',
+    'About': 'बारेमा'
   },
   // English to Hindi
   'en-hi': {
@@ -192,7 +193,8 @@ const translations = {
     'Please log in to continue': 'जारी रखने के लिए कृपया लॉगिन करें',
     'Redirecting to login page...': 'लॉगिन पेज पर पुनर्निर्देशित कर रहा है...',
     'Please select at least one ticket.': 'कृपया कम से कम एक टिकट चुनें।',
-    'Please fill in all required fields.': 'कृपया सभी आवश्यक फील्ड भरें।'
+    'Please fill in all required fields.': 'कृपया सभी आवश्यक फील्ड भरें।',
+    'About': 'के बारे में'
   },
   // English to Bengali
   'en-bn': {
@@ -283,7 +285,8 @@ const translations = {
     'Please log in to continue': 'চালিয়ে যেতে লগইন করুন',
     'Redirecting to login page...': 'লগইন পৃষ্ঠায় পুনর্নির্দেশিত হচ্ছে...',
     'Please select at least one ticket.': 'অন্তত একটি টিকিট নির্বাচন করুন।',
-    'Please fill in all required fields.': 'সব প্রয়োজনীয় ক্ষেত্র পূরণ করুন।'
+    'Please fill in all required fields.': 'সব প্রয়োজনীয় ক্ষেত্র পূরণ করুন।',
+    'About': 'সম্পর্কে'
   }
 };
 
