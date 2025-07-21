@@ -6,7 +6,13 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://merge-17quuz911-kshitiz-vishwakarmas-projects.vercel.app', // your Vercel frontend
+    'http://localhost:5173' // local dev, optional
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
