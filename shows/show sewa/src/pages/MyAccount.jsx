@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaUser, FaTicketAlt, FaHeart, FaBell, FaGift, FaCog } from "react-icons/fa";
-import logo from "../public/images/logo.jpeg";
 
 const sections = [
   { key: "profile", label: "Profile", icon: <FaUser /> },
@@ -27,7 +26,7 @@ const MyAccount = () => {
     <div className="flex min-h-screen bg-brand-bg">
       {/* Sidebar */}
       <aside className="w-64 bg-brand-secondary shadow-lg flex flex-col items-center py-8">
-        <img src={logo} alt="Account Logo" className="h-16 w-16 rounded-full mb-6" />
+        <img src="/images/logo.jpeg" alt="Account Logo" className="h-16 w-16 rounded-full mb-6" />
         <nav className="flex flex-col w-full">
           {sections.map((section) => (
             <button
