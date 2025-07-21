@@ -41,8 +41,8 @@ const Signup = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
-      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-border">
+    <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary rounded-xl shadow p-8 w-full max-w-md border-2 border-brand-border">
         <h1 className="text-3xl font-bold text-brand-primary mb-6">Sign Up</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input

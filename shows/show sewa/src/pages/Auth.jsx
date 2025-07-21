@@ -144,198 +144,67 @@ const Auth = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
-      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-2">
+      <div className="relative w-full max-w-3xl min-h-[500px] flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-white">
         {/* Login Form Section (Left) */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10">
+        <div className={`w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10 transition-transform duration-700 ${isSignUp ? '-translate-x-full md:translate-x-0' : ''}`} style={{ minHeight: 500 }}>
           <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Sign In</h2>
-          <div className="flex gap-2 md:gap-3 mb-4">
-            <button className="bg-gray-100 p-2 rounded hover:bg-gray-200 transition text-sm md:text-base"><span className="sr-only">Google</span>G+</button>
-            <button className="bg-gray-100 p-2 rounded hover:bg-gray-200 transition text-sm md:text-base"><span className="sr-only">Facebook</span>F</button>
-            <button className="bg-gray-100 p-2 rounded hover:bg-gray-200 transition text-sm md:text-base"><span className="sr-only">LinkedIn</span>in</button>
-          </div>
-          <p className="text-gray-400 text-xs md:text-sm mb-4">or use your email password</p>
-          <div className="flex justify-center gap-2 md:gap-4 mb-4">
-            <button
-              type="button"
-              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "user" ? "bg-brand-primary text-white border-brand-primary" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-100"}`}
-              onClick={() => setLoginMode("user")}
-            >
-              User
-            </button>
-            <button
-              type="button"
-              className={`px-3 md:px-4 py-1 rounded-full font-semibold border transition-all duration-200 text-xs md:text-base ${loginMode === "admin" ? "bg-brand-primary text-white border-brand-primary" : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-100"}`}
-              onClick={() => setLoginMode("admin")}
-            >
-              Admin
-            </button>
-          </div>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-3 md:gap-4">
-            <input
-              type="text"
-              name="email"
-              className="w-full px-3 md:px-4 py-2 border rounded bg-gray-100 text-sm md:text-base"
-              placeholder="Email or Username"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              className="w-full px-3 md:px-4 py-2 border rounded bg-gray-100 text-sm md:text-base"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-            <div className="text-right text-xs text-gray-400 mb-2 cursor-pointer hover:underline">Forgot Your Password?</div>
-            <button
-              type="submit"
-              className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base"
-              disabled={loading}
-            >
-              {loading
-                ? loginMode === "admin"
-                  ? "Signing in as Admin..."
-                  : "Signing in as User..."
-                : loginMode === "admin"
-                ? "SIGN IN AS ADMIN"
-                : "SIGN IN AS USER"}
+            <input type="email" name="email" className="w-full px-3 md:px-4 py-2 border rounded bg-gray-100 text-sm md:text-base" placeholder="Email" value={form.email} onChange={handleChange} required />
+            <input type="password" name="password" className="w-full px-3 md:px-4 py-2 border rounded bg-gray-100 text-sm md:text-base" placeholder="Password" value={form.password} onChange={handleChange} required />
+            <button type="submit" className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </button>
             {error && <div className="text-brand-maroon font-semibold text-center text-xs md:text-base">{error}</div>}
           </form>
+          <div className="mt-4 text-center">
+            Don't have an account?{' '}
+            <button onClick={() => setIsSignUp(true)} className="text-brand-primary hover:underline">Sign up</button>
+          </div>
         </div>
         {/* Signup Form Section (Right) */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10 border-t md:border-t-0 md:border-l border-gray-100">
+        <div className={`w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10 transition-transform duration-700 ${isSignUp ? '' : 'translate-x-full md:translate-x-0'}`} style={{ minHeight: 500 }}>
           <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Sign Up</h2>
-          <form
-            onSubmit={signupOtpSent ? handleVerifySignupOtp : handleSignupSubmit}
-            className="w-full flex flex-col gap-3 md:gap-4"
-          >
-            <input
-              type="text"
-              name="name"
-              className="w-full px-4 py-2 border rounded bg-gray-100"
-              placeholder="Name"
-              value={signupForm.name}
-              onChange={handleSignupChange}
-              required
-              disabled={signupOtpSent}
-            />
-            <input
-              type="text"
-              name="username"
-              className="w-full px-4 py-2 border rounded bg-gray-100"
-              placeholder="Username"
-              value={signupForm.username}
-              onChange={handleSignupChange}
-              required
-              disabled={signupOtpSent}
-            />
-            <input
-              type="email"
-              name="email"
-              className="w-full px-4 py-2 border rounded bg-gray-100"
-              placeholder="Email"
-              value={signupForm.email}
-              onChange={handleSignupChange}
-              required
-              disabled={signupOtpSent}
-            />
-            <input
-              type="text"
-              name="phone"
-              className="w-full px-4 py-2 border rounded bg-gray-100"
-              placeholder="Phone Number"
-              value={signupForm.phone}
-              onChange={handleSignupChange}
-              required
-              disabled={signupOtpSent}
-            />
-            <input
-              type="password"
-              name="password"
-              className="w-full px-4 py-2 border rounded bg-gray-100"
-              placeholder="Password"
-              value={signupForm.password}
-              onChange={handleSignupChange}
-              required
-              disabled={signupOtpSent}
-            />
-            {signupOtpSent && (
-              <input
-                type="text"
-                name="otp"
-                className="w-full px-4 py-2 border rounded bg-gray-100"
-                placeholder="Enter OTP"
-                value={signupOtp}
-                onChange={e => setSignupOtp(e.target.value)}
-                required
-              />
-            )}
-            {signupOtpMessage && (
-              <div className="text-green-600 text-sm font-semibold text-center">{signupOtpMessage}</div>
-            )}
-            {signupSuccessMessage && (
-              <div className="text-green-700 text-base font-bold text-center mb-2">{signupSuccessMessage}</div>
-            )}
-            <button
-              type="submit"
-              className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base"
-              disabled={signupLoading}
-            >
-              {signupLoading
-                ? signupOtpSent
-                  ? "Verifying OTP..."
-                  : "Sending OTP..."
-                : signupOtpSent
-                ? "Verify OTP"
-                : "Sign Up"}
+          <form onSubmit={handleSignupSubmit} className="w-full flex flex-col gap-3 md:gap-4">
+            <input type="text" name="name" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Name" value={signupForm.name} onChange={handleSignupChange} required />
+            <input type="text" name="username" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Username" value={signupForm.username} onChange={handleSignupChange} required />
+            <input type="email" name="email" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Email" value={signupForm.email} onChange={handleSignupChange} required />
+            <input type="text" name="phone" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Phone Number" value={signupForm.phone} onChange={handleSignupChange} required />
+            <input type="password" name="password" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Password" value={signupForm.password} onChange={handleSignupChange} required />
+            <button type="submit" className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base" disabled={signupLoading}>
+              {signupLoading ? "Signing up..." : "Sign Up"}
             </button>
-            {signupError && (
-              <div className="text-brand-maroon font-semibold text-center">
-                {signupError}
-              </div>
-            )}
+            {signupError && <div className="text-brand-maroon font-semibold text-center">{signupError}</div>}
           </form>
+          <div className="mt-4 text-center">
+            Already have an account?{' '}
+            <button onClick={() => setIsSignUp(false)} className="text-brand-primary hover:underline">Login</button>
+          </div>
         </div>
-        {/* Animated Purple Panel Overlay - hide on mobile */}
-        <div
-          className="hidden md:flex absolute top-0 h-full w-1/2 bg-gradient-to-br from-brand-primary to-brand-secondary text-white flex-col items-center justify-center transition-all duration-700 z-20 pointer-events-none select-none left-0 rounded-r-3xl"
-          style={{
-            transform: isSignUp ? "translateX(100%)" : "translateX(0%)",
-          }}
-        >
+        {/* Animated Panel Overlay - hide on mobile */}
+        <div className={`hidden md:flex absolute top-0 h-full w-1/2 bg-gradient-to-br from-brand-primary to-brand-secondary text-white flex-col items-center justify-center transition-all duration-700 z-20 pointer-events-none select-none left-0 rounded-r-3xl ${isSignUp ? 'translate-x-full' : ''}`} style={{ minHeight: 500 }}>
           <div className="flex flex-col items-center justify-center w-full h-full pointer-events-auto">
             {isSignUp ? (
               <>
                 <h2 className="text-3xl font-bold mb-2">Welcome Back!</h2>
                 <p className="mb-6 text-lg text-center max-w-xs">To keep connected with us please login with your personal info</p>
-                <button
-                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
-                  onClick={() => setIsSignUp(false)}
-                >
-                  SIGN UP
+                <button className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition" onClick={() => setIsSignUp(false)}>
+                  SIGN IN
                 </button>
               </>
             ) : (
               <>
                 <h2 className="text-3xl font-bold mb-2">Hello, Friend!</h2>
                 <p className="mb-6 text-lg text-center max-w-xs">Register with your personal details to use all site features</p>
-                <button
-                  className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
-                  onClick={() => setIsSignUp(true)}
-                >
-                  SIGN IN!
+                <button className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition" onClick={() => setIsSignUp(true)}>
+                  SIGN UP
                 </button>
               </>
             )}
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
