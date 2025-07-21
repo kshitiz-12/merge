@@ -8,5 +8,6 @@ router.post('/verify-signup-otp', authController.verifySignupOtp); // new endpoi
 router.post('/login', authController.login);
 router.put('/profile', auth, authController.updateProfile);
 router.put('/change-password', auth, authController.changePassword);
+router.get('/profile', auth, authController.getProfile);
 
 module.exports = router;
