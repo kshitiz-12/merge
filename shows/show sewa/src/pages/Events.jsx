@@ -90,13 +90,71 @@ const Events = () => {
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-8 focus:ring-2 focus:ring-brand-primary focus:border-transparent max-h-60 overflow-y-auto"
               >
                 <option>All Cities</option>
                 <option>Kathmandu</option>
                 <option>Pokhara</option>
                 <option>Lalitpur</option>
                 <option>Bhaktapur</option>
+                <option>Bharatpur</option>
+                <option>Biratnagar</option>
+                <option>Birgunj</option>
+                <option>Butwal</option>
+                <option>Dharan</option>
+                <option>Janakpur</option>
+                <option>Hetauda</option>
+                <option>Dhangadhi</option>
+                <option>Nepalgunj</option>
+                <option>Itahari</option>
+                <option>Ghorahi</option>
+                <option>Tulsipur</option>
+                <option>Gorkha</option>
+                <option>Bhanu</option>
+                <option>Banepa</option>
+                <option>Dhankuta</option>
+                <option>Rajbiraj</option>
+                <option>Siraha</option>
+                <option>Lahan</option>
+                <option>Gaighat</option>
+                <option>Inaruwa</option>
+                <option>Birtamod</option>
+                <option>Damak</option>
+                <option>Ilam</option>
+                <option>Urlabari</option>
+                <option>Mechinagar</option>
+                <option>Kakarbhitta</option>
+                <option>Birendranagar</option>
+                <option>Kohalpur</option>
+                <option>Lamahi</option>
+                <option>Gulariya</option>
+                <option>Tikapur</option>
+                <option>Bardiya</option>
+                <option>Baglung</option>
+                <option>Waling</option>
+                <option>Putalibazar</option>
+                <option>Syangja</option>
+                <option>Tansen</option>
+                <option>Palpa</option>
+                <option>Sandhikharka</option>
+                <option>Arghakhanchi</option>
+                <option>Parasi</option>
+                <option>Sunwal</option>
+                <option>Ramgram</option>
+                <option>Kawasoti</option>
+                <option>Gaidakot</option>
+                <option>Chitwan</option>
+                <option>Ratnanagar</option>
+                <option>Kalaiya</option>
+                <option>Jitpur Simara</option>
+                <option>Bardibas</option>
+                <option>Malangwa</option>
+                <option>Gaur</option>
+                <option>Garuda</option>
+                <option>Chandrapur</option>
+                <option>Birgunj</option>
+                <option>Biratnagar</option>
+                <option>Other</option>
               </select>
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
