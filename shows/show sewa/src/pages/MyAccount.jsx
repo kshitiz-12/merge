@@ -169,18 +169,37 @@ const BookingsSection = () => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">My Bookings</h2>
-      <ul className="space-y-4">
+      <div className="grid gap-6 md:grid-cols-2">
         {bookings.map(b => (
-          <li key={b._id} className="border rounded p-4 bg-gray-50">
-            <div className="font-semibold">{b.event?.title || "Event"}</div>
-            <div>Date: {b.event?.date}</div>
-            <div>Venue: {b.event?.venue}</div>
-            <div>Tickets: {b.totalTickets}</div>
-            <div>Total: NPR {b.totalAmount}</div>
-            <div>Status: <span className="font-semibold">{b.status}</span></div>
-          </li>
+          <div key={b._id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-gray-200">
+            <div className="h-40 w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+              <img
+                src={b.event?.image || '/images/concert.png'}
+                alt={b.event?.title || 'Event'}
+                className="object-cover w-full h-full"
+                onError={e => { e.target.src = '/images/concert.png'; }}
+              />
+            </div>
+            <div className="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="font-bold text-lg text-brand-primary mb-1">{b.event?.title || "Event"}</div>
+                <div className="text-sm text-gray-600 mb-1">{b.event?.venue}</div>
+                <div className="text-xs text-gray-500 mb-2">{b.event?.date}</div>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {Object.entries(b.ticketQuantities).map(([type, qty]) => (
+                    qty > 0 && <span key={type} className="bg-brand-primary/10 text-brand-primary px-2 py-1 rounded text-xs font-semibold">{type.charAt(0).toUpperCase() + type.slice(1)}: {qty}</span>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-semibold text-brand-primary">NPR {b.totalAmount}</span>
+                  <span className={`text-xs px-2 py-1 rounded ${b.status === 'confirmed' ? 'bg-green-100 text-green-700' : b.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span>
+                </div>
+              </div>
+              <div className="text-xs text-gray-400 mt-2">Booked on {new Date(b.createdAt).toLocaleString()}</div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
