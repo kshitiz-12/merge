@@ -127,19 +127,64 @@ const EventDetails = () => {
   const selectedTicketData = dynamicTicketTypes.find(t => t.id === selectedTicket);
 
   return (
-    <section className="py-16 bg-brand-bg min-h-[60vh]">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white rounded-xl shadow p-8 flex flex-col md:flex-row gap-8">
-          <img src={event.image} alt={event.title} className="w-full md:w-1/3 h-64 object-cover rounded mb-4 md:mb-0" />
-          <div className="flex-1 flex flex-col">
+    <section className="py-8 md:py-16 bg-gray-50 min-h-[60vh] relative overflow-hidden">
+      {/* Blurred background image */}
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${event.image}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(24px) brightness(0.6)',
+          opacity: 0.5,
+        }}
+        aria-hidden="true"
+      ></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-4">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Poster and Trailer */}
+          <div className="flex flex-col items-center lg:items-start w-full lg:w-1/3">
+            <div className="relative w-64 h-96 rounded-xl overflow-hidden shadow-lg mb-4 bg-white bg-opacity-40">
+              <img
+                src={event.image}
+                alt={event.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          {/* Details Section */}
+          <div className="flex-1 flex flex-col gap-4">
             <h1 className="text-3xl font-bold text-brand-primary mb-2">{event.title}</h1>
-            <div className="text-gray-700 mb-1">{event.venue}</div>
-            <div className="text-gray-500 mb-2">{event.date}</div>
-            <div className="mb-4 text-brand-text">{event.description}</div>
-            {/* ...rest of details... */}
+            <div className="flex gap-2 mt-2">
+              <span className="px-2 py-1 bg-gray-200 rounded text-sm font-semibold">{event.language || "Nepali"}</span>
+              <span className="px-2 py-1 bg-gray-200 rounded text-sm font-semibold">{event.duration || "2h 30m"}</span>
+              <span className="px-2 py-1 bg-gray-200 rounded text-sm font-semibold">{event.category || "Drama, Musical, Romantic"}</span>
+              <span className="px-2 py-1 bg-gray-200 rounded text-sm font-semibold">{event.ageLimit || "UA16+"}</span>
+            </div>
+            <div className="flex flex-wrap gap-4 text-gray-700 mt-2 text-base items-center">
+              <span>{event.venue}</span>
+              <span></span>
+              <span>{event.city || "Kathmandu"}</span>
+              <span></span>
+              <span>{event.date ? new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : "18 Jul, 2025"}</span>
+            </div>
+            <div className="mt-4 text-lg text-gray-800 font-semibold">{event.price ? `NPR ${event.price}` : "Free"}</div>
+            <button
+              onClick={handleBook}
+              className="mt-6 w-full md:w-1/2 bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg font-bold text-lg shadow-lg hover:bg-red-800 hover:text-brand-secondary border-2 border-brand-primary transition flex items-center justify-center gap-2 disabled:opacity-60"
+              disabled={buttonLoading}
+            >
+              {buttonLoading ? <FaFilm className="animate-spin text-lg" /> : null}
+              {buttonLoading ? "Processing..." : "Book tickets"}
+            </button>
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold text-brand-primary mb-4">About the event</h2>
+              <p className="text-gray-700 text-base mb-2">
+                {event.richDescription || event.aboutEvent || event.description || "An intense love story that will break your heart and heal it, too."}
+              </p>
+            </div>
           </div>
         </div>
-        {/* ...rest of page... */}
       </div>
     </section>
   );
