@@ -26,6 +26,7 @@ const Admin = () => {
     whatToExpect: "",
     venueInformation: "",
     importantNotes: "",
+    trailer: "",
     // Sidebar categories
     duration: "",
     ageLimit: "",
@@ -174,6 +175,7 @@ const Admin = () => {
       whatToExpect: "",
       venueInformation: "",
       importantNotes: "",
+      trailer: "",
       // Sidebar categories
       duration: "",
       ageLimit: "",
@@ -207,6 +209,7 @@ const Admin = () => {
       whatToExpect: event.whatToExpect || "",
       venueInformation: event.venueInformation || "",
       importantNotes: event.importantNotes || "",
+      trailer: event.trailer || "",
       // Sidebar categories
       duration: event.duration || "",
       ageLimit: event.ageLimit || "",
@@ -853,6 +856,17 @@ const Admin = () => {
                   name="image"
                   placeholder="Or enter image URL"
                   value={form.image}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">Trailer URL (YouTube, Vimeo, etc.)</label>
+                <input
+                  type="text"
+                  name="trailer"
+                  placeholder="https://youtube.com/watch?v=..."
+                  value={form.trailer}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent"
                 />

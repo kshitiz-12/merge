@@ -53,7 +53,8 @@ exports.createEvent = async (req, res) => {
       // Ticket types
       ticketType1,
       ticketType2,
-      ticketType3
+      ticketType3,
+      trailer
     } = req.body;
     
     console.log("Creating event with image:", image);
@@ -84,7 +85,8 @@ exports.createEvent = async (req, res) => {
       // Ticket types
       ticketType1,
       ticketType2,
-      ticketType3
+      ticketType3,
+      trailer
     });
     
     await event.save();
@@ -125,7 +127,8 @@ exports.updateEvent = async (req, res) => {
       // Ticket types
       ticketType1,
       ticketType2,
-      ticketType3
+      ticketType3,
+      trailer
     } = req.body;
     
     const event = await Event.findByIdAndUpdate(
@@ -156,7 +159,8 @@ exports.updateEvent = async (req, res) => {
         // Ticket types
         ticketType1,
         ticketType2,
-        ticketType3
+        ticketType3,
+        trailer
       },
       { new: true, runValidators: true }
     );

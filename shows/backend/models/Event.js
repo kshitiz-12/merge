@@ -19,6 +19,7 @@ const eventSchema = new mongoose.Schema({
   whatToExpect: { type: String, default: "" },
   venueInformation: { type: String, default: "" },
   importantNotes: { type: String, default: "" },
+  trailer: { type: String, default: "" },
   // Sidebar categories
   duration: { type: String, default: "" },
   ageLimit: { type: String, default: "" },

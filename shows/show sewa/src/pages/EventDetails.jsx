@@ -106,6 +106,14 @@ const EventDetails = () => {
     setTimeout(() => setCopied(false), 1500);
   };
 
+  // Helper to get correct image URL
+  const getImageUrl = (img) => {
+    if (!img) return "/images/logo.jpeg";
+    if (img.startsWith("http")) return img;
+    // If relative, prepend API URL
+    return `${import.meta.env.VITE_API_URL}${img}`;
+  };
+
   if (loading) return <MovieLoader />;
   if (!event) {
     return (
@@ -126,7 +134,7 @@ const EventDetails = () => {
           <div className="flex flex-col items-center lg:items-start w-full lg:w-1/3">
             <div className="relative w-64 h-96 rounded-xl overflow-hidden shadow-lg mb-4">
               <img
-                src={event.image || "/images/logo.jpeg"}
+                src={getImageUrl(event.image)}
                 alt={event.title}
                 className="w-full h-full object-cover"
               />
@@ -250,10 +258,29 @@ const EventDetails = () => {
             >
               ×
             </button>
-            {/* Replace with actual trailer video if available */}
-            <div className="w-full aspect-video bg-gray-900 flex items-center justify-center rounded-lg">
-              <span className="text-white text-lg">Trailer coming soon...</span>
-            </div>
+            {event.trailer && (event.trailer.includes("youtube.com") || event.trailer.includes("youtu.be") || event.trailer.includes("vimeo.com")) ? (
+              <div className="w-full aspect-video bg-black flex items-center justify-center rounded-lg">
+                <iframe
+                  src={
+                    event.trailer.includes("youtube.com")
+                      ? event.trailer.replace("watch?v=", "embed/")
+                      : event.trailer.includes("youtu.be")
+                      ? `https://www.youtube.com/embed/${event.trailer.split("/").pop()}`
+                      : event.trailer.includes("vimeo.com")
+                      ? event.trailer.replace("vimeo.com", "player.vimeo.com/video")
+                      : ""
+                  }
+                  title="Trailer"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full rounded-lg"
+                ></iframe>
+              </div>
+            ) : (
+              <div className="w-full aspect-video bg-gray-900 flex items-center justify-center rounded-lg">
+                <span className="text-white text-lg">Trailer coming soon...</span>
+              </div>
+            )}
           </div>
         </Modal>
 
