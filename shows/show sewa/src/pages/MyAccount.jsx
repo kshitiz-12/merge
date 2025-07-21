@@ -424,9 +424,9 @@ const MyAccount = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-brand-bg">
+    <div className="flex min-h-screen bg-brand-bg dark:bg-gray-900">
       {/* Sidebar */}
-      <aside className="w-64 bg-brand-secondary shadow-lg flex flex-col items-center py-8">
+      <aside className="w-64 bg-brand-secondary dark:bg-gray-800 shadow-lg flex flex-col items-center py-8">
         <img src="/images/logo.jpeg" alt="Account Logo" className="h-16 w-16 rounded-full mb-6" />
         <nav className="flex flex-col w-full">
           {sections.map((section) => (
@@ -435,7 +435,7 @@ const MyAccount = () => {
               className={`flex items-center gap-3 px-6 py-3 text-lg font-medium w-full text-left transition-colors rounded-l-full mb-2 ${
                 activeSection === section.key
                   ? "bg-brand-primary text-white"
-                  : "text-brand-text hover:bg-brand-primary/10"
+                  : "text-brand-text hover:bg-brand-primary/10 dark:text-gray-100 dark:hover:bg-gray-700"
               }`}
               onClick={() => setActiveSection(section.key)}
             >
@@ -447,7 +447,7 @@ const MyAccount = () => {
       </aside>
       {/* Content */}
       <main className="flex-1 p-10 flex items-center justify-center">
-        <div className="w-full max-w-2xl bg-white rounded-xl shadow p-8 min-h-[400px]">
+        <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow p-8 min-h-[400px] text-brand-text dark:text-gray-100">
           {renderSection()}
         </div>
       </main>

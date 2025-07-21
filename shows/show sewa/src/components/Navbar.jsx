@@ -46,7 +46,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-brand-secondary shadow sticky top-0 z-50">
+    <nav className="bg-brand-secondary dark:bg-gray-900 shadow sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -57,7 +57,7 @@ const Navbar = () => {
                 alt="ShowSewa Logo"
                 className="h-12 w-12 rounded-full mr-3"
               />
-              <span className="font-bold text-xl text-brand-primary">
+              <span className="font-bold text-xl text-brand-primary dark:text-white">
                 Show<span className="font-devanagari">सेवा</span>
               </span>
             </Link>
@@ -65,25 +65,25 @@ const Navbar = () => {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
-            <Link to="/" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
+            <Link to="/" className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Home
             </Link>
-            <Link to="/events" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
+            <Link to="/events" className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               Browse
             </Link>
-            <Link to="/about" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
+            <Link to="/about" className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <TranslatedText>About</TranslatedText>
             </Link>
-            <Link to="/contact" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
+            <Link to="/contact" className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
@@ -94,7 +94,7 @@ const Navbar = () => {
             <div className="relative" ref={languageMenuRef}>
               <button
                 onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
-                className="flex items-center space-x-2 text-brand-text hover:text-brand-primary font-medium transition duration-300"
+                className="flex items-center space-x-2 text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300"
                 disabled={isTranslating}
               >
                 <span className="text-lg">{currentLanguage?.flag}</span>
@@ -108,7 +108,7 @@ const Navbar = () => {
               </button>
               
               {languageMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
                   {languages.map((language) => (
                     <button
                       key={language.code}
@@ -116,8 +116,8 @@ const Navbar = () => {
                         changeLanguage(language.code);
                         setLanguageMenuOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center space-x-2 ${
-                        selectedLanguage === language.code ? 'bg-gray-100 text-brand-primary' : 'text-gray-700'
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center space-x-2 ${
+                        selectedLanguage === language.code ? 'bg-gray-100 dark:bg-gray-700 text-brand-primary' : 'text-gray-700 dark:text-gray-100'
                       }`}
                     >
                       <span className="text-lg">{language.flag}</span>
@@ -131,14 +131,14 @@ const Navbar = () => {
             {/* Night Mode Toggle */}
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300"
+              className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300"
               aria-label="Toggle Night Mode"
             >
               {darkMode ? <FaSun className="w-5 h-5" /> : <FaMoon className="w-5 h-5" />}
             </button>
             
             {/* My Account Button */}
-            <Link to="/account" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300 ml-4">
+            <Link to="/account" className="flex items-center text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary font-medium transition duration-300 ml-4">
               <FaUserCircle className="w-6 h-6 mr-1" />
               My Account
             </Link>
@@ -147,7 +147,7 @@ const Navbar = () => {
             {user ? (
               <div className="flex items-center space-x-4 ml-4">
                 {isAdmin && (
-                  <Link to="/admin" className="text-brand-text font-semibold hover:text-brand-primary transition duration-300">Admin</Link>
+                  <Link to="/admin" className="text-brand-text dark:text-gray-100 font-semibold hover:text-brand-primary dark:hover:text-brand-primary transition duration-300">Admin</Link>
                 )}
                 <button
                   onClick={handleLogout}
@@ -165,7 +165,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-brand-text hover:text-brand-primary focus:outline-none transition duration-300"
+              className="text-brand-text dark:text-gray-100 hover:text-brand-primary dark:hover:text-brand-primary focus:outline-none transition duration-300"
               aria-label="Toggle menu"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -182,27 +182,27 @@ const Navbar = () => {
       
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-brand-secondary shadow-lg">
+        <div className="md:hidden bg-brand-secondary dark:bg-gray-900 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 flex flex-col">
-            <Link to="/" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
+            <Link to="/" className="flex items-center px-3 py-2 rounded text-brand-text dark:text-gray-100 hover:bg-brand-bg dark:hover:bg-gray-700 font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               Home
             </Link>
-            <Link to="/events" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
+            <Link to="/events" className="flex items-center px-3 py-2 rounded text-brand-text dark:text-gray-100 hover:bg-brand-bg dark:hover:bg-gray-700 font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               Browse
             </Link>
-            <Link to="/about" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
+            <Link to="/about" className="flex items-center px-3 py-2 rounded text-brand-text dark:text-gray-100 hover:bg-brand-bg dark:hover:bg-gray-700 font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <TranslatedText>About</TranslatedText>
             </Link>
-            <Link to="/contact" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
+            <Link to="/contact" className="flex items-center px-3 py-2 rounded text-brand-text dark:text-gray-100 hover:bg-brand-bg dark:hover:bg-gray-700 font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
@@ -211,7 +211,7 @@ const Navbar = () => {
             
             {/* Mobile Language Selector */}
             <div className="px-3 py-2">
-              <div className="text-sm text-brand-text font-medium mb-2">Language</div>
+              <div className="text-sm text-brand-text dark:text-gray-100 font-medium mb-2">Language</div>
               <div className="space-y-1">
                 {languages.map((language) => (
                   <button
@@ -223,7 +223,7 @@ const Navbar = () => {
                     className={`w-full text-left px-2 py-1 text-sm rounded flex items-center space-x-2 ${
                       selectedLanguage === language.code 
                         ? 'bg-brand-primary text-brand-secondary' 
-                        : 'text-brand-text hover:bg-brand-bg'
+                        : 'text-brand-text dark:text-gray-100 hover:bg-brand-bg dark:hover:bg-gray-700'
                     }`}
                     disabled={isTranslating}
                   >
@@ -242,7 +242,7 @@ const Navbar = () => {
             {user ? (
               <>
                 {isAdmin && (
-                  <Link to="/admin" className="block mt-2 text-brand-text font-semibold text-center hover:text-brand-primary transition duration-300" onClick={() => setMenuOpen(false)}>Admin</Link>
+                  <Link to="/admin" className="block mt-2 text-brand-text dark:text-gray-100 font-semibold text-center hover:text-brand-primary dark:hover:text-brand-primary transition duration-300" onClick={() => setMenuOpen(false)}>Admin</Link>
                 )}
                 <button
                   onClick={() => { setMenuOpen(false); handleLogout(); }}

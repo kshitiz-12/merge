@@ -3,30 +3,30 @@ import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaTwitter, FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => (
-  <footer className="bg-brand-primary text-brand-secondary pt-4 pb-2">
+  <footer className="bg-brand-primary dark:bg-gray-900 text-brand-secondary dark:text-gray-100 pt-4 pb-2">
     <div className="max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         {/* Left Column - Showsewa Information */}
         <div className="space-y-4">
           <div className="flex items-center">
-            <div className="bg-brand-secondary w-8 h-8 rounded mr-2 flex items-center justify-center">
-              <span className="text-brand-primary font-bold text-sm">S</span>
+            <div className="bg-brand-secondary dark:bg-gray-800 w-8 h-8 rounded mr-2 flex items-center justify-center">
+              <span className="text-brand-primary dark:text-brand-primary font-bold text-sm">S</span>
             </div>
-            <span className="font-bold text-xl text-brand-secondary">
+            <span className="font-bold text-xl text-brand-secondary dark:text-gray-100">
               Show<span className="font-devanagari">सेवा</span>
             </span>
           </div>
-          <p className="text-brand-secondary text-sm leading-relaxed">
+          <p className="text-brand-secondary dark:text-gray-300 text-sm leading-relaxed">
             Nepal's simple and secure platform for booking tickets to movies, concerts, and live events. No queues, no hassle—just fast, reliable ticketing in a few clicks.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Facebook">
+            <a href="#" className="text-brand-secondary dark:text-gray-100 hover:text-gray-200 transition" aria-label="Facebook">
               <FaFacebookF size={20} />
             </a>
-            <a href="https://www.instagram.com/showsewa?igsh=b3lja3BqOW15cnky" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Instagram">
+            <a href="https://www.instagram.com/showsewa?igsh=b3lja3BqOW15cnky" className="text-brand-secondary dark:text-gray-100 hover:text-gray-200 transition" aria-label="Instagram">
               <FaInstagram size={20} />
             </a>
-            <a href="#" className="text-brand-secondary hover:text-gray-200 transition" aria-label="Twitter">
+            <a href="#" className="text-brand-secondary dark:text-gray-100 hover:text-gray-200 transition" aria-label="Twitter">
               <FaTwitter size={20} />
             </a>
           </div>
