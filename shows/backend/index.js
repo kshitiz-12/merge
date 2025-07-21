@@ -14,11 +14,17 @@ const eventRoutes = require('./routes/eventRoutes');
 const authRoutes = require('./routes/authRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const favouriteRoutes = require('./routes/favouriteRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const loyaltyRoutes = require('./routes/loyaltyRoutes');
 
 app.use('/api/events', eventRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/favourites', favouriteRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/loyalty', loyaltyRoutes);
 
 // Test route
 app.get('/', (req, res) => {

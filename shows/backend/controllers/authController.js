@@ -114,3 +114,37 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+// Update user profile (name, phone)
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { name, phone } = req.body;
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { name, phone },
+      { new: true, runValidators: true }
+    );
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json({ name: user.name, phone: user.phone, email: user.email });
+  } catch (err) {
+    res.status(400).json({ error: 'Invalid data' });
+  }
+};
+
+// Change password
+exports.changePassword = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { oldPassword, newPassword } = req.body;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const match = await bcrypt.compare(oldPassword, user.password);
+    if (!match) return res.status(400).json({ error: 'Old password incorrect' });
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    res.json({ message: 'Password changed successfully' });
+  } catch (err) {
+    res.status(400).json({ error: 'Invalid data' });
+  }
+};
