@@ -169,10 +169,10 @@ const BookingsSection = () => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">My Bookings</h2>
-      <div className="grid gap-6 md:grid-cols-2">
+      <ul className="space-y-6">
         {bookings.map(b => (
-          <div key={b._id} className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-gray-200">
-            <div className="h-40 w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+          <li key={b._id} className="flex bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className="w-32 h-32 flex-shrink-0 bg-gray-100 flex items-center justify-center overflow-hidden">
               <img
                 src={b.event?.image || '/images/concert.png'}
                 alt={b.event?.title || 'Event'}
@@ -197,9 +197,9 @@ const BookingsSection = () => {
               </div>
               <div className="text-xs text-gray-400 mt-2">Booked on {new Date(b.createdAt).toLocaleString()}</div>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
