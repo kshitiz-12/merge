@@ -14,11 +14,10 @@ const HeroSection = () => {
   };
   return (
     <>
-      <section className="relative bg-gradient-to-br from-brand-primary to-red-800 overflow-hidden py-16 md:py-24">
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6">
-          {/* Text Content */}
-          <div className="flex-1 mb-10 md:mb-0 md:mr-8">
-            <h1 className="text-4xl md:text-6xl font-extrabold text-brand-secondary leading-tight mb-4 drop-shadow-lg">
+      <section className="relative bg-brand-bg dark:bg-gray-900 py-20 md:py-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-4xl md:text-5xl font-bold text-brand-primary dark:text-white mb-6 leading-tight">
               Easy Ticket Booking
             </h1>
             <div className="text-2xl md:text-3xl font-bold text-brand-secondary mb-2">
@@ -27,7 +26,7 @@ const HeroSection = () => {
             <div className="text-2xl md:text-3xl font-bold text-brand-secondary mb-6">
               Nepal
             </div>
-            <p className="text-lg md:text-xl text-brand-secondary mb-8 max-w-xl">
+            <p className="text-lg text-brand-text dark:text-gray-200 mb-8 max-w-xl mx-auto md:mx-0">
               Book tickets to movies, concerts, and live events in Kathmandu and Pokhara with local payment options like eSewa and Khalti.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
