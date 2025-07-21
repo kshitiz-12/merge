@@ -317,7 +317,7 @@ const Auth = () => {
                   className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
                   onClick={() => setIsSignUp(false)}
                 >
-                  SIGN IN
+                  SIGN UP
                 </button>
               </>
             ) : (
@@ -328,7 +328,7 @@ const Auth = () => {
                   className="border border-white px-8 py-2 rounded font-semibold hover:bg-brand-primary hover:text-white transition"
                   onClick={() => setIsSignUp(true)}
                 >
-                  SIGN UP!
+                  SIGN IN!
                 </button>
               </>
             )}

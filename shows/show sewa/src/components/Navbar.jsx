@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import TranslatedText from "./TranslatedText";
+import { FaUserCircle, FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ const Navbar = () => {
   const { selectedLanguage, changeLanguage, languages, isTranslating } = useLanguage();
   const navigate = useNavigate();
   const languageMenuRef = useRef(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -20,6 +22,14 @@ const Navbar = () => {
   const isAdmin = user && user.isAdmin;
 
   const currentLanguage = languages.find(lang => lang.code === selectedLanguage);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   // Close language menu when clicking outside
   useEffect(() => {
@@ -73,12 +83,6 @@ const Navbar = () => {
               </svg>
               <TranslatedText>About</TranslatedText>
             </Link>
-            <Link to="/bookings" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              My Bookings
-            </Link>
             <Link to="/contact" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300">
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -123,6 +127,21 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            
+            {/* Night Mode Toggle */}
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300"
+              aria-label="Toggle Night Mode"
+            >
+              {darkMode ? <FaSun className="w-5 h-5" /> : <FaMoon className="w-5 h-5" />}
+            </button>
+            
+            {/* My Account Button */}
+            <Link to="/account" className="flex items-center text-brand-text hover:text-brand-primary font-medium transition duration-300 ml-4">
+              <FaUserCircle className="w-6 h-6 mr-1" />
+              My Account
+            </Link>
             
             {/* Auth Section */}
             {user ? (
@@ -183,12 +202,6 @@ const Navbar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <TranslatedText>About</TranslatedText>
-            </Link>
-            <Link to="/bookings" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              My Bookings
             </Link>
             <Link to="/contact" className="flex items-center px-3 py-2 rounded text-brand-text hover:bg-brand-bg hover:text-brand-primary font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

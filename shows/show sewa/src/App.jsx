@@ -15,6 +15,7 @@ const Profile = lazy(() => import("./pages/Profile"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Payment = lazy(() => import("./pages/Payment"));
 const PaymentConfirmation = lazy(() => import("./pages/PaymentConfirmation"));
+const MyAccount = lazy(() => import("./pages/MyAccount"));
 import MovieLoader from "./components/MovieLoader";
 
 function Home() {
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+                <Route path="/account" element={<MyAccount />} />
               </Routes>
             </Suspense>
           </div>
