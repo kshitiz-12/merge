@@ -127,12 +127,24 @@ const EventDetails = () => {
   const selectedTicketData = dynamicTicketTypes.find(t => t.id === selectedTicket);
 
   return (
-    <section className="py-8 md:py-16 bg-gray-50 min-h-[60vh]">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4">
+    <section className="py-8 md:py-16 bg-gray-50 min-h-[60vh] relative overflow-hidden">
+      {/* Blurred background image */}
+      <div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: `url('${getImageUrl(event.image)}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(24px) brightness(0.6)',
+          opacity: 0.5,
+        }}
+        aria-hidden="true"
+      ></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-2 sm:px-4">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Poster and Trailer */}
           <div className="flex flex-col items-center lg:items-start w-full lg:w-1/3">
-            <div className="relative w-64 h-96 rounded-xl overflow-hidden shadow-lg mb-4">
+            <div className="relative w-64 h-96 rounded-xl overflow-hidden shadow-lg mb-4 bg-white bg-opacity-40">
               <img
                 src={getImageUrl(event.image)}
                 alt={event.title}
