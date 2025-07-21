@@ -127,15 +127,15 @@ const EventDetails = () => {
   const selectedTicketData = dynamicTicketTypes.find(t => t.id === selectedTicket);
 
   return (
-    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh]">
+    <section className="py-16 bg-brand-bg min-h-[60vh]">
       <div className="max-w-5xl mx-auto px-4">
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-8 flex flex-col md:flex-row gap-8">
+        <div className="bg-white rounded-xl shadow p-8 flex flex-col md:flex-row gap-8">
           <img src={event.image} alt={event.title} className="w-full md:w-1/3 h-64 object-cover rounded mb-4 md:mb-0" />
           <div className="flex-1 flex flex-col">
-            <h1 className="text-3xl font-bold text-brand-primary dark:text-white mb-2">{event.title}</h1>
-            <div className="text-gray-700 dark:text-gray-300 mb-1">{event.venue}</div>
-            <div className="text-gray-500 dark:text-gray-400 mb-2">{event.date}</div>
-            <div className="mb-4 text-brand-text dark:text-gray-100">{event.description}</div>
+            <h1 className="text-3xl font-bold text-brand-primary mb-2">{event.title}</h1>
+            <div className="text-gray-700 mb-1">{event.venue}</div>
+            <div className="text-gray-500 mb-2">{event.date}</div>
+            <div className="mb-4 text-brand-text">{event.description}</div>
             {/* ...rest of details... */}
           </div>
         </div>

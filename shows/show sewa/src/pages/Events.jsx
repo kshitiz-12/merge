@@ -42,12 +42,10 @@ const Events = () => {
   }
 
   return (
-    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh]">
+    <section className="py-16 bg-brand-bg min-h-[60vh]">
       <div className="max-w-7xl mx-auto px-4">
         {/* Main Heading */}
-        <h1 className="text-3xl font-bold text-brand-primary dark:text-white mb-8 text-center">
-          <TranslatedText>Discover amazing events happening across Nepal</TranslatedText>
-        </h1>
+        <h1 className="text-3xl font-bold text-brand-primary mb-8">Events</h1>
 
         {/* Search and Filter Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
@@ -186,14 +184,14 @@ const Events = () => {
           {filteredEvents.map((event) => (
             <div
               key={event._id}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              className="bg-white rounded-xl shadow p-6 flex flex-col"
             >
               {/* Event Image with Tags */}
               <div className="relative">
                 <img
                   src={`${import.meta.env.VITE_API_URL}${event.image}`}
                   alt={event.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover rounded mb-4"
                 />
                 {/* Event Type Tag */}
                 <div className="absolute top-3 left-3 bg-brand-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -208,50 +206,29 @@ const Events = () => {
               
               {/* Event Details */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-xl font-semibold text-brand-primary mb-2">
                   <TranslatedText>{event.title}</TranslatedText>
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
-                  <TranslatedText>
-                    {event.description || "Experience an amazing event with great performances and entertainment."}
-                  </TranslatedText>
+                <p className="text-gray-700 mb-1">
+                  <TranslatedText>{event.venue}</TranslatedText>
                 </p>
-                
-                {/* Event Info */}
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
-                    <FaCalendarAlt className="w-4 h-4 mr-2 text-gray-400" />
-                    <span>{new Date(event.date).toLocaleDateString('en-US', { 
-                      weekday: 'short', 
-                      year: 'numeric', 
-                      month: 'short', 
-                      day: 'numeric' 
-                    })}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
-                    <FaClock className="w-4 h-4 mr-2 text-gray-400" />
-                    <span>{event.time || "7:00 PM"}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
-                    <FaMapMarkerAlt className="w-4 h-4 mr-2 text-gray-400" />
-                    <span>{event.venue}, {event.city || "Kathmandu"}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
-                    <FaUsers className="w-4 h-4 mr-2 text-gray-400" />
-                    <span>{event.attendees || "1,000"} attending</span>
-                  </div>
+                <div className="text-gray-500 mb-2">
+                  <TranslatedText>{new Date(event.date).toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}</TranslatedText>
                 </div>
+                <div className="flex-1" />
                 
                 {/* Price and View Details Button */}
-                <div className="flex items-center justify-between">
-                  <span className="text-brand-primary font-bold text-lg">{event.price}</span>
-                  <Link
-                    to={`/events/${event._id}`}
-                    className="bg-brand-primary text-white px-6 py-2 rounded font-semibold hover:bg-red-800 transition"
-                  >
-                    <TranslatedText>View Details</TranslatedText>
-                  </Link>
-                </div>
+                <Link
+                  to={`/events/${event._id}`}
+                  className="mt-4 inline-block bg-brand-primary text-white px-4 py-2 rounded hover:bg-red-800 transition"
+                >
+                  <TranslatedText>View Details</TranslatedText>
+                </Link>
               </div>
             </div>
           ))}
