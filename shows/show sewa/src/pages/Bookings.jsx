@@ -9,6 +9,7 @@ const Bookings = () => {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!token) {
@@ -27,6 +28,7 @@ const Bookings = () => {
       })
       .catch(err => {
         console.error('Error fetching bookings:', err);
+        setError('Failed to fetch bookings.');
         setLoading(false);
       });
   }, [token, navigate]);
@@ -55,120 +57,47 @@ const Bookings = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg min-h-[60vh]">
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh]">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-brand-primary mb-8">My Bookings</h1>
-        {bookings.length === 0 ? (
-          <div className="bg-brand-secondary rounded-xl shadow p-8 text-center">
-            <div className="text-brand-text mb-4">
-              <FaTicketAlt className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-            </div>
-            <h3 className="text-xl font-semibold text-brand-text mb-2">No bookings yet</h3>
-            <p className="text-brand-text mb-6">Start exploring events and book your tickets!</p>
-            <Link to="/events" className="bg-brand-primary text-brand-secondary px-6 py-3 rounded-lg hover:bg-red-800 transition">
-              Browse Events
-            </Link>
-          </div>
+        <h1 className="text-3xl font-bold text-brand-primary dark:text-white mb-8">My Bookings</h1>
+        {loading ? (
+          <MovieLoader />
+        ) : error ? (
+          <div className="text-red-500">{error}</div>
+        ) : bookings.length === 0 ? (
+          <div className="text-gray-500 dark:text-gray-300">No bookings found.</div>
         ) : (
-          <div className="grid grid-cols-1 gap-6">
-            {bookings.map((booking) => (
-              <div key={booking._id} className="bg-brand-secondary rounded-xl shadow-lg overflow-hidden">
-                <div className="flex flex-col lg:flex-row">
-                  {/* Event Image */}
-                  <div className="lg:w-1/3">
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}${booking.event.image}`}
-                      alt={booking.event.title}
-                      className="w-full h-48 lg:h-full object-cover"
-                    />
-                  </div>
-                  
-                  {/* Booking Details */}
-                  <div className="lg:w-2/3 p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-brand-text mb-2">{booking.event.title}</h3>
-                        <div className="space-y-1 text-sm text-brand-text">
-                          <div className="flex items-center">
-                            <FaCalendarAlt className="w-4 h-4 mr-2" />
-                            <span>{new Date(booking.event.date).toLocaleDateString('en-US', { 
-                              weekday: 'long', 
-                              year: 'numeric', 
-                              month: 'long', 
-                              day: 'numeric' 
-                            })}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <FaClock className="w-4 h-4 mr-2" />
-                            <span>{booking.event.time || "7:00 PM"}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <FaMapMarkerAlt className="w-4 h-4 mr-2" />
-                            <span>{booking.event.venue}, {booking.event.city || "Kathmandu"}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-brand-primary">Rs. {booking.totalAmount?.toLocaleString()}</div>
-                        <div className="text-sm text-brand-text">Total Amount</div>
-                      </div>
-                    </div>
-                    
-                    {/* Ticket Information */}
-                    <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                      <h4 className="font-semibold text-brand-text mb-2 flex items-center">
-                        <FaTicketAlt className="w-4 h-4 mr-2" />
-                        Ticket Details
-                      </h4>
-                      <div className="text-sm text-brand-text">
-                        <p><strong>Tickets:</strong> {getTicketSummary(booking.ticketQuantities)}</p>
-                        <p><strong>Total Tickets:</strong> {booking.totalTickets}</p>
-                        <p><strong>Status:</strong> 
-                          <span className={`ml-1 px-2 py-1 rounded-full text-xs ${
-                            booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
-                            booking.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                            'bg-red-100 text-red-700'
-                          }`}>
-                            {booking.status}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Customer Information */}
-                    {booking.customerInfo && (
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <h4 className="font-semibold text-brand-text mb-2 flex items-center">
-                          <FaUser className="w-4 h-4 mr-2" />
-                          Customer Information
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-brand-text">
-                          <div className="flex items-center">
-                            <FaUser className="w-3 h-3 mr-2" />
-                            <span>{booking.customerInfo.fullName}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <FaEnvelope className="w-3 h-3 mr-2" />
-                            <span>{booking.customerInfo.email}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <FaPhone className="w-3 h-3 mr-2" />
-                            <span>{booking.customerInfo.phone}</span>
-                          </div>
-                          {booking.customerInfo.city && (
-                            <div className="flex items-center">
-                              <FaMapMarkerAlt className="w-3 h-3 mr-2" />
-                              <span>{booking.customerInfo.city}</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+          <ul className="space-y-6">
+            {bookings.map(b => (
+              <li key={b._id} className="flex bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div className="w-32 h-32 flex-shrink-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={b.event?.image || '/images/concert.png'}
+                    alt={b.event?.title || 'Event'}
+                    className="object-cover w-full h-full"
+                    onError={e => { e.target.src = '/images/concert.png'; }}
+                  />
                 </div>
-              </div>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="font-bold text-lg text-brand-primary dark:text-white mb-1">{b.event?.title || "Event"}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300 mb-1">{b.event?.venue}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{b.event?.date}</div>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {Object.entries(b.ticketQuantities).map(([type, qty]) => (
+                        qty > 0 && <span key={type} className="bg-brand-primary/10 text-brand-primary dark:bg-gray-700 dark:text-brand-primary px-2 py-1 rounded text-xs font-semibold">{type.charAt(0).toUpperCase() + type.slice(1)}: {qty}</span>
+                      ))}
+                    </div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-semibold text-brand-primary dark:text-white">NPR {b.totalAmount}</span>
+                      <span className={`text-xs px-2 py-1 rounded ${b.status === 'confirmed' ? 'bg-green-100 text-green-700' : b.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{b.status.charAt(0).toUpperCase() + b.status.slice(1)}</span>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 dark:text-gray-300 mt-2">Booked on {new Date(b.createdAt).toLocaleString()}</div>
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </section>

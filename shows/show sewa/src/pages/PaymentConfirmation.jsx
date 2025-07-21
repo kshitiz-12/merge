@@ -107,8 +107,8 @@ const PaymentConfirmation = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 py-12 px-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full animate-fade-in-up">
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-2xl">
         <h2 className="text-3xl font-bold text-center mb-6 text-brand-primary">Complete Your Payment</h2>
         
         {/* Order Summary */}
@@ -256,7 +256,7 @@ const PaymentConfirmation = () => {
           Your payment is secure and encrypted
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

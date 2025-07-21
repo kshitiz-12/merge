@@ -144,8 +144,8 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 px-2">
-      <div className="relative w-full max-w-3xl min-h-[500px] flex flex-col md:flex-row rounded-3xl shadow-2xl overflow-hidden bg-white">
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-md">
         {/* Login Form Section (Left) */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10">
           <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Sign In</h2>
@@ -335,7 +335,7 @@ const Auth = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

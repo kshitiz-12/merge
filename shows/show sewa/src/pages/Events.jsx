@@ -42,10 +42,10 @@ const Events = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50 min-h-[60vh]">
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh]">
       <div className="max-w-7xl mx-auto px-4">
         {/* Main Heading */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <h1 className="text-3xl font-bold text-brand-primary dark:text-white mb-8 text-center">
           <TranslatedText>Discover amazing events happening across Nepal</TranslatedText>
         </h1>
 
@@ -186,7 +186,7 @@ const Events = () => {
           {filteredEvents.map((event) => (
             <div
               key={event._id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
               {/* Event Image with Tags */}
               <div className="relative">
@@ -208,10 +208,10 @@ const Events = () => {
               
               {/* Event Details */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   <TranslatedText>{event.title}</TranslatedText>
                 </h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                   <TranslatedText>
                     {event.description || "Experience an amazing event with great performances and entertainment."}
                   </TranslatedText>
@@ -219,7 +219,7 @@ const Events = () => {
                 
                 {/* Event Info */}
                 <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-gray-600 text-sm">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                     <FaCalendarAlt className="w-4 h-4 mr-2 text-gray-400" />
                     <span>{new Date(event.date).toLocaleDateString('en-US', { 
                       weekday: 'short', 
@@ -228,15 +228,15 @@ const Events = () => {
                       day: 'numeric' 
                     })}</span>
                   </div>
-                  <div className="flex items-center text-gray-600 text-sm">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                     <FaClock className="w-4 h-4 mr-2 text-gray-400" />
                     <span>{event.time || "7:00 PM"}</span>
                   </div>
-                  <div className="flex items-center text-gray-600 text-sm">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                     <FaMapMarkerAlt className="w-4 h-4 mr-2 text-gray-400" />
                     <span>{event.venue}, {event.city || "Kathmandu"}</span>
                   </div>
-                  <div className="flex items-center text-gray-600 text-sm">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                     <FaUsers className="w-4 h-4 mr-2 text-gray-400" />
                     <span>{event.attendees || "1,000"} attending</span>
                   </div>

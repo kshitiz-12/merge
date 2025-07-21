@@ -1,8 +1,8 @@
 import React from "react";
 
 const About = () => (
-  <section className="py-16 bg-brand-bg min-h-[60vh]">
-    <div className="max-w-4xl mx-auto px-4">
+  <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
+    <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-2xl">
       <h1 className="text-3xl font-bold text-brand-primary mb-8">
         About Show<span className="font-devanagari">सेवा</span>
       </h1>

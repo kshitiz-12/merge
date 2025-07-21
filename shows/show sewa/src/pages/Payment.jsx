@@ -200,8 +200,8 @@ const Payment = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50 min-h-[60vh]">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-2xl">
         {/* Back Link */}
         <div className="mb-8">
           <Link to={`/events/${event._id}`} className="text-gray-600 hover:text-gray-800 transition">

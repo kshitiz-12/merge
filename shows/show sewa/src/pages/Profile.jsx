@@ -25,25 +25,25 @@ const Profile = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
-      <div className="bg-brand-secondary rounded-xl shadow p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-brand-primary mb-6">My Profile</h1>
+    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-brand-primary dark:text-white mb-6">My Profile</h1>
         <div className="mb-4">
-          <label className="block text-brand-text font-semibold mb-2">Name</label>
+          <label className="block text-brand-text dark:text-gray-100 font-semibold mb-2">Name</label>
           {editing ? (
             <input
               type="text"
-              className="w-full px-4 py-2 border border-brand-border rounded focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text"
+              className="w-full px-4 py-2 border border-brand-border dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-brand-primary text-brand-text dark:bg-gray-900 dark:text-gray-100"
               value={name}
               onChange={e => setName(e.target.value)}
             />
           ) : (
-            <div className="text-lg text-brand-text">{user.name}</div>
+            <div className="text-lg text-brand-text dark:text-gray-100">{user.name}</div>
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-brand-text font-semibold mb-2">Email</label>
-          <div className="text-lg text-brand-text">{user.email}</div>
+          <label className="block text-brand-text dark:text-gray-100 font-semibold mb-2">Email</label>
+          <div className="text-lg text-brand-text dark:text-gray-100">{user.email}</div>
         </div>
         <div className="flex gap-4">
           {editing ? (
