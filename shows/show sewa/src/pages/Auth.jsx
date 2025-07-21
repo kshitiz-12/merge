@@ -165,17 +165,29 @@ const Auth = () => {
         {/* Signup Form Section (Right) */}
         <div className={`w-full md:w-1/2 flex flex-col justify-center items-center px-4 md:px-8 py-8 md:py-12 z-10 transition-transform duration-700 ${isSignUp ? '' : 'translate-x-full md:translate-x-0'}`} style={{ minHeight: 500 }}>
           <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Sign Up</h2>
-          <form onSubmit={handleSignupSubmit} className="w-full flex flex-col gap-3 md:gap-4">
-            <input type="text" name="name" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Name" value={signupForm.name} onChange={handleSignupChange} required />
-            <input type="text" name="username" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Username" value={signupForm.username} onChange={handleSignupChange} required />
-            <input type="email" name="email" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Email" value={signupForm.email} onChange={handleSignupChange} required />
-            <input type="text" name="phone" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Phone Number" value={signupForm.phone} onChange={handleSignupChange} required />
-            <input type="password" name="password" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Password" value={signupForm.password} onChange={handleSignupChange} required />
-            <button type="submit" className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base" disabled={signupLoading}>
-              {signupLoading ? "Signing up..." : "Sign Up"}
-            </button>
-            {signupError && <div className="text-brand-maroon font-semibold text-center">{signupError}</div>}
-          </form>
+          {signupOtpSent ? (
+            <form onSubmit={handleVerifySignupOtp} className="w-full flex flex-col gap-3 md:gap-4">
+              <input type="text" name="otp" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Enter OTP" value={signupOtp} onChange={e => setSignupOtp(e.target.value)} required />
+              {signupOtpMessage && <div className="text-green-600 text-sm font-semibold text-center">{signupOtpMessage}</div>}
+              {signupSuccessMessage && <div className="text-green-700 text-base font-bold text-center mb-2">{signupSuccessMessage}</div>}
+              <button type="submit" className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base" disabled={signupLoading}>
+                {signupLoading ? "Verifying OTP..." : "Verify OTP"}
+              </button>
+              {signupError && <div className="text-brand-maroon font-semibold text-center">{signupError}</div>}
+            </form>
+          ) : (
+            <form onSubmit={handleSignupSubmit} className="w-full flex flex-col gap-3 md:gap-4">
+              <input type="text" name="name" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Name" value={signupForm.name} onChange={handleSignupChange} required />
+              <input type="text" name="username" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Username" value={signupForm.username} onChange={handleSignupChange} required />
+              <input type="email" name="email" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Email" value={signupForm.email} onChange={handleSignupChange} required />
+              <input type="text" name="phone" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Phone Number" value={signupForm.phone} onChange={handleSignupChange} required />
+              <input type="password" name="password" className="w-full px-4 py-2 border rounded bg-gray-100" placeholder="Password" value={signupForm.password} onChange={handleSignupChange} required />
+              <button type="submit" className="w-full bg-brand-primary text-white py-2 md:py-3 rounded font-semibold hover:bg-red-800 transition text-sm md:text-base" disabled={signupLoading}>
+                {signupLoading ? "Signing up..." : "Sign Up"}
+              </button>
+              {signupError && <div className="text-brand-maroon font-semibold text-center">{signupError}</div>}
+            </form>
+          )}
           <div className="mt-4 text-center">
             Already have an account?{' '}
             <button onClick={() => setIsSignUp(false)} className="text-brand-primary hover:underline">Login</button>
