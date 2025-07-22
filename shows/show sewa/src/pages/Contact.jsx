@@ -15,8 +15,8 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-16 bg-brand-bg dark:bg-gray-900 min-h-[60vh] flex items-center justify-center">
-      <div className="bg-brand-secondary dark:bg-gray-800 rounded-xl shadow p-8 w-full max-w-2xl">
+    <section className="py-16 bg-brand-bg min-h-[60vh] flex items-center justify-center">
+      <div className="bg-brand-secondary rounded-xl shadow p-12 w-full max-w-2xl">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-brand-primary mb-4">Get In Touch</h1>

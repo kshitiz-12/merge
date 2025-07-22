@@ -269,25 +269,22 @@ const Payment = () => {
                     </div>
                     
                     {/* Quantity Selector */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">Quantity</span>
-                      <div className="flex items-center space-x-3">
-                        <button
-                          type="button"
-                          onClick={() => updateQuantity(ticket.id, -1)}
-                          className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition"
-                        >
-                          <FaMinus className="w-3 h-3" />
-                        </button>
-                        <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id] || 0}</span>
-                        <button
-                          type="button"
-                          onClick={() => updateQuantity(ticket.id, 1)}
-                          className="w-8 h-8 bg-brand-primary text-white rounded-full flex items-center justify-center hover:bg-red-800 transition"
-                        >
-                          <FaPlus className="w-3 h-3" />
-                        </button>
-                      </div>
+                    <div className="flex items-center justify-end gap-3">
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(ticket.id, -1)}
+                        className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition"
+                      >
+                        <FaMinus className="w-3 h-3" />
+                      </button>
+                      <span className="w-12 text-center font-semibold">{ticketQuantities[ticket.id] || 0}</span>
+                      <button
+                        type="button"
+                        onClick={() => updateQuantity(ticket.id, 1)}
+                        className="w-8 h-8 bg-brand-primary text-white rounded-full flex items-center justify-center hover:bg-red-800 transition"
+                      >
+                        <FaPlus className="w-3 h-3" />
+                      </button>
                     </div>
                   </div>
                 ))}
